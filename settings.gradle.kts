@@ -1,0 +1,1 @@
+rootProject.name = "Messier_Finder"
