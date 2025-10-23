@@ -10,9 +10,7 @@ public class Catalogue implements Iterable<CelestialObject>, Serializable{
     private HashMap<String, CelestialObject> items;
 
 
-    private Catalogue(){
-        // build the catalogue from a set of serialized Celestial objects
-    }
+    private Catalogue(){}
 
     public static Catalogue getInstance(){
         if (catalogue == null) catalogue = new Catalogue();
@@ -27,6 +25,9 @@ public class Catalogue implements Iterable<CelestialObject>, Serializable{
         return items.getOrDefault(index,null);
     }
 
+    public void addCelestialObject(CelestialObject obj){
+        items.put(obj.getMessierIndex(), obj);
+    }
 
     @Override
     public Iterator<CelestialObject> iterator() {
