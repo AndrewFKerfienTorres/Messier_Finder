@@ -120,6 +120,7 @@ public class MessierObjectLoader {
         CelestialObject m110 = new CelestialObject(       "M110",21.9,8.5,"Andromeda Satellite #2 ","Andromeda ","Dwarf elliptical galaxy ","NGC205 ",26000);
 
         Catalogue c = Catalogue.getInstance();
-        //c.add(m1);
+
+//        c.add(m1);
     }
 }

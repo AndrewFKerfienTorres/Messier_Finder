@@ -12,8 +12,8 @@ public class CelestialObject implements Serializable {
     private final String objectType;
     private final String NGC_IC_Nbr;
     private final double distance;
-    // private final jparsec.Angle declination;
-    // private final jparsec.Angle rightAscension;
+    private double declination;
+    private double rightAscension;
 
 
     public CelestialObject(String messierIndex, double apparentDimensions,
