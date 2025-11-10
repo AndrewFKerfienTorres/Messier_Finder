@@ -48,7 +48,7 @@ public class SkyPosition {
         return gmst;
     }
 
-    static double getLatitude(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
+    static double getAltitude(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
 
         double jd = toJulianDate(timeUTC);
         double gmst = gmstFromJulianDate(jd);
