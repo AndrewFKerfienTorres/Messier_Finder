@@ -1,6 +1,10 @@
 package CatalogueUtils;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
+import Observatory;
+import SkyPosition;
+import Obstruction;
 
 public class CelestialObject implements Serializable {
 
@@ -59,5 +63,33 @@ public class CelestialObject implements Serializable {
 
     public String getObjectType() {
         return objectType;
+    }
+
+    public boolean isVisible(Observatory observ, ZonedDateTime timeUTC, Telescope telescope){
+        return !isObjectObstructed(obser)&&isTelescopeLimitedMagnitudeSufficient(telescope)&&isTelescopeAperatureSuffcient(telescope);
+    }
+    public boolean isTelescopeLimitedMagnitudeSufficient(Telescope telescope){
+        double limitingMagnitude = 2.0 + 5.0 * Math.log10(telescope.getAperature());
+        return this.apparentMagnitude >= limitingMagnitude;
+    }
+
+    public boolean isTelescopeAperatureSuffcient(Telescope telescope){
+        double angularResolutionInDegrees = 0.322 / telescope.getAperature();
+        return this.apparentMagnitude >= angularResolutionInDegrees;
+
+    }
+
+
+
+    public boolean isObjectObstructed(Observatory observ){
+      Obstruction[] obstructions;
+      obstructions = observ.getObstructions();
+      double latitude = SkyPosition.getLatitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination);
+      double azimuth = SkyPosition.getAzimuth(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination);
+      for(int i = 0; i < obstructions.length; i++){
+          if(obstructions[i].getBeginLatitude() < latitude&&obstructions[i].getEndLatitude() > latitude&&obstructions[i].getBeginAzimuth() < azimuth&&obstructions[i].getEndAzimuth())
+              return true;
+      }
+      return false;
     }
 }

@@ -5,6 +5,7 @@ public class Observatory implements Serializable {
     private double latitude; //initialized to rough estimates of the Rice Creek Telescope's location
     private String observatoryName;
     private TimeZone timeZone;
+    private Obstruction[] obstructions;
 
     public Observatory(){
         longitude = -76.550;
@@ -34,5 +35,9 @@ public class Observatory implements Serializable {
 
     public TimeZone getTimeZone() {
         return timeZone;
+    }
+
+    public Obstruction[] getObstructions() {
+        return obstructions;
     }
 }
