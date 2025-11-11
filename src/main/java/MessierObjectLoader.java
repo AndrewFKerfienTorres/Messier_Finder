@@ -1,6 +1,3 @@
-import CatalogueUtils.*;
-
-
 public class MessierObjectLoader {
 
 

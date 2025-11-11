@@ -1,8 +1,3 @@
-package Serializer;
-
-import CatalogueUtils.Catalogue;
-import CatalogueUtils.CelestialObject;
-
 import java.io.*;
 
 public class Serializer {

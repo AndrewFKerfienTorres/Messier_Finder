@@ -1,5 +1,3 @@
-package CatalogueUtils;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,18 +24,15 @@ public class Catalogue implements Iterable<CelestialObject>, Serializable{
         return catalogue;
     }
 
-    public static void loadCatalogue(){
-
-
+    public static void loadCatalogue() throws IOException, ClassNotFoundException {
         try{
             String resourcedir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" +
                     File.separator + "resources" + File.separator + "catalogue.ser";
-
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(resourcedir));
             catalogue = (Catalogue) in.readObject();
             in.close();
         }catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -51,10 +46,6 @@ public class Catalogue implements Iterable<CelestialObject>, Serializable{
 
     public CelestialObject get(int index){
         return items.getOrDefault("M"+index,null);
-    }
-
-    public void addCelestialObject(CelestialObject obj){
-        items.put(obj.getMessierIndex(), obj);
     }
 
     @Override

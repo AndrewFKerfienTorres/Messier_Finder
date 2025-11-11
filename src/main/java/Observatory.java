@@ -40,4 +40,19 @@ public class Observatory implements Serializable {
     public Obstruction[] getObstructions() {
         return obstructions;
     }
+
+    public void setObstructions(Obstruction[] o){
+        this.obstructions = o;
+    }
+
+    public void addObstructions(Obstruction o){
+        int len = obstructions.length + 1;
+        Obstruction[] newObstructions = new Obstruction[len];
+        int i = 0;
+        for(; i < obstructions.length; ++i){
+            newObstructions[i] = obstructions[i];
+        }
+        newObstructions[i] = o;
+        obstructions = newObstructions;
+    }
 }
