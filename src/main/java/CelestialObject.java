@@ -61,7 +61,7 @@ public class CelestialObject implements Serializable {
     }
 
 //    public boolean isVisible(Observatory observ, ZonedDateTime timeUTC, Telescope telescope){
-//        return !isObjectObstructed(obser)&&isTelescopeLimitedMagnitudeSufficient(telescope)&&isTelescopeAperatureSuffcient(telescope)&&SkyPosition.getAltitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination )>0.0;
+//        return !isObjectObstructed(observ)&&isTelescopeLimitedMagnitudeSufficient(telescope)&&isTelescopeAperatureSuffcient(telescope)&&SkyPosition.getAltitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination )>0.0;
 //    }
     public boolean isTelescopeLimitedMagnitudeSufficient(Telescope telescope){
         double limitingMagnitude = 2.0 + 5.0 * Math.log10(telescope.getAperature());
