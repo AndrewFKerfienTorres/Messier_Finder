@@ -31,6 +31,10 @@ public class CelestialObjectTest {
         assertEquals(4.9, m1.getDistance()); //distance
         assertEquals("Taurus", m1.getConstellation()); //constellation
 
+        assertEquals("Crab Nebula",m1.getCommonName());
+        assertEquals("NGC 1952", m1.getNGC_IC_Nbr());
+        assertEquals("M1", m1.getMessierIndex());
+
         //m100
 
         assertEquals(7.4,m100.getApparentDimensions()); //apparent dimensions
@@ -69,8 +73,11 @@ public class CelestialObjectTest {
                              //TODO: Shall need to come up in meeting.
     }
 
-
-
+    @Test
+    void CanBeManuallyInstantiatedAndMakeSureThatTheCommonNameAndNumberCanBeGotten(){
+        CelestialObject o = new CelestialObject("M1",420,8.4,"Crab Nebula","Taurus","Super-nova remnant","NGC 1952",4.9);
+        assertNotNull(o);
+    }
 
 
 

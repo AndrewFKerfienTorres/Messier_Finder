@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ObstructionsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-15T23:05:26.211Z" hostname="localhost-alavaster" time="0.03">
+  <properties/>
+  <testcase name="CanBeInstantiated()" classname="ObstructionsTest" time="0.03"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
