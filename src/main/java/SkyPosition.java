@@ -18,6 +18,7 @@ public class SkyPosition {
     //       2025, 11, 03, 8, 47, 01, 0, ZoneOffset.UTC);
 
     // Convert calendar date/time to Julian Date
+
     public static double toJulianDate(ZonedDateTime zdt) {
         int year = zdt.getYear();
         int month = zdt.getMonthValue();
@@ -29,8 +30,23 @@ public class SkyPosition {
             month += 12;
         }
 
-        int A = year / 100;
-        int B = 2 - A + (A / 4);
+        // Julian/Gregorian switch dates
+        ZonedDateTime lastJulian = ZonedDateTime.of(1582, 10, 4, 0, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime firstGregorian = ZonedDateTime.of(1582, 10, 15, 0, 0, 0, 0, ZoneOffset.UTC);
+
+        int A, B;
+
+        if (zdt.isBefore(lastJulian) || zdt.isEqual(lastJulian)) {
+            // Julian calendar
+            B = 0;
+        } else if (zdt.isAfter(lastJulian) && zdt.isBefore(firstGregorian)) {
+            // Invalid dates (October 5–14, 1582)
+            throw new IllegalArgumentException("Date does not exist due to Gregorian reform: " + zdt);
+        } else {
+            // Gregorian calendar
+            A = year / 100;
+            B = 2 - A + (A / 4);
+        }
 
         return Math.floor(365.25 * (year + 4716))
                 + Math.floor(30.6001 * (month + 1))
@@ -95,5 +111,35 @@ public class SkyPosition {
         if (az < 0) az += 360.0;
 
         return az;
+    }
+    public static String toDMS(double decimalDegrees) {
+        // Capture the sign so we can format correctly at the end
+        String sign = decimalDegrees < 0 ? "-" : "";
+        decimalDegrees = Math.abs(decimalDegrees);
+
+        int degrees = (int) decimalDegrees;
+        double fractional = decimalDegrees - degrees;
+
+        double minutesFull = fractional * 60.0;
+        int minutes = (int) minutesFull;
+
+        double seconds = (minutesFull - minutes) * 60.0;
+
+        // Optional: round seconds to a reasonable precision
+        seconds = Math.round(seconds * 1000.0) / 1000.0;  // 3 decimal places
+
+        // Handle rounding that pushes seconds to 60
+        if (seconds >= 60.0) {
+            seconds -= 60.0;
+            minutes += 1;
+        }
+
+        // Handle rounding that pushes minutes to 60
+        if (minutes >= 60) {
+            minutes -= 60;
+            degrees += 1;
+        }
+
+        return String.format("%s%d° %d′ %.3f″", sign, degrees, minutes, seconds);
     }
 }
