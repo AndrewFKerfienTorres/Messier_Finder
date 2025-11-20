@@ -51,5 +51,8 @@ public class controller {
     public void setSpectralContent(String text) { spectralText.setText("Spectral Content: " + text); }
     public void setDescription(String text) { descriptionText.setText("Description: " + text); }
 
-    public Button getBackButton() { return backButton; }
+    @FXML
+    private void handleBackButton() {
+        // blank so it can connect back to main gui
+    }
 }
