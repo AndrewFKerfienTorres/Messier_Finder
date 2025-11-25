@@ -58,7 +58,7 @@
    <center>
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
          <content>
-             <GridPane maxHeight="1.7976931348623157E308">
+             <GridPane maxHeight="1.7976931348623157E308" fx:id="gridpane">
                  <columnConstraints>
                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
