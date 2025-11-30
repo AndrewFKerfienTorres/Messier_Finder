@@ -46,9 +46,9 @@ public class ObservatoryTest {
     void canSetObstructions(){
         Obstruction[] oa1 = new Obstruction[2];
 
-        Obstruction o1 = new Obstruction("a",0.0,0.0,0.0,0.0);
-        Obstruction o2 = new Obstruction("b",0.0,0.0,0.0,0.0);
-        Obstruction o3 = new Obstruction("c",0.0,0.0,0.0,0.0);
+        Obstruction o1 = new Obstruction("a",0.0,0.1,0.0,0.1);
+        Obstruction o2 = new Obstruction("b",0.0,0.1,0.0,0.1);
+        Obstruction o3 = new Obstruction("c",0.0,0.1,0.0,0.1);
 
         oa1[0] = o1; oa1[1] = o2;
 
