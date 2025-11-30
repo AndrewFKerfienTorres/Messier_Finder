@@ -15,14 +15,6 @@ application {
     mainClass.set("HomeGUI")
 }
 
-tasks.named<JavaExec>("run") {
-    val javaFxModules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
-
-    jvmArgs = listOf(
-        "--module-path", classpath.asPath,
-        "--add-modules", javaFxModules.joinToString(",")
-    )
-}
 
 javafx {
     version = "25"

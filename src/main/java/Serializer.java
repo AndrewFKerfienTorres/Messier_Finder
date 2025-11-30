@@ -776,7 +776,7 @@ public class Serializer {
         m9.setImagePath("/images/M9.jpg");
         m90.setImagePath("/images/M90.jpg");
         m91.setImagePath("/images/M91.jpg");
-        m92.setImagePath("/images/M92.JPG");
+        m92.setImagePath("/images/M92.jpg");
         m93.setImagePath("/images/M93.jpg");
         m94.setImagePath("/images/M94.jpg");
         m95.setImagePath("/images/M95.jpg");
