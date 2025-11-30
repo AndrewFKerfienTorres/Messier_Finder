@@ -60,7 +60,7 @@ public class CatalogueTest {
     @Test
     void canAddItemsToCatalogue(){
         Catalogue c = Catalogue.getInstance();
-        c.add(new CelestialObject("M1",420,8.4,"Crab Nebula ","Taurus ","Super­nova remnant ","NGC 1952 ",4.9));
+        c.add(new CelestialObject("M1","Crab Nebula "));
 
         assertNotNull(c.get("M1"));
     }

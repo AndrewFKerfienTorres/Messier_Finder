@@ -112,7 +112,7 @@ public class SkyPosition {
 
         return az;
     }
-    public static String toDMS(double decimalDegrees) {
+    public static String doubleToDMS(double decimalDegrees) {
         // Capture the sign so we can format correctly at the end
         String sign = decimalDegrees < 0 ? "-" : "";
         decimalDegrees = Math.abs(decimalDegrees);
@@ -141,5 +141,13 @@ public class SkyPosition {
         }
 
         return String.format("%s%d° %d′ %.3f″", sign, degrees, minutes, seconds);
+    }
+    public static String floatToHMS(double hours) {
+        int h = (int) hours; // integer hours
+        double remainingMinutes = (hours - h) * 60;
+        int m = (int) remainingMinutes; // integer minutes
+        double s = (remainingMinutes - m) * 60; // seconds, can have decimal
+
+        return String.format("%02dh %02dm %04.1fs", h, m, s);
     }
 }

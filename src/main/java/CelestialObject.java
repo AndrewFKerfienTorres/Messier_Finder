@@ -3,61 +3,115 @@ import java.time.ZonedDateTime;
 
 public class CelestialObject implements Serializable {
 
-    private final String messierIndex;
-    private final double apparentMagnitude;
-    private final double apparentDimensions;
-    private final String commonName;
-    private final String constellation;
-    private final String objectType;
-    private final String NGC_IC_Nbr;
-    private final double distance;
+    private String messierIndex;
+    private String commonName;
+
+    private double apparentDimensions;
+    private String constellation;
+    private ObjectType objectType;
+    private String NGC_IC_Nbr;
+    private double apparentMagnitude;
+    private String distance;
     private double declination;
     private double rightAscension;
+    private String imagePath;
+    private ApparentSize apparentSize;
+    public sealed interface ApparentSize permits Circle, Rectangle {}
+    public record Circle(double diameter) implements ApparentSize, Serializable {}
+    public record Rectangle(double width, double height) implements ApparentSize, Serializable {}
 
-
-    public CelestialObject(String messierIndex, double apparentDimensions,
-                           double apparentMagnitude, String commonName, String constellation,
-                           String objectType, String NGC_IC_Nbr, double distance){
+    public CelestialObject(String messierIndex, String commonName ){
 
         this.messierIndex = messierIndex;
-        this.apparentDimensions = apparentDimensions;
-        this.apparentMagnitude = apparentMagnitude;
         this.commonName = commonName;
-        this. constellation = constellation;
-        this.objectType = objectType; this.NGC_IC_Nbr = NGC_IC_Nbr;
-        this.distance = distance;
     }
 
-    public double getApparentDimensions() {
-        return apparentDimensions;
-    }
-
-    public double getApparentMagnitude() {
-        return apparentMagnitude;
-    }
-
-    public double getDistance() {
-        return distance;
+    public String getMessierIndex(){
+        return messierIndex;
     }
 
     public String getCommonName() {
         return commonName;
     }
 
+    public String toString(){
+        return messierIndex + " " + commonName;
+    }
+
+    public double getApparentDimensions() {
+        return apparentDimensions;
+    }
+
+    public void setApparentDimensions(double apparentDimensions) {
+        this.apparentDimensions = apparentDimensions;
+    }
+
     public String getConstellation() {
         return constellation;
     }
 
-    public String getMessierIndex() {
-        return messierIndex;
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public ObjectType getObjectType() {
+        return objectType;
+    }
+
+    public void setObjectType(ObjectType objectType) {
+        this.objectType = objectType;
     }
 
     public String getNGC_IC_Nbr() {
         return NGC_IC_Nbr;
     }
 
-    public String getObjectType() {
-        return objectType;
+    public void setNGC_IC_Nbr(String NGC_IC_Nbr) {
+        this.NGC_IC_Nbr = NGC_IC_Nbr;
+    }
+
+    public double getApparentMagnitude() {
+        return apparentMagnitude;
+    }
+
+    public void setApparentMagnitude(double apparentMagnitude) {
+        this.apparentMagnitude = apparentMagnitude;
+    }
+
+    public void setApparentSize(ApparentSize apparentSize) {
+        this.apparentSize = apparentSize;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public double getDeclination() {
+        return declination;
+    }
+
+    public void setDeclination(double declination) {
+        this.declination = declination;
+    }
+
+    public double getRightAscension() {
+        return rightAscension;
+    }
+
+    public void setRightAscension(double rightAscension) {
+        this.rightAscension = rightAscension;
+    }
+
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath(){
+        return imagePath;
     }
 
 //    public boolean isVisible(Observatory observ, ZonedDateTime timeUTC, Telescope telescope){
