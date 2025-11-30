@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.ZoneOffset;
@@ -7,11 +8,14 @@ import java.time.ZonedDateTime;
 
 class SkyPositionTest {
 
+    private static final double HOUR_TOLERANCE = 1e-3;
+
     @Nested
-    class ToJulianDateTests{
+    class ToJulianDateTests {
         //Useful testing resource is https://ssd.jpl.nasa.gov/tools/jdc/#/cd which is a Julian Date and time converter. This was used to determine the expected values.
 
         private static final double DELTA = 1e-6; // allowable floating-point error
+
         @Test
         void testStandardDate() {
             ZonedDateTime zdt = ZonedDateTime.of(2025, 11, 17, 12, 0, 0, 0, ZoneOffset.UTC);
@@ -37,7 +41,7 @@ class SkyPositionTest {
         void testMidnight() {
             ZonedDateTime zdt = ZonedDateTime.of(2025, 11, 17, 0, 0, 0, 0, ZoneOffset.UTC);
             double jd = SkyPosition.toJulianDate(zdt);
-            assertEquals(2460996.5,  jd, DELTA);
+            assertEquals(2460996.5, jd, DELTA);
         }
 
         @Test
@@ -46,12 +50,13 @@ class SkyPositionTest {
             double jd = SkyPosition.toJulianDate(zdt);
             assertEquals(2461041.4999884, jd, DELTA);
         }
+
         @Test
         void testLastJulianDay() {
             // October 4, 1582 is the last day of the Julian calendar
             ZonedDateTime zdt = ZonedDateTime.of(1582, 10, 4, 0, 0, 0, 0, ZoneOffset.UTC);
             double jd = SkyPosition.toJulianDate(zdt);
-            assertEquals(2299159.5,  jd, DELTA); // standard JD for 1582-10-04
+            assertEquals(2299159.5, jd, DELTA); // standard JD for 1582-10-04
         }
 
         @Test
@@ -59,7 +64,7 @@ class SkyPositionTest {
             // October 15, 1582 is the first day of the Gregorian calendar
             ZonedDateTime zdt = ZonedDateTime.of(1582, 10, 15, 0, 0, 0, 0, ZoneOffset.UTC);
             double jd = SkyPosition.toJulianDate(zdt);
-            assertEquals(2299160.5 , jd, DELTA); // standard JD for 1582-10-15
+            assertEquals(2299160.5, jd, DELTA); // standard JD for 1582-10-15
         }
 
         @Test
@@ -75,27 +80,112 @@ class SkyPositionTest {
     @Nested
     class gmstFromJulianDateTests {
         @Test
-        void gmstFromJulianDate() {
+        public void testJ2000Epoch() {
+            double jd = 2451545.0;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(18.697374558, gmst, HOUR_TOLERANCE);
         }
-    }
-
-    @Nested
-    class getAltitudeTests{
-        @Test
-        void getAltitude() {
-        }
-    }
-
-    @Nested
-    class GetAzimuthTests {
 
         @Test
-        void getAzimuth() {
+        public void testJ2000PlusHalfDay() {
+            double jd = 2451545.5;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(6.730229470209671, gmst, HOUR_TOLERANCE);
+        }
+
+        @Test
+        public void test2010Jan01() {
+            double jd = 2455197.5;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(6.702508508243287, gmst, HOUR_TOLERANCE);
+        }
+
+        @Test
+        public void test2025Jan01() {
+            double jd = 2457023.5;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(6.688648221160595, gmst, HOUR_TOLERANCE);
+        }
+
+        // ---- EDGE CASES ----
+
+        /**
+         * Very large JD far in the future
+         */
+        @Test
+        public void testFarFutureDate() {
+            double jd = 3000000.0;  // year ~ 12000 AD
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(9.584951953, gmst, HOUR_TOLERANCE);
+        }
+
+
+        /**
+         * Just before wraparound
+         */
+        @Test
+        public void testFractionNearUpperWrap() {
+            double jd = 2451545.99999;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(18.763084142, gmst, HOUR_TOLERANCE);
+        }
+
+        /**
+         * Exactly at fractional boundary (should not cause rounding issues)
+         */
+        @Test
+        public void testFractionExactBoundary() {
+            double jd = 2451545.75;  // exactly 18:00 UT
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(12.7466569263, gmst, HOUR_TOLERANCE);
+        }
+
+        /**
+         * Negative Julian centuries (date distant before J2000)
+         */
+        @Test
+        public void testNegativeTValue() {
+            double jd = 2400000.5;  // T ≈ -0.141
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(3.717381, gmst, HOUR_TOLERANCE);
+        }
+
+        /**
+         * JD with many fractional digits
+         */
+        @Test
+        public void testHighPrecisionFractionJD() {
+            double jd = 2451545.123456789;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(21.667656655, gmst, HOUR_TOLERANCE);
+        }
+
+        /**
+         * Tiny fractional component
+         */
+        @Test
+        public void testVerySmallFraction() {
+            double jd = 2451545.000001;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            assertEquals(18.697398623, gmst, 2e-3); // allow small propagation error
+        }
+
+        /**
+         * GMST exactly at wrap point
+         */
+        @Test
+        public void testGmstWraparound() {
+            // Choose a JD where the expected GMST is extremely close to 24h
+            double jd = 2451680.0;
+            double gmst = SkyPosition.gmstFromJulianDate(jd);
+            double expected = 3.568201;
+            assertEquals(expected, gmst, HOUR_TOLERANCE);
         }
     }
 
+
     @Nested
-    class ToDMSTest{
+    class ToDMSTest {
 
         //Useful Testing Resource to verify expected values calculations: https://www.calculatorsoup.com/calculators/conversions/convert-decimal-degrees-to-degrees-minutes-seconds.php
         @Test
@@ -167,5 +257,73 @@ class SkyPositionTest {
         }
     }
 
+    @Nested
+    class SkyPositionFloatToHMSTests {
+        @Test
+        public void testWholeHours() {
+            assertEquals("05h 00m 00.0s", SkyPosition.floatToHMS(5.0));
+            assertEquals("12h 00m 00.0s", SkyPosition.floatToHMS(12.0));
+        }
 
+        @Test
+        public void testHoursAndMinutes() {
+            assertEquals("03h 30m 00.0s", SkyPosition.floatToHMS(3.5));
+            assertEquals("10h 15m 00.0s", SkyPosition.floatToHMS(10.25));
+        }
+
+        @Test
+        public void testHoursMinutesSeconds() {
+            assertEquals("02h 45m 30.0s", SkyPosition.floatToHMS(2.7583333));
+            assertEquals("01h 01m 36.0s", SkyPosition.floatToHMS(1.0266667));
+        }
+
+        @Test
+        public void testZero() {
+            assertEquals("00h 00m 00.0s", SkyPosition.floatToHMS(0.0));
+        }
+
+        @Test
+        public void testFractionalSeconds() {
+            assertEquals("04h 20m 30.5s", SkyPosition.floatToHMS(4.3418056));
+            assertEquals("00h 00m 59.9s", SkyPosition.floatToHMS(0.0166389));
+        }
+
+        @Test
+        public void testEdgeCases() {
+            assertEquals("23h 59m 59.9s", SkyPosition.floatToHMS(23.9999722));
+            assertEquals("00h 00m 00.0s", SkyPosition.floatToHMS(0.0));
+        }
+    }
+
+    @Nested
+    class SkyPositionazimuthandAltitudeTests {
+        private static final double ERROR = 0.0167;
+        @Test
+        public void testM31() {
+
+            ZonedDateTime timeUTC = ZonedDateTime.parse("2025-11-30T23:06:42Z");
+            double latitudeDeg = 43.43000 ;
+            double longitudeDeg = -76.55012;
+            double raHours = 0.7362222;
+            double decDeg = 41.4151111;
+            double az = SkyPosition.getAzimuth(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+            double alt = SkyPosition.getAltitude(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+
+            assertEquals( 84.3799723,az, ERROR );
+            assertEquals( 67.2581111,alt, ERROR );
+        }
+        @Test
+        public void testM45() {
+
+            ZonedDateTime timeUTC = ZonedDateTime.parse("2025-11-30T23:19:15Z");
+            double latitudeDeg = 43.43000 ;
+            double longitudeDeg = -76.55012;
+            double raHours = 3.8095278;
+            double decDeg =24.1988333 ;
+            double az = SkyPosition.getAzimuth(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+            double alt = SkyPosition.getAltitude(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+
+            assertEquals( 82.0112222,az, ERROR );
+            assertEquals( 27.8259445 ,alt, ERROR );
+        }    }
 }

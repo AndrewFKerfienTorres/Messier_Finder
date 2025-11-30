@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SkyPositionTest$ToDMSTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-11-30T23:47:50.288Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.016">
+  <properties/>
+  <testcase name="testJustUnderNextDegree()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
+  <testcase name="testMinuteOverflowToDegrees()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testSimpleFraction()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
+  <testcase name="testNegativeFraction()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testZero()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testSecondsCalculation()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testRoundingSecondsTo60()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testNegativeRoundingBehavior()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
+  <testcase name="testNegativeWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testPositiveWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testRoundingSecondsCarryToMinutes()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
