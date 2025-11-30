@@ -8,11 +8,11 @@ public class Obstruction {
 
     public Obstruction(String description, double beginAzimuth, double endAzimuth, double beginAltitude, double endAltitude) {
 
-        if (beginAltitude > endAltitude || beginAltitude < 0 || endAltitude < 0) {
-            throw new IllegalArgumentException("Beginning altitude must be lower than ending altitude, and neither can be zero.");
+        if (beginAltitude >= endAltitude || beginAltitude < 0 || endAltitude < 0 || endAltitude > 360 ||beginAltitude > 360) {
+            throw new IllegalArgumentException("Invalid begin altitude or end altitude");
         }
-        if (beginAzimuth > endAzimuth || beginAzimuth < 0 || endAzimuth < 0) {
-            throw new IllegalArgumentException("Beginning azimuth bust be lower than ending azimuth, and neither can be zero.");
+        if (beginAzimuth >= endAzimuth || beginAzimuth < 0 || endAzimuth < 0 || beginAzimuth > 360 || endAzimuth > 360) {
+            throw new IllegalArgumentException("Invalid begin azimuth or end azimuth");
         }
         this.description = description;
         this.beginAzimuth = beginAzimuth;
