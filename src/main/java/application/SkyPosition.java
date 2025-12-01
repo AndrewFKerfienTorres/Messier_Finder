@@ -134,7 +134,7 @@ public class SkyPosition {
 
         return String.format("%s%d° %d′ %.3f″", sign, degrees, minutes, seconds);
     }
-    public static String floatToHMS(double hours) {
+    public static String doubleToHMS(double hours) {
         int h = (int) hours; // integer hours
         double remainingMinutes = (hours - h) * 60;
         int m = (int) remainingMinutes; // integer minutes

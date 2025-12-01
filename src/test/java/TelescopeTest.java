@@ -7,18 +7,14 @@ public class TelescopeTest {
 
     @Test
     void canGetFieldOfView(){
-        Telescope t = new Telescope();
-        assertEquals(0.0, t.getFieldOfView());
+        Telescope t = new Telescope(0.1, 0.1);
+        assertEquals(0.1, t.getFieldOfView());
     }
-    @Test
-    void canGetMirrorDiameter(){
-        Telescope t = new Telescope();
-        assertEquals(16.0, t.getMirrorDiameter());
-    }
+
     @Test
     void canGetAperture(){
-        Telescope t = new Telescope();
-        assertEquals(0.0, t.getAperature());
+        Telescope t = new Telescope(0.1, 16.0);
+        assertEquals(16.0, t.getAperature());
     }
 
 

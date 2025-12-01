@@ -262,37 +262,37 @@ class SkyPositionTest {
     class SkyPositionFloatToHMSTests {
         @Test
         public void testWholeHours() {
-            assertEquals("05h 00m 00.0s", SkyPosition.floatToHMS(5.0));
-            assertEquals("12h 00m 00.0s", SkyPosition.floatToHMS(12.0));
+            assertEquals("05h 00m 00.0s", SkyPosition.doubleToHMS(5.0));
+            assertEquals("12h 00m 00.0s", SkyPosition.doubleToHMS(12.0));
         }
 
         @Test
         public void testHoursAndMinutes() {
-            assertEquals("03h 30m 00.0s", SkyPosition.floatToHMS(3.5));
-            assertEquals("10h 15m 00.0s", SkyPosition.floatToHMS(10.25));
+            assertEquals("03h 30m 00.0s", SkyPosition.doubleToHMS(3.5));
+            assertEquals("10h 15m 00.0s", SkyPosition.doubleToHMS(10.25));
         }
 
         @Test
         public void testHoursMinutesSeconds() {
-            assertEquals("02h 45m 30.0s", SkyPosition.floatToHMS(2.7583333));
-            assertEquals("01h 01m 36.0s", SkyPosition.floatToHMS(1.0266667));
+            assertEquals("02h 45m 30.0s", SkyPosition.doubleToHMS(2.7583333));
+            assertEquals("01h 01m 36.0s", SkyPosition.doubleToHMS(1.0266667));
         }
 
         @Test
         public void testZero() {
-            assertEquals("00h 00m 00.0s", SkyPosition.floatToHMS(0.0));
+            assertEquals("00h 00m 00.0s", SkyPosition.doubleToHMS(0.0));
         }
 
         @Test
         public void testFractionalSeconds() {
-            assertEquals("04h 20m 30.5s", SkyPosition.floatToHMS(4.3418056));
-            assertEquals("00h 00m 59.9s", SkyPosition.floatToHMS(0.0166389));
+            assertEquals("04h 20m 30.5s", SkyPosition.doubleToHMS(4.3418056));
+            assertEquals("00h 00m 59.9s", SkyPosition.doubleToHMS(0.0166389));
         }
 
         @Test
         public void testEdgeCases() {
-            assertEquals("23h 59m 59.9s", SkyPosition.floatToHMS(23.9999722));
-            assertEquals("00h 00m 00.0s", SkyPosition.floatToHMS(0.0));
+            assertEquals("23h 59m 59.9s", SkyPosition.doubleToHMS(23.9999722));
+            assertEquals("00h 00m 00.0s", SkyPosition.doubleToHMS(0.0));
         }
     }
 
