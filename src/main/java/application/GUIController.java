@@ -13,8 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class GUIController {
     private Stage stage;
@@ -25,6 +24,7 @@ public class GUIController {
     @FXML private CheckBox filterGalaxy;
     @FXML private CheckBox filterOpenCluster;
     @FXML private CheckBox filterGlobularCluster;
+    @FXML private CheckBox filterOther;
     @FXML private CheckBox filterJan;
     @FXML private CheckBox filterFeb;
     @FXML private CheckBox filterMar;
@@ -40,16 +40,18 @@ public class GUIController {
     @FXML private CheckBox filterIsVis;
     @FXML private TextField searchBar;
     @FXML private GridPane gridPane;
-
-    Catalogue catalogue = Catalogue.getInstance();
-    private Map<String, CelestialObject> objectMap = new HashMap<>();
+    
+    Catalogue catalogue=Catalogue.getInstance();
+    catalogue.loadCatalogue();
 
     @FXML
     public void initialize() {
+
         filterNebula.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterGalaxy.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterOpenCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
+        filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterFeb.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterMar.selectedProperty().addListener((o, old, now) -> applyFilters());
@@ -65,10 +67,10 @@ public class GUIController {
         filterIsVis.selectedProperty().addListener((o, old, now) -> applyFilters());
         searchBar.textProperty().addListener((o, old, now) -> applyFilters());
 
-        for(CelestialObject obj: catalogue){
-            objectMap.put(obj.getMessierIndex(), obj);
-        }
+
+
         attachObjectsToVBox();
+
     }
 
     private void attachObjectsToVBox() {
@@ -83,14 +85,14 @@ public class GUIController {
                 }
             }
             if(name == null) continue;
-            CelestialObject obj = objectMap.get(name);
+            CelestialObject obj = catalogue.get(name);
             if(obj!=null){
                 cell.setUserData(obj);
             }
         }
     }
 
-    private void applyFilters() {
+    public void applyFilters() {
         String search= searchBar.getText().toLowerCase();
 
         for(Node n: gridPane.getChildren()){
@@ -101,7 +103,17 @@ public class GUIController {
 
             boolean matchSearch= obj.getMessierIndex().toLowerCase().contains(search);
 
-           boolean show = matchSearch;
+            String type=obj.getObjectType().toLowerCase();
+            boolean matchType=(filterNebula.isSelected()&&(type.contains("nebula")||obj.getCommonName().toLowerCase().contains("nebula"))
+            || (filterGlobularCluster.isSelected()&&type.contains("globular cluster"))||
+                    (filterOpenCluster.isSelected()&&type.contains("open cluster"))||
+                    (filterGalaxy.isSelected()&&type.contains("galaxy"))||
+                    (filterOther.isSelected()&&!type.contains("nebula")&&!type.contains("galaxy")
+                    &&!type.contains("open cluster")&&!type.contains("globular cluster"))||
+                    (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
+                    &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()));
+
+           boolean show = matchSearch && matchType;
            cell.setVisible(show);
            cell.setManaged(show);
         }
@@ -121,4 +133,3 @@ public class GUIController {
         stage.show();
     }
 }
-

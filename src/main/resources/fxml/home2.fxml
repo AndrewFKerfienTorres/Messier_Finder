@@ -28,24 +28,25 @@
                       </font>
                   </Label>
                   <Label text="Object Type" />
-                  <CheckBox mnemonicParsing="false" text="Nebula" fx:id="filterNebula"/>
-                  <CheckBox mnemonicParsing="false" text="Galaxy" fx:id="filterGalaxy"/>
-                  <CheckBox mnemonicParsing="false" text="Open Cluster" fx:id="filterOpenCluster"/>
-                  <CheckBox mnemonicParsing="false" text="Globular Cluster" fx:id="filterGlobularCluster"/>
+                  <CheckBox fx:id="filterNebula" mnemonicParsing="false" text="Nebula" />
+                  <CheckBox fx:id="filterGalaxy" mnemonicParsing="false" text="Galaxy" />
+                  <CheckBox fx:id="filterOpenCluster" mnemonicParsing="false" text="Open Cluster" />
+                  <CheckBox fx:id="filterGlobularCluster" mnemonicParsing="false" text="Globular Cluster" />
+                  <CheckBox fx:id="filterOther" mnemonicParsing="false" text="Other" />
                   <Label text="Time Visible" />
-                  <CheckBox mnemonicParsing="false" text="Currently Visible" fx:id="filterIsVis"/>
-                  <CheckBox mnemonicParsing="false" text="January" fx:id="filterJan"/>
-                  <CheckBox mnemonicParsing="false" text="February" fx:id="filterFeb"/>
-                  <CheckBox mnemonicParsing="false" text="March" fx:id="filterMar"/>
-                  <CheckBox mnemonicParsing="false" text="April" fx:id="filterApr"/>
-                  <CheckBox mnemonicParsing="false" text="May" fx:id="filterMay"/>
-                  <CheckBox mnemonicParsing="false" text="June" fx:id="filterJune"/>
-                  <CheckBox mnemonicParsing="false" text="July" fx:id="filterJuly"/>
-                  <CheckBox mnemonicParsing="false" text="August" fx:id="filterAug"/>
-                  <CheckBox mnemonicParsing="false" text="September" fx:id="filterSept"/>
-                  <CheckBox mnemonicParsing="false" text="October" fx:id="filterOct"/>
-                  <CheckBox mnemonicParsing="false" text="November" fx:id="filterNov"/>
-                  <CheckBox mnemonicParsing="false" text="December" fx:id="filterDec"/>
+                  <CheckBox fx:id="filterIsVis" mnemonicParsing="false" text="Currently Visible" />
+                  <CheckBox fx:id="filterJan" mnemonicParsing="false" text="January" />
+                  <CheckBox fx:id="filterFeb" mnemonicParsing="false" text="February" />
+                  <CheckBox fx:id="filterMar" mnemonicParsing="false" text="March" />
+                  <CheckBox fx:id="filterApr" mnemonicParsing="false" text="April" />
+                  <CheckBox fx:id="filterMay" mnemonicParsing="false" text="May" />
+                  <CheckBox fx:id="filterJune" mnemonicParsing="false" text="June" />
+                  <CheckBox fx:id="filterJuly" mnemonicParsing="false" text="July" />
+                  <CheckBox fx:id="filterAug" mnemonicParsing="false" text="August" />
+                  <CheckBox fx:id="filterSept" mnemonicParsing="false" text="September" />
+                  <CheckBox fx:id="filterOct" mnemonicParsing="false" text="October" />
+                  <CheckBox fx:id="filterNov" mnemonicParsing="false" text="November" />
+                  <CheckBox fx:id="filterDec" mnemonicParsing="false" text="December" />
               </children>
           <BorderPane.margin>
               <Insets />
@@ -58,7 +59,7 @@
    <center>
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
          <content>
-             <GridPane maxHeight="1.7976931348623157E308" fx:id="gridPane">
+             <GridPane fx:id="gridPane" maxHeight="1.7976931348623157E308">
                  <columnConstraints>
                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -98,7 +99,7 @@
                                      <Image url="@../images/M75.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M75" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M75" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
@@ -108,7 +109,7 @@
                                      <Image url="@../images/M55.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M55" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M55" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
@@ -118,7 +119,7 @@
                                      <Image url="@../images/M35.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M35" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M35" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM">
@@ -128,7 +129,7 @@
                                      <Image url="@../images/M99.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M99" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M99" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="BOTTOM">
@@ -138,7 +139,7 @@
                                      <Image url="@../images/M94.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M94" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M94" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="BOTTOM">
@@ -148,7 +149,7 @@
                                      <Image url="@../images/M74.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M74" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M74" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
@@ -158,7 +159,7 @@
                                      <Image url="@../images/M59.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M59" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M59" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
@@ -168,7 +169,7 @@
                                      <Image url="@../images/M39.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M39" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M39" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM">
@@ -178,7 +179,7 @@
                                      <Image url="@../images/M98.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M98" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M98" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM">
@@ -188,7 +189,7 @@
                                      <Image url="@../images/M97.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M97" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M97" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM">
@@ -198,7 +199,7 @@
                                      <Image url="@../images/M96.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M96" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M96" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="BOTTOM">
@@ -208,7 +209,7 @@
                                      <Image url="@../images/M91.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M91" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M91" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="BOTTOM">
@@ -218,7 +219,7 @@
                                      <Image url="@../images/M92.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M92" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M92" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="BOTTOM">
@@ -228,7 +229,7 @@
                                      <Image url="@../images/M93.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M93" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M93" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.valignment="BOTTOM">
@@ -238,7 +239,7 @@
                                      <Image url="@../images/M95.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M95" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M95" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="17" GridPane.valignment="BOTTOM">
@@ -248,7 +249,7 @@
                                      <Image url="@../images/M86.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M86" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M86" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="17" GridPane.valignment="BOTTOM">
@@ -258,7 +259,7 @@
                                      <Image url="@../images/M87.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M87" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M87" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="17" GridPane.valignment="BOTTOM">
@@ -268,7 +269,7 @@
                                      <Image url="@../images/M89.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M89" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M89" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="BOTTOM">
@@ -278,7 +279,7 @@
                                      <Image url="@../images/M81.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M81" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M81" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="BOTTOM">
@@ -288,7 +289,7 @@
                                      <Image url="@../images/M82.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M82" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M82" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="BOTTOM">
@@ -298,7 +299,7 @@
                                      <Image url="@../images/M83.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M83" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M83" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="BOTTOM">
@@ -308,7 +309,7 @@
                                      <Image url="@../images/M84.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M84" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M84" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="BOTTOM">
@@ -318,7 +319,7 @@
                                      <Image url="@../images/M85.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M85" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M85" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM">
@@ -328,7 +329,7 @@
                                      <Image url="@../images/M76.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M76" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M76" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM">
@@ -338,7 +339,7 @@
                                      <Image url="@../images/M77.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M77" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M77" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM">
@@ -348,7 +349,7 @@
                                      <Image url="@../images/M78.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M78" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M78" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM">
@@ -358,7 +359,7 @@
                                      <Image url="@../images/M79.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M79" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M79" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM">
@@ -368,7 +369,7 @@
                                      <Image url="@../images/M80.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M80" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M80" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="BOTTOM">
@@ -378,7 +379,7 @@
                                      <Image url="@../images/M71.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M71" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M71" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="BOTTOM">
@@ -388,7 +389,7 @@
                                      <Image url="@../images/M72.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M72" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M72" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -398,7 +399,7 @@
                               <Image url="@../images/M1.jpg" />
                            </image>
                         </ImageView>
-                             <Button mnemonicParsing="false" text="M1" onAction="#switchObject" />
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M1" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -408,7 +409,7 @@
                                      <Image url="@../images/M2.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M2" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M2" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -418,7 +419,7 @@
                                      <Image url="@../images/M3.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M3" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M3" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -428,7 +429,7 @@
                                      <Image url="@../images/M4.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M4" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M4" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -438,7 +439,7 @@
                                      <Image url="@../images/M5.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M5" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M5" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -448,7 +449,7 @@
                                      <Image url="@../images/M6.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M6" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M6" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -458,7 +459,7 @@
                                      <Image url="@../images/M7.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M7" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M7" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -468,7 +469,7 @@
                                      <Image url="@../images/M8.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M8" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M8" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -478,7 +479,7 @@
                                      <Image url="@../images/M9.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M9" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M9" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -488,7 +489,7 @@
                                      <Image url="@../images/M10.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M10" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M10" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -498,7 +499,7 @@
                                      <Image url="@../images/M11.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M11" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M11" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -508,7 +509,7 @@
                                      <Image url="@../images/M12.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M12" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M12" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -518,7 +519,7 @@
                                      <Image url="@../images/M13.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M13" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M13" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -528,7 +529,7 @@
                                      <Image url="@../images/M14.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M14" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M14" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -538,7 +539,7 @@
                                      <Image url="@../images/M15.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M15" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M15" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
@@ -548,7 +549,7 @@
                                      <Image url="@../images/M16.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M16" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M16" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
@@ -558,7 +559,7 @@
                                      <Image url="@../images/M17.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M17" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M17" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
@@ -568,7 +569,7 @@
                                      <Image url="@../images/M18.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M18" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M18" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
@@ -578,7 +579,7 @@
                                      <Image url="@../images/M19.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M19" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M19" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
@@ -588,7 +589,7 @@
                                      <Image url="@../images/M20.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M20" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M20" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
@@ -598,7 +599,7 @@
                                      <Image url="@../images/M21.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M21" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M21" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
@@ -608,7 +609,7 @@
                                      <Image url="@../images/M22.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M22" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M22" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
@@ -618,7 +619,7 @@
                                      <Image url="@../images/M23.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M23" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M23" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
@@ -628,7 +629,7 @@
                                      <Image url="@../images/M25.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M25" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M25" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
@@ -638,7 +639,7 @@
                                      <Image url="@../images/M24.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M24" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M24" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
@@ -648,7 +649,7 @@
                                      <Image url="@../images/M26.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M26" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M26" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
@@ -658,7 +659,7 @@
                                      <Image url="@../images/M27.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M27" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M27" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
@@ -668,7 +669,7 @@
                                      <Image url="@../images/M28.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M28" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M28" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
@@ -678,7 +679,7 @@
                                      <Image url="@../images/M29.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M29" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M29" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
@@ -688,7 +689,7 @@
                                      <Image url="@../images/M30.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M30" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M30" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="21" GridPane.valignment="BOTTOM">
@@ -698,7 +699,7 @@
                                      <Image url="@../images/M106.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M106" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M106" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="21" GridPane.valignment="BOTTOM">
@@ -708,7 +709,7 @@
                                      <Image url="@../images/M107.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M107" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M107" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="21" GridPane.valignment="BOTTOM">
@@ -718,7 +719,7 @@
                                      <Image url="@../images/M108.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M108" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M108" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="21" GridPane.valignment="BOTTOM">
@@ -728,7 +729,7 @@
                                      <Image url="@../images/M109.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M109" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M109" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="21" GridPane.valignment="BOTTOM">
@@ -738,7 +739,7 @@
                                      <Image url="@../images/M110.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M110" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M110" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="20" GridPane.valignment="BOTTOM">
@@ -748,7 +749,7 @@
                                      <Image url="@../images/M101.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M101" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M101" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="20" GridPane.valignment="BOTTOM">
@@ -758,7 +759,7 @@
                                      <Image url="@../images/M102.png" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M102" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M102" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="17" GridPane.valignment="BOTTOM">
@@ -768,7 +769,7 @@
                                      <Image url="@../images/M88.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M88" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M88" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="20" GridPane.valignment="BOTTOM">
@@ -778,7 +779,7 @@
                                      <Image url="@../images/M103.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M103" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M103" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="20" GridPane.valignment="BOTTOM">
@@ -788,7 +789,7 @@
                                      <Image url="@../images/M104.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M104" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M104" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="20" GridPane.valignment="BOTTOM">
@@ -798,7 +799,7 @@
                                      <Image url="@../images/M105.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M105" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M105" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM">
@@ -808,7 +809,7 @@
                                      <Image url="@../images/M100.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M100" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M100" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="17" GridPane.valignment="BOTTOM">
@@ -818,7 +819,7 @@
                                      <Image url="@../images/M90.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M90" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M90" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="BOTTOM">
@@ -828,7 +829,7 @@
                                      <Image url="@../images/M73.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M73" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M73" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="BOTTOM">
@@ -838,7 +839,7 @@
                                      <Image url="@../images/M67.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M67" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M67" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="BOTTOM">
@@ -848,7 +849,7 @@
                                      <Image url="@../images/M68.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M68" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M68" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="BOTTOM">
@@ -858,7 +859,7 @@
                                      <Image url="@../images/M69.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M69" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M69" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="BOTTOM">
@@ -868,7 +869,7 @@
                                      <Image url="@../images/M70.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M70" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M70" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
@@ -878,7 +879,7 @@
                                      <Image url="@../images/M61.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M61" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M61" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
@@ -888,7 +889,7 @@
                                      <Image url="@../images/M62.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M62" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M62" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
@@ -898,7 +899,7 @@
                                      <Image url="@../images/M63.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M63" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M63" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
@@ -908,7 +909,7 @@
                                      <Image url="@../images/M64.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M64" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M64" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
@@ -918,7 +919,7 @@
                                      <Image url="@../images/M65.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M65" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M65" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
@@ -928,7 +929,7 @@
                                      <Image url="@../images/M60.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M60" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M60" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
@@ -938,7 +939,7 @@
                                      <Image url="@../images/M58.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M58" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M58" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
@@ -948,7 +949,7 @@
                                      <Image url="@../images/M57.JPG" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M57" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M57" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM">
@@ -958,7 +959,7 @@
                                      <Image url="@../images/M56.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M56" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M56" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
@@ -968,7 +969,7 @@
                                      <Image url="@../images/M51.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M51" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M51" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
@@ -978,7 +979,7 @@
                                      <Image url="@../images/M52.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M52" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M52" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
@@ -988,7 +989,7 @@
                                      <Image url="@../images/M53.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M53" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M53" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
@@ -998,7 +999,7 @@
                                      <Image url="@../images/M54.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M54" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M54" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
@@ -1008,7 +1009,7 @@
                                      <Image url="@../images/M46.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M46" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M46" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
@@ -1018,7 +1019,7 @@
                                      <Image url="@../images/M47.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M47" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M47" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
@@ -1028,7 +1029,7 @@
                                      <Image url="@../images/M48.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M48" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M48" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
@@ -1038,7 +1039,7 @@
                                      <Image url="@../images/M49.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M49" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M49" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
@@ -1048,7 +1049,7 @@
                                      <Image url="@../images/M50.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M50" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M50" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
@@ -1058,7 +1059,7 @@
                                      <Image url="@../images/M41.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M41" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M41" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
@@ -1068,7 +1069,7 @@
                                      <Image url="@../images/M42.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M42" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M42" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
@@ -1078,7 +1079,7 @@
                                      <Image url="@../images/M43.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M43" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M43" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
@@ -1088,7 +1089,7 @@
                                      <Image url="@../images/M44.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M44" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M44" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
@@ -1098,7 +1099,7 @@
                                      <Image url="@../images/M45.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M45" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M45" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
@@ -1108,27 +1109,27 @@
                                      <Image url="@../images/M36.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M36" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M36" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                          <children>
-                             <ImageView fitHeight="153.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                      <Image url="@../images/M37.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M37" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M37" />
                          </children>
                      </VBox>
-                     <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                     <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                          <children>
                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                      <Image url="@../images/M38.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M38" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M38" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
@@ -1138,7 +1139,7 @@
                                      <Image url="@../images/M40.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M40" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M40" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
@@ -1148,7 +1149,7 @@
                                      <Image url="@../images/M31.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M31" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M31" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
@@ -1158,7 +1159,7 @@
                                      <Image url="@../images/M32.png" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M32" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M32" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
@@ -1168,7 +1169,7 @@
                                      <Image url="@../images/M33.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M33" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M33" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
@@ -1178,7 +1179,7 @@
                                      <Image url="@../images/M34.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M34" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M34" />
                          </children>
                      </VBox>
                      <VBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="BOTTOM">
@@ -1188,7 +1189,7 @@
                                      <Image url="@../images/M66.jpg" />
                                  </image>
                              </ImageView>
-                             <Button mnemonicParsing="false" text="M66" onAction="#switchObject"/>
+                             <Button mnemonicParsing="false" onAction="#switchObject" text="M66" />
                          </children>
                      </VBox>
                  </children>
@@ -1201,13 +1202,13 @@
          <children>
             <MenuBar>
               <menus>
-                  <Menu mnemonicParsing="false" text="Change application.Observatory Data" />
-                  <Menu mnemonicParsing="false" text="Change application.Telescope Data" />
+                  <Menu mnemonicParsing="false" text="Change Observatory Data" />
+                  <Menu mnemonicParsing="false" text="Change Telescope Data" />
                   <Menu mnemonicParsing="false" text="Map Obstructions" />
               </menus>
             </MenuBar>
-             <Button mnemonicParsing="false" text="🔎" fx:id="searchButton"/>
-             <TextField minWidth="300.0" promptText="Search..." fx:id="searchBar"/>
+             <Button fx:id="searchButton" mnemonicParsing="false" text="🔎" onAction="#applyFilters" />
+             <TextField fx:id="searchBar" minWidth="300.0" promptText="Search..." />
          </children>
       </HBox>
    </top>
