@@ -1,3 +1,4 @@
+import application.SkyPosition;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,7 +68,7 @@ class SkyPositionTest {
             // Dates like October 10, 1582 did not exist in the Gregorian calendar
             // But algorithm will still compute a JD if you pass it
             ZonedDateTime zdt = ZonedDateTime.of(1582, 10, 10, 0, 0, 0, 0, ZoneOffset.UTC);
-            //double jd = SkyPosition.toJulianDate(zdt);
+            //double jd = application.SkyPosition.toJulianDate(zdt);
             assertThrows(IllegalArgumentException.class, () -> SkyPosition.toJulianDate(zdt));
         }
     }

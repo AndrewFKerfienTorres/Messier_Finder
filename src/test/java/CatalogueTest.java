@@ -1,3 +1,5 @@
+import application.Catalogue;
+import application.CelestialObject;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -49,7 +51,7 @@ public class CatalogueTest {
             f.renameTo(new File(f.getParent(), "catalogue_T.ser"));
         }
 
-        assertDoesNotThrow(() -> Catalogue.loadCatalogue(), "Catalogue handles exception");
+        assertDoesNotThrow(() -> Catalogue.loadCatalogue(), "application.Catalogue handles exception");
 
         if (FileExists){
             new File(f.getParent(),"catalogue_t.ser").renameTo(new File(f.getParent(), "catalogue.ser"));

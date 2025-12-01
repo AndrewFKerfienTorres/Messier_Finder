@@ -1,3 +1,5 @@
+import application.Observatory;
+import application.Obstruction;
 import org.junit.jupiter.api.Test;
 
 import java.util.TimeZone;

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
    <left>
       <VBox prefWidth="150.0" spacing="5.0" BorderPane.alignment="CENTER">
               <children>
@@ -1201,8 +1201,8 @@
          <children>
             <MenuBar>
               <menus>
-                  <Menu mnemonicParsing="false" text="Change Observatory Data" />
-                  <Menu mnemonicParsing="false" text="Change Telescope Data" />
+                  <Menu mnemonicParsing="false" text="Change application.Observatory Data" />
+                  <Menu mnemonicParsing="false" text="Change application.Telescope Data" />
                   <Menu mnemonicParsing="false" text="Map Obstructions" />
               </menus>
             </MenuBar>

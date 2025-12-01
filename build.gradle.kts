@@ -5,16 +5,21 @@ plugins {
 }
 
 group = "csc380.Team2"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
 }
 
 application {
-    mainClass.set("HomeGUI")
+    mainClass.set("application.HomeGUI")
 }
 
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "application.HomeGUI"
+    }
+}
 
 javafx {
     version = "25"

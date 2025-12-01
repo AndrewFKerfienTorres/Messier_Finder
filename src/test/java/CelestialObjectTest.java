@@ -1,6 +1,9 @@
+import application.Catalogue;
+import application.CelestialObject;
+import application.ObjectType;
+import application.Telescope;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
