@@ -1,3 +1,5 @@
+package application;
+
 import java.io.Serializable;
 
 public class Telescope implements Serializable {

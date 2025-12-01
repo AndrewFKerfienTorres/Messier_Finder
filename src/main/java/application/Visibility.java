@@ -1,3 +1,5 @@
+package application;
+
 public enum Visibility {
     VISIBLE("Visible"),
     PARTIALLY_VISIBLE("Partially Visible"),

@@ -1,3 +1,5 @@
+package application;
+
 public enum ObjectType {
     NEBULA("Nebula"),
     SUPERNOVA_REMNANT("Supernova Remnant"),

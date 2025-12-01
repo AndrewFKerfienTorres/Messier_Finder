@@ -1,8 +1,10 @@
+package application;
+
 import java.io.Serializable;
 import java.util.TimeZone;
 public class Observatory implements Serializable {
     private double longitude;
-    private double latitude; //initialized to rough estimates of the Rice Creek Telescope's location
+    private double latitude; //initialized to rough estimates of the Rice Creek application.Telescope's location
     private String observatoryName;
     private TimeZone timeZone;
     private Obstruction[] obstructions;
