@@ -15,6 +15,7 @@ application {
     mainClass.set("application.HomeGUI")
 }
 
+
 tasks.jar {
     manifest {
         attributes["Main-Class"] = "application.HomeGUI"

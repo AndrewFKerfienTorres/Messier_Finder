@@ -5,4 +5,5 @@ module messier_finder {
 	
 	opens application to javafx.graphics, javafx.fxml;
     exports application;
+
 }
