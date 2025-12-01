@@ -6,21 +6,6 @@ import java.time.*;
 
 public class SkyPosition {
 
-    // INPUTS -------------------------
-    //double latitudeDeg = 43.439978;         // observer latitude (°)
-    //double longitudeDeg = -76.550036;// observer longitude (°) (west negative)
-
-    //double raHours = 6.771694444;      // RA (hours)  Sirius
-    //double decDeg = -16.74805556;       // Dec (degrees) Sirius
-
-    //double raHours = 5.601833333;      // RA (hours) Crab Nebula
-    //double decDeg = 22.03275;       // Dec (degrees) Crab Nebula
-
-    //ZonedDateTime timeUTC = ZonedDateTime.of(
-    //       2025, 11, 03, 8, 47, 01, 0, ZoneOffset.UTC);
-
-    // Convert calendar date/time to Julian Date
-
     public static double toJulianDate(ZonedDateTime zdt) {
         int year = zdt.getYear();
         int month = zdt.getMonthValue();
@@ -57,14 +42,24 @@ public class SkyPosition {
 
     // Compute Greenwich Mean Sidereal Time (hours)
     public static double gmstFromJulianDate(double jd) {
+        // Julian centuries since J2000.0
         double T = (jd - 2451545.0) / 36525.0;
-        double gmst = 6.697374558 + 2400.051336*T + 0.000025862*T*T;
-        double frac = (jd + 0.5) % 1.0;
-        gmst += frac * 24.0 * 1.002737909;
-        gmst = gmst % 24.0;
-        if (gmst < 0) gmst += 24.0;
-        return gmst;
+
+        // GMST in degrees
+        double theta = 280.46061837
+                + 360.98564736629 * (jd - 2451545.0)
+                + 0.000387933 * T * T
+                - T * T * T / 38710000.0;
+
+        // Normalize to 0..360 degrees
+        theta = theta % 360.0;
+        if (theta < 0) theta += 360.0;
+
+        // Convert degrees to hours (360 deg = 24 h)
+        return theta / 15.0;
     }
+
+
 
     static double getAltitude(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
 
@@ -84,11 +79,6 @@ public class SkyPosition {
 
         double altDeg = Math.toDegrees(alt);
 
-        // apply atmospheric refraction (Saemundsson formula)
-        if (altDeg > -1 && altDeg < 90) {
-            double R = 1.02 / Math.tan(Math.toRadians(altDeg + 10.3 / (altDeg + 5.11))) / 60.0;
-            altDeg += R;
-        }
 
         return altDeg;
     }
@@ -152,4 +142,105 @@ public class SkyPosition {
 
         return String.format("%02dh %02dm %04.1fs", h, m, s);
     }
+    private static double[] sunRaDec(ZonedDateTime timeUTC) {
+        double jd = toJulianDate(timeUTC);
+        double T = (jd - 2451545.0) / 36525.0;
+
+        // Mean longitude of Sun (deg)
+        double L0 = (280.46646 + T*(36000.76983 + 0.0003032*T)) % 360;
+        if (L0 < 0) L0 += 360;
+
+        // Mean anomaly (deg)
+        double M = 357.52911 + T*(35999.05029 - 0.0001537*T);
+
+        // Sun's equation of center (deg)
+        double C = Math.sin(Math.toRadians(M))*(1.914602 - T*(0.004817 + 0.000014*T))
+                + Math.sin(Math.toRadians(2*M))*(0.019993 - 0.000101*T)
+                + Math.sin(Math.toRadians(3*M))*0.000289;
+
+        double trueLong = L0 + C; // Sun's true longitude (deg)
+
+        // Obliquity of ecliptic
+        double epsilon = 23 + (26 + ((21.448 - T*(46.815 + T*(0.00059 - T*0.001813))))/60.0)/60.0;
+
+        // Sun's RA and Dec
+        double lambdaRad = Math.toRadians(trueLong);
+        double epsilonRad = Math.toRadians(epsilon);
+
+        double sinDec = Math.sin(epsilonRad) * Math.sin(lambdaRad);
+        double dec = Math.toDegrees(Math.asin(sinDec));
+
+        double y = Math.cos(epsilonRad) * Math.sin(lambdaRad);
+        double x = Math.cos(lambdaRad);
+        double ra = Math.toDegrees(Math.atan2(y, x)) / 15.0; // hours
+
+        if (ra < 0) ra += 24.0;
+
+        return new double[]{ra, dec};
+    }
+
+    /**
+     * Returns true if the Sun is below -18° altitude (astronomical night)
+     */
+    public static boolean isSunBelow18(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg) {
+        double[] sun = sunRaDec(timeUTC);
+        double raHours = sun[0];
+        double decDeg = sun[1];
+
+        double altitude = getAltitude(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+
+        return altitude < -18.0;
+    }
+    public static ZonedDateTime[] nextVisibilityWindow(ZonedDateTime startTimeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
+// Use UTC for calculation
+        ZonedDateTime time = startTimeUTC.withZoneSameInstant(ZoneOffset.UTC);
+
+        final Duration coarseStep = Duration.ofMinutes(10);  // coarse step
+        final Duration fineStep = Duration.ofMinutes(1);     // fine step
+        final double minAltitude = 0.0;  // Minimum altitude to be considered visible
+        final ZonedDateTime searchEnd = time.plusYears(1);
+
+// 1. Coarse search for first moment visibility may occur
+        while (!time.isAfter(searchEnd)) {
+            double alt = getAltitude(time, latitudeDeg, longitudeDeg, raHours, decDeg);
+            boolean sunBelow18 = isSunBelow18(time, latitudeDeg, longitudeDeg);
+
+            if (alt >= minAltitude && sunBelow18) {
+                break;  // coarse estimate of window start
+            }
+            time = time.plus(coarseStep);
+        }
+
+        if (time.isAfter(searchEnd)) {
+            throw new RuntimeException("No visibility window found within 1 year from " + startTimeUTC);
+        }
+
+// 2. Fine search backward to find exact start of visibility
+        ZonedDateTime windowStart = time;
+        while (true) {
+            ZonedDateTime prev = windowStart.minus(fineStep);
+            double alt = getAltitude(prev, latitudeDeg, longitudeDeg, raHours, decDeg);
+            boolean sunBelow18 = isSunBelow18(prev, latitudeDeg, longitudeDeg);
+
+            if (alt < minAltitude || !sunBelow18) break;
+            windowStart = prev;
+        }
+
+// 3. Fine search forward to find end of visibility
+        ZonedDateTime windowEnd = time;
+        while (true) {
+            ZonedDateTime next = windowEnd.plus(fineStep);
+            if (next.isAfter(searchEnd)) break;
+
+            double alt = getAltitude(next, latitudeDeg, longitudeDeg, raHours, decDeg);
+            boolean sunBelow18 = isSunBelow18(next, latitudeDeg, longitudeDeg);
+
+            if (alt < minAltitude || !sunBelow18) break;
+            windowEnd = next;
+        }
+
+        return new ZonedDateTime[]{windowStart, windowEnd};
+
+    }
+
 }

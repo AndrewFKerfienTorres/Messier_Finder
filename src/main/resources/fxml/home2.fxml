@@ -1113,7 +1113,7 @@
                      </VBox>
                      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                          <children>
-                             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                             <ImageView fitHeight="153.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                      <Image url="@../images/M37.jpg" />
                                  </image>
@@ -1121,7 +1121,7 @@
                              <Button mnemonicParsing="false" text="M37" onAction="#switchObject"/>
                          </children>
                      </VBox>
-                     <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                     <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                          <children>
                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

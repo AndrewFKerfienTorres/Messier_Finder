@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$ToDMSTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-12-01T00:20:07.970Z" hostname="localhost-alavaster" time="0.013">
+<testsuite name="SkyPositionTest$ToDMSTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-11-30T23:53:13.285Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.012">
   <properties/>
-  <testcase name="testJustUnderNextDegree()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testJustUnderNextDegree()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
   <testcase name="testMinuteOverflowToDegrees()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testSimpleFraction()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testNegativeFraction()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testZero()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testSecondsCalculation()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testRoundingSecondsTo60()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
+  <testcase name="testSecondsCalculation()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testRoundingSecondsTo60()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testNegativeRoundingBehavior()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testNegativeWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testPositiveWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
