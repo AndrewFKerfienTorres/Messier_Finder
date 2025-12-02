@@ -63,7 +63,7 @@ public class ObservatoryTest {
 
         obs.addObstructions(o3);
         assertNotEquals(oa1, obs.getObstructions());
-        assertEquals("c", obs.getObstructions()[2].description);
+        assertEquals("c", obs.getObstructions()[2].getDescription());
     }
 
 

@@ -3,9 +3,19 @@ package application;
 import java.time.*;
 //import java.time.temporal.ChronoField;
 //import java.util.GregorianCalendar;
+import java.util.Optional;
 
 public class SkyPosition {
+    public enum MonthEnum {
+        JANUARY(1), FEBRUARY(2), MARCH(3), APRIL(4), MAY(5), JUNE(6),
+        JULY(7), AUGUST(8), SEPTEMBER(9), OCTOBER(10), NOVEMBER(11), DECEMBER(12);
 
+        public final int number;
+
+        MonthEnum(int num) {
+            this.number = num;
+        }
+    }
     public static double toJulianDate(ZonedDateTime zdt) {
         int year = zdt.getYear();
         int month = zdt.getMonthValue();
@@ -61,7 +71,7 @@ public class SkyPosition {
 
 
 
-    static double getAltitude(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
+    public static double getAltitude(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
 
         double jd = toJulianDate(timeUTC);
         double gmst = gmstFromJulianDate(jd);
@@ -82,7 +92,7 @@ public class SkyPosition {
 
         return altDeg;
     }
-    static double getAzimuth(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
+    public static double getAzimuth(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
 
         double jd = toJulianDate(timeUTC);
         double gmst = gmstFromJulianDate(jd);
@@ -191,56 +201,78 @@ public class SkyPosition {
 
         return altitude < -18.0;
     }
-    public static ZonedDateTime[] nextVisibilityWindow(ZonedDateTime startTimeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
-// Use UTC for calculation
-        ZonedDateTime time = startTimeUTC.withZoneSameInstant(ZoneOffset.UTC);
+    public static Optional<ZonedDateTime[]> visibilityWindowForMonth(
+            double latitudeDeg,
+            double longitudeDeg,
+            double raHours,
+            double decDeg,
+            int year,
+            MonthEnum month) {
 
-        final Duration coarseStep = Duration.ofMinutes(10);  // coarse step
-        final Duration fineStep = Duration.ofMinutes(1);     // fine step
-        final double minAltitude = 0.0;  // Minimum altitude to be considered visible
-        final ZonedDateTime searchEnd = time.plusYears(1);
+        // Start & end of month in UTC
+        ZonedDateTime start = ZonedDateTime.of(
+                year, month.number, 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
-// 1. Coarse search for first moment visibility may occur
-        while (!time.isAfter(searchEnd)) {
-            double alt = getAltitude(time, latitudeDeg, longitudeDeg, raHours, decDeg);
-            boolean sunBelow18 = isSunBelow18(time, latitudeDeg, longitudeDeg);
+        ZonedDateTime end = start.plusMonths(1).minusSeconds(1);
 
-            if (alt >= minAltitude && sunBelow18) {
-                break;  // coarse estimate of window start
+        // Step sizes
+        Duration coarseStep = Duration.ofMinutes(20);
+        Duration fineStep = Duration.ofMinutes(1);
+
+        double minAlt = 0.0;
+
+        boolean foundWindow = false;
+        ZonedDateTime coarseHit = null;
+
+        // ---- COARSE SEARCH ----
+        ZonedDateTime t = start;
+        while (!t.isAfter(end)) {
+
+            double alt = getAltitude(t, latitudeDeg, longitudeDeg, raHours, decDeg);
+            boolean dark = isSunBelow18(t, latitudeDeg, longitudeDeg);
+
+            if (alt >= minAlt && dark) {
+                coarseHit = t;
+                foundWindow = true;
+                break;
             }
-            time = time.plus(coarseStep);
+
+            t = t.plus(coarseStep);
         }
 
-        if (time.isAfter(searchEnd)) {
-            throw new RuntimeException("No visibility window found within 1 year from " + startTimeUTC);
+        if (!foundWindow) {
+            return Optional.empty();   // No visibility this month
         }
 
-// 2. Fine search backward to find exact start of visibility
-        ZonedDateTime windowStart = time;
+        // ---- FINE SEARCH BACKWARD ----
+        ZonedDateTime windowStart = coarseHit;
         while (true) {
             ZonedDateTime prev = windowStart.minus(fineStep);
-            double alt = getAltitude(prev, latitudeDeg, longitudeDeg, raHours, decDeg);
-            boolean sunBelow18 = isSunBelow18(prev, latitudeDeg, longitudeDeg);
+            if (prev.isBefore(start)) break;
 
-            if (alt < minAltitude || !sunBelow18) break;
+            double alt = getAltitude(prev, latitudeDeg, longitudeDeg, raHours, decDeg);
+            boolean dark = isSunBelow18(prev, latitudeDeg, longitudeDeg);
+
+            if (alt < minAlt || !dark) break;
+
             windowStart = prev;
         }
 
-// 3. Fine search forward to find end of visibility
-        ZonedDateTime windowEnd = time;
+        // ---- FINE SEARCH FORWARD ----
+        ZonedDateTime windowEnd = coarseHit;
         while (true) {
             ZonedDateTime next = windowEnd.plus(fineStep);
-            if (next.isAfter(searchEnd)) break;
+            if (next.isAfter(end)) break;
 
             double alt = getAltitude(next, latitudeDeg, longitudeDeg, raHours, decDeg);
-            boolean sunBelow18 = isSunBelow18(next, latitudeDeg, longitudeDeg);
+            boolean dark = isSunBelow18(next, latitudeDeg, longitudeDeg);
 
-            if (alt < minAltitude || !sunBelow18) break;
+            if (alt < minAlt || !dark) break;
+
             windowEnd = next;
         }
 
-        return new ZonedDateTime[]{windowStart, windowEnd};
-
+        return Optional.of(new ZonedDateTime[]{ windowStart, windowEnd });
     }
 
 }
