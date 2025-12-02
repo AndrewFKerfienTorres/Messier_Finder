@@ -24,6 +24,10 @@ public class GUIController {
     @FXML private CheckBox filterGalaxy;
     @FXML private CheckBox filterOpenCluster;
     @FXML private CheckBox filterGlobularCluster;
+    @FXML private CheckBox filterPlanetaryNebula;
+    @FXML private CheckBox filterStar;
+    @FXML private CheckBox filterSupernovaRemnant;
+    @FXML private CheckBox filterAsterism;
     @FXML private CheckBox filterOther;
     @FXML private CheckBox filterJan;
     @FXML private CheckBox filterFeb;
@@ -51,6 +55,10 @@ public class GUIController {
         filterGalaxy.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterOpenCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
+        filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());
+        filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());
+        filterStar.selectedProperty().addListener((o, old, now) -> applyFilters());
+        filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());
         filterFeb.selectedProperty().addListener((o, old, now) -> applyFilters());
@@ -104,14 +112,19 @@ public class GUIController {
             boolean matchSearch= obj.getMessierIndex().toLowerCase().contains(search);
 
             String type=obj.getObjectType().toLowerCase();
-            boolean matchType=(filterNebula.isSelected()&&(type.contains("nebula")||obj.getCommonName().toLowerCase().contains("nebula"))
-            || (filterGlobularCluster.isSelected()&&type.contains("globular cluster"))||
-                    (filterOpenCluster.isSelected()&&type.contains("open cluster"))||
-                    (filterGalaxy.isSelected()&&type.contains("galaxy"))||
-                    (filterOther.isSelected()&&!type.contains("nebula")&&!type.contains("galaxy")
-                    &&!type.contains("open cluster")&&!type.contains("globular cluster"))||
+            boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
+            || (filterGlobularCluster.isSelected()&&type.equals("Globular Cluster"))||
+                    (filterOpenCluster.isSelected()&&type.equals("Open Cluster"))||
+                    (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
+                    (filterOther.isSelected()&&type.equals("Other"))||
+                    (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
+                    (filterStar.isSelected()&&type.equals("Planetary Nebula"))||
+                    (filterSupernovaRemnant.isSelected()&&type.equals("Planetary Nebula"))||
+                    (filterAsterism.isSelected()&&type.equals("Planetary Nebula"))||
                     (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
-                    &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()));
+                    &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
+                    &&!filterSupernovaRemnant.isSelected()&&!filterStar.isSelected()&&!filterAsterism.isSelected()
+                    &&!filterPlanetaryNebula.isSelected()));
 
            boolean show = matchSearch && matchType;
            cell.setVisible(show);
