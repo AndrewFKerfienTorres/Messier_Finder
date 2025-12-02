@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$gmstFromJulianDateTests" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-12-02T23:05:02.307Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.018">
+<testsuite name="SkyPositionTest$gmstFromJulianDateTests" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-12-02T23:23:54.012Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.012">
   <properties/>
-  <testcase name="test2010Jan01()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
-  <testcase name="testFractionNearUpperWrap()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.002"/>
-  <testcase name="testJ2000Epoch()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.0"/>
-  <testcase name="testVerySmallFraction()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.002"/>
+  <testcase name="test2010Jan01()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.0"/>
+  <testcase name="testFractionNearUpperWrap()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
+  <testcase name="testJ2000Epoch()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
+  <testcase name="testVerySmallFraction()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
   <testcase name="testFractionExactBoundary()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.0"/>
-  <testcase name="testJ2000PlusHalfDay()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
+  <testcase name="testJ2000PlusHalfDay()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.0"/>
   <testcase name="test2025Jan01()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
   <testcase name="testNegativeTValue()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
-  <testcase name="testHighPrecisionFractionJD()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.0"/>
-  <testcase name="testGmstWraparound()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.002"/>
-  <testcase name="testFarFutureDate()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.0"/>
+  <testcase name="testHighPrecisionFractionJD()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
+  <testcase name="testGmstWraparound()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
+  <testcase name="testFarFutureDate()" classname="SkyPositionTest$gmstFromJulianDateTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

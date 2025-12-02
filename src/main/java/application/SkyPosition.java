@@ -1,21 +1,11 @@
 package application;
 
 import java.time.*;
-//import java.time.temporal.ChronoField;
-//import java.util.GregorianCalendar;
 import java.util.Optional;
+import java.time.*;
 
 public class SkyPosition {
-    public enum MonthEnum {
-        JANUARY(1), FEBRUARY(2), MARCH(3), APRIL(4), MAY(5), JUNE(6),
-        JULY(7), AUGUST(8), SEPTEMBER(9), OCTOBER(10), NOVEMBER(11), DECEMBER(12);
 
-        public final int number;
-
-        MonthEnum(int num) {
-            this.number = num;
-        }
-    }
     public static double toJulianDate(ZonedDateTime zdt) {
         int year = zdt.getYear();
         int month = zdt.getMonthValue();
@@ -201,33 +191,37 @@ public class SkyPosition {
 
         return altitude < -18.0;
     }
+
+
     public static Optional<ZonedDateTime[]> visibilityWindowForMonth(
             double latitudeDeg,
             double longitudeDeg,
             double raHours,
             double decDeg,
-            int year,
-            MonthEnum month) {
+            Month month) {
 
-        // Start & end of month in UTC
+        ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+
+        // Determine year: if requested month already passed, use next year
+        int yearToUse = (now.getMonthValue() > month.getValue())
+                ? now.getYear() + 1
+                : now.getYear();
+
         ZonedDateTime start = ZonedDateTime.of(
-                year, month.number, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+                yearToUse, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset.UTC);
 
         ZonedDateTime end = start.plusMonths(1).minusSeconds(1);
 
-        // Step sizes
         Duration coarseStep = Duration.ofMinutes(20);
         Duration fineStep = Duration.ofMinutes(1);
-
         double minAlt = 0.0;
 
         boolean foundWindow = false;
         ZonedDateTime coarseHit = null;
 
-        // ---- COARSE SEARCH ----
+        // --- COARSE SEARCH ---
         ZonedDateTime t = start;
         while (!t.isAfter(end)) {
-
             double alt = getAltitude(t, latitudeDeg, longitudeDeg, raHours, decDeg);
             boolean dark = isSunBelow18(t, latitudeDeg, longitudeDeg);
 
@@ -241,10 +235,10 @@ public class SkyPosition {
         }
 
         if (!foundWindow) {
-            return Optional.empty();   // No visibility this month
+            return Optional.empty();
         }
 
-        // ---- FINE SEARCH BACKWARD ----
+        // --- FINE SEARCH BACKWARD ---
         ZonedDateTime windowStart = coarseHit;
         while (true) {
             ZonedDateTime prev = windowStart.minus(fineStep);
@@ -258,7 +252,7 @@ public class SkyPosition {
             windowStart = prev;
         }
 
-        // ---- FINE SEARCH FORWARD ----
+        // --- FINE SEARCH FORWARD ---
         ZonedDateTime windowEnd = coarseHit;
         while (true) {
             ZonedDateTime next = windowEnd.plus(fineStep);
