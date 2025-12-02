@@ -21,13 +21,13 @@
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
 
-        <!-- Image Section -->
+       
         <StackPane maxWidth="500" minHeight="250"
                    style="-fx-background-color: #C5C4C5; -fx-effect: dropshadow(gaussian, #00000050, 5, 0, 2, 2);">
             <ImageView fx:id="objectImage" fitHeight="220" preserveRatio="true"/>
         </StackPane>
 
-        <!-- Name & Next Visible -->
+      
         <VBox alignment="CENTER" spacing="5">
             <Label fx:id="commonNameLabel" text="[object common name]">
                 <font><Font name="Yu Gothic UI" size="23"/></font>
@@ -37,7 +37,7 @@
             </Label>
         </VBox>
 
-        <!-- Scrollable Details -->
+   
         <StackPane maxWidth="650" minHeight="250" style="-fx-background-color: #C5C4C5;">
             <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED" style="-fx-background-color: #C5C4C5;">
                 <content>
@@ -65,7 +65,7 @@
 
     </VBox>
 
-    <!-- Back Button -->
+    
     <Button fx:id="backButton"
             text="⬅"
             style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;"
