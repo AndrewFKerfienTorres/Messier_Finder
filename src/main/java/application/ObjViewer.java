@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class ObjViewer extends Application {
  
     private static CelestialObject selectedObject;
 
@@ -21,7 +21,7 @@ public class Main extends Application {
             Parent root = loader.load();
 
           
-            controller detailController = loader.getController();
+            ObjViewerController detailController = loader.getController();
             if (selectedObject != null) {
                 detailController.displayCelestialObject(selectedObject);
             }

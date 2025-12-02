@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class controller {
+public class ObjViewerController {
 
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
