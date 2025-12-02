@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="application.controller"
            style="-fx-background-color: #D6D5D6;" prefWidth="800" prefHeight="600">
 
-    
     <VBox alignment="TOP_CENTER" spacing="25">
         <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
 
-  
+        <!-- Image Section -->
         <StackPane maxWidth="500" minHeight="250"
                    style="-fx-background-color: #C5C4C5; -fx-effect: dropshadow(gaussian, #00000050, 5, 0, 2, 2);">
-            <ImageView fitHeight="220" preserveRatio="true">
-                <image>
-                    <Image url="@../../../Downloads/M3.jpg" />
-                </image>
-            </ImageView>
+            <ImageView fx:id="objectImage" fitHeight="220" preserveRatio="true"/>
         </StackPane>
 
-  
+        <!-- Name & Next Visible -->
         <VBox alignment="CENTER" spacing="5">
-            <Label text="[object common name]">
-                <font><Font name="Yu Gothic UI" size="23" /></font>
+            <Label fx:id="commonNameLabel" text="[object common name]">
+                <font><Font name="Yu Gothic UI" size="23"/></font>
             </Label>
-            <Label text="Next Visible: TBD">
-                <font><Font name="Yu Gothic UI" size="11" /></font>
+            <Label fx:id="nextVisibleLabel" text="Next Visible: TBD">
+                <font><Font name="Yu Gothic UI" size="11"/></font>
             </Label>
         </VBox>
 
-   
+        <!-- Scrollable Details -->
         <StackPane maxWidth="650" minHeight="250" style="-fx-background-color: #C5C4C5;">
-            <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED"
-                        style="-fx-background-color: #C5C4C5;">
+            <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED" style="-fx-background-color: #C5C4C5;">
                 <content>
                     <VBox spacing="6">
                         <padding>
                             <Insets top="12" right="12" bottom="12" left="12"/>
                         </padding>
-                        <Text text="  Messier Number: MXX" />
-                        <Text text="  Object Type: XXX" />
-                        <Text text="  Distance from Earth: XXX" />
-                        <Text text="  Constellation: XXX" />
-                        <Text text="  Apparent Magnitude: X.X" />
-                        <Text text="  Dimensions: XXX" />
-                        <Text text="  Right Ascension (RA): XX XXX XX XX" />
-                        <Text text="  Declination: XXX" />
-                        <Text text="  Altitude: XXX" />
-                        <Text text="  Azimuth: XXX" />
-                        <Text text="  Size: XXX" />
-                        <Text text="  Spectral Content: XXX" />
-                        <Text text="  Description: XXX" />
+                        <Text fx:id="messierNumberText" text="Messier Number: MXX"/>
+                        <Text fx:id="objectTypeText" text="Object Type: XXX"/>
+                        <Text fx:id="distanceText" text="Distance from Earth: XXX"/>
+                        <Text fx:id="constellationText" text="Constellation: XXX"/>
+                        <Text fx:id="magnitudeText" text="Apparent Magnitude: X.X"/>
+                        <Text fx:id="dimensionsText" text="Dimensions: XXX"/>
+                        <Text fx:id="rightAscensionText" text="Right Ascension (RA): XX XXX XX XX"/>
+                        <Text fx:id="declinationText" text="Declination: XXX"/>
+                        <Text fx:id="altitudeText" text="Altitude: XXX"/>
+                        <Text fx:id="azimuthText" text="Azimuth: XXX"/>
+                        <Text fx:id="sizeText" text="Size: XXX"/>
+                        <Text fx:id="spectralText" text="Spectral Content: XXX"/>
+                        <Text fx:id="descriptionText" text="Description: XXX"/>
                     </VBox>
                 </content>
             </ScrollPane>
@@ -65,15 +65,16 @@
 
     </VBox>
 
-<Button text="⬅"
-        style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;"
-        prefWidth="35" prefHeight="28"
-        fx:id="backButton"
-        onAction="#handleBackButton"
-        StackPane.alignment="TOP_LEFT">
-    <StackPane.margin>
-        <Insets top="10" left="10"/>
-    </StackPane.margin>
-</Button>
+    <!-- Back Button -->
+    <Button fx:id="backButton"
+            text="⬅"
+            style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;"
+            prefWidth="35" prefHeight="28"
+            onAction="#handleBackButton"
+            StackPane.alignment="TOP_LEFT">
+        <StackPane.margin>
+            <Insets top="10" left="10"/>
+        </StackPane.margin>
+    </Button>
 
 </StackPane>
