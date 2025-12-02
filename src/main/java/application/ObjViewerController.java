@@ -2,18 +2,16 @@ package application;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class controller {
-//ignore all the @fxml i cant get it to work :(
+
     @FXML private Button backButton;
-
     @FXML private ImageView objectImage;
-    @FXML private Label commonNameLabel;
-    @FXML private Label nextVisibleLabel;
-
+    @FXML private javafx.scene.control.Label commonNameLabel;
+    @FXML private javafx.scene.control.Label nextVisibleLabel;
     @FXML private Text messierNumberText;
     @FXML private Text objectTypeText;
     @FXML private Text distanceText;
@@ -26,33 +24,95 @@ public class controller {
     @FXML private Text azimuthText;
     @FXML private Text sizeText;
     @FXML private Text spectralText;
-    @FXML private Text descriptionText;
+ 
+
+    private Observatory observatory; 
 
     @FXML
     private void initialize() {
-        // leave blank — values will be set by the main gooey
+        clearFields();
+        observatory = new Observatory(); 
     }
- 
 
-    public void setCommonName(String name) { commonNameLabel.setText(name); }
-    public void setNextVisible(String text) { nextVisibleLabel.setText(text); }
+    private void clearFields() {
+        commonNameLabel.setText("");
+        nextVisibleLabel.setText("");
+        messierNumberText.setText("");
+        objectTypeText.setText("");
+        distanceText.setText("");
+        constellationText.setText("");
+        magnitudeText.setText("");
+        dimensionsText.setText("");
+        rightAscensionText.setText("");
+        declinationText.setText("");
+        altitudeText.setText("");
+        azimuthText.setText("");
+        sizeText.setText("");
+        spectralText.setText("");
+        objectImage.setImage(null);
+    }
 
-    public void setMessierNumber(String text) { messierNumberText.setText("Messier Number: " + text); }
-    public void setObjectType(String text) { objectTypeText.setText("Object Type: " + text); }
-    public void setDistance(String text) { distanceText.setText("Distance from Earth: " + text); }
-    public void setConstellation(String text) { constellationText.setText("Constellation: " + text); }
-    public void setMagnitude(String text) { magnitudeText.setText("Apparent Magnitude: " + text); }
-    public void setDimensions(String text) { dimensionsText.setText("Dimensions: " + text); }
-    public void setRightAscension(String text) { rightAscensionText.setText("Right Ascension (RA): " + text); }
-    public void setDeclination(String text) { declinationText.setText("Declination: " + text); }
-    public void setAltitude(String text) { altitudeText.setText("Altitude: " + text); }
-    public void setAzimuth(String text) { azimuthText.setText("Azimuth: " + text); }
-    public void setSize(String text) { sizeText.setText("Size: " + text); }
-    public void setSpectralContent(String text) { spectralText.setText("Spectral Content: " + text); }
-    public void setDescription(String text) { descriptionText.setText("Description: " + text); }
+    public void displayCelestialObject(CelestialObject obj) {
+        if (obj == null) return;
+
+        commonNameLabel.setText(obj.getCommonName());
+        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
+        objectTypeText.setText("Object Type: " + obj.getObjectType());
+        distanceText.setText("Distance from Earth: " + obj.getDistance());
+        constellationText.setText("Constellation: " + obj.getConstellation());
+        magnitudeText.setText("Apparent Magnitude: " + obj.getApparentMagnitude());
+        dimensionsText.setText("Dimensions: " + (obj.getApparentSize() != null ? obj.getApparentSize() : "Unknown"));
+        rightAscensionText.setText("Right Ascension (RA): " + obj.getRightAscension());
+        declinationText.setText("Declination: " + obj.getDeclination());
+
+       
+        double alt = SkyPosition.getAltitude(java.time.ZonedDateTime.now(), observatory.getLatitude(), observatory.getLongitude(),
+                                            obj.getRightAscension(), obj.getDeclination());
+        double az = SkyPosition.getAzimuth(java.time.ZonedDateTime.now(), observatory.getLatitude(), observatory.getLongitude(),
+                                          obj.getRightAscension(), obj.getDeclination());
+        altitudeText.setText(String.format("Altitude: %.2f°", alt));
+        azimuthText.setText(String.format("Azimuth: %.2f°", az));
+
+        
+        sizeText.setText("Size: " + obj.getSize());
+        spectralText.setText("Spectral Content: " + (obj.getSpectralContent() != null ? obj.getSpectralContent() : "Unknown"));
+
+        nextVisibleLabel.setText("Next Visible: " + computeNextVisibility(obj));
+
+        // load image
+        if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
+            try {
+                Image img = new Image(getClass().getResourceAsStream(obj.getImagePath()));
+                objectImage.setImage(img);
+            } catch (Exception e) {
+                System.err.println("Failed to load image: " + obj.getImagePath());
+                objectImage.setImage(null);
+            }
+        } else {
+            objectImage.setImage(null);
+        }
+    }
+
+    private String computeNextVisibility(CelestialObject obj) {
+        try {
+            java.time.ZonedDateTime nowUTC = java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC);
+            java.time.ZonedDateTime[] window = SkyPosition.nextVisibilityWindow(
+                    nowUTC,
+                    observatory.getLatitude(),
+                    observatory.getLongitude(),
+                    obj.getRightAscension(),
+                    obj.getDeclination()
+            );
+            return window[0].toLocalDateTime() + " to " + window[1].toLocalDateTime();
+        } catch (Exception e) {
+            return "Not visible within 1 year";
+        }
+    }
 
     @FXML
     private void handleBackButton() {
-        // blank so it can connect back to main gui
+        //back2 main gui
     }
 }
+
+
