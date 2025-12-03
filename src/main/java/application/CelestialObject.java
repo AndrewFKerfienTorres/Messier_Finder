@@ -49,7 +49,15 @@ public class CelestialObject implements Serializable {
         return apparentDimensions;
     }
 
-
+    public String getApparentDimensionsString() {
+        if (apparentDimensions instanceof Circle circle) {
+            return SkyPosition.doubleToHMS(circle.diameter());
+        } else if (apparentDimensions instanceof Rectangle rect) {
+            return SkyPosition.doubleToHMS(rect.width()) + " x " + SkyPosition.doubleToDMS(rect.height());
+        } else {
+            return "Unknown";
+        }
+    }
     public String getConstellation() {
         return constellation;
     }

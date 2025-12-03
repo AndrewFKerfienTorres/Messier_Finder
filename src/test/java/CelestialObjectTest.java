@@ -244,4 +244,34 @@ public class CelestialObjectTest {
             assertFalse(obj.isTelescopeAperatureSuffcient(tenInch));
         }
     }
+
+    @Nested
+    class ApparentDimensionsStringTests {
+
+        @Test
+        void testCircleDimensions() {
+            CelestialObject obj = new CelestialObject("M1", "Crab Nebula");
+            obj.setApparentDimensions(new CelestialObject.Circle(5.5));
+            String result = obj.getApparentDimensionsString();
+            assertEquals("05h 30m 00.0s", result, "Circle diameter should be returned as string");
+        }
+
+        @Test
+        void testRectangleDimensions() {
+            CelestialObject obj = new CelestialObject("M2", "Some Rectangle Object");
+            obj.setApparentDimensions(new CelestialObject.Rectangle(2.0, 3.5));
+            String result = obj.getApparentDimensionsString();
+            assertEquals("02h 00m 00.0s x 3° 30′ 0.000″", result, "Rectangle dimensions should be returned as 'width x height'");
+        }
+
+        @Test
+        void testNullDimensions() {
+            CelestialObject obj = new CelestialObject("M3", "Unknown Object");
+            obj.setApparentDimensions(null);
+            String result = obj.getApparentDimensionsString();
+            assertEquals("Unknown", result, "Null dimensions should return 'Unknown'");
+        }
+    }
+
+
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$SkyPositionFloatToHMSTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-12-03T10:10:05.408Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.024">
+<testsuite name="SkyPositionTest$SkyPositionFloatToHMSTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-12-03T22:37:54.921Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.016">
   <properties/>
-  <testcase name="testHoursAndMinutes()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.016"/>
-  <testcase name="testWholeHours()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
+  <testcase name="testHoursAndMinutes()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.003"/>
+  <testcase name="testWholeHours()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.002"/>
   <testcase name="testZero()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
-  <testcase name="testHoursMinutesSeconds()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
-  <testcase name="testFractionalSeconds()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
+  <testcase name="testHoursMinutesSeconds()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.002"/>
+  <testcase name="testFractionalSeconds()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.003"/>
   <testcase name="testEdgeCases()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

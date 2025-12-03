@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CatalogueTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-03T10:10:05.255Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.049">
+<testsuite name="CatalogueTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-03T22:37:54.606Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.111">
   <properties/>
-  <testcase name="canAddItemsToCatalogue()" classname="CatalogueTest" time="0.012"/>
-  <testcase name="CanIterate()" classname="CatalogueTest" time="0.02"/>
-  <testcase name="CatalogueCanBeLoaded()" classname="CatalogueTest" time="0.007"/>
-  <testcase name="exceptionHandling()" classname="CatalogueTest" time="0.006"/>
-  <testcase name="CatalogueCanBeInstantiatedWithSingletonPattern()" classname="CatalogueTest" time="0.001"/>
+  <testcase name="canAddItemsToCatalogue()" classname="CatalogueTest" time="0.027"/>
+  <testcase name="CanIterate()" classname="CatalogueTest" time="0.042"/>
+  <testcase name="CatalogueCanBeLoaded()" classname="CatalogueTest" time="0.018"/>
+  <testcase name="exceptionHandling()" classname="CatalogueTest" time="0.015"/>
+  <testcase name="CatalogueCanBeInstantiatedWithSingletonPattern()" classname="CatalogueTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
