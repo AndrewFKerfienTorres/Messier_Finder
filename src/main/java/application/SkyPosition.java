@@ -2,7 +2,6 @@ package application;
 
 import java.time.*;
 import java.util.Optional;
-import java.time.*;
 
 public class SkyPosition {
 
