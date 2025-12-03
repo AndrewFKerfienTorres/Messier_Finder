@@ -1,6 +1,8 @@
 package application;
 
-public class Obstruction implements Serializable{
+import java.io.Serializable;
+
+public class Obstruction implements Serializable {
 
     String description;
     double beginAltitude;

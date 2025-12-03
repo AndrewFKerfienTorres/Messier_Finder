@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObGUI extends Application {
+public class ObjGUI extends Application {
 
     private List<Obstruction> obstructions = new ArrayList<>();
     private ListView<Obstruction> obstructionListView;
