@@ -8,7 +8,7 @@ public class Obstruction {
     double beginAzimuth;
     double endAzimuth;
 
-    public Obstruction(String description, double beginAzimuth, double endAzimuth, double beginAltitude, double endAltitude) {
+    public Obstruction implements Serializable(String description, double beginAzimuth, double endAzimuth, double beginAltitude, double endAltitude) {
 
         if (beginAltitude >= endAltitude || beginAltitude < 0 || endAltitude > 360 ) {
             throw new IllegalArgumentException("Invalid begin altitude or end altitude");

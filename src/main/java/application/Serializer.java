@@ -1255,7 +1255,17 @@ public class Serializer {
 
     }
     
-    
+    public static void save(Object obj, String fileName) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            out.writeObject(obj);
+        }
+    }
+
+    public static Object load(String fileName) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
+            return in.readObject();
+        }
+    }
     
     
     
