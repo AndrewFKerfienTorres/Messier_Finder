@@ -123,8 +123,8 @@ public class GUIController {
 
 
 
-            boolean matchSearch= ((obj.getMessierIndex().toLowerCase().contains(search))
-            ||(search.isBlank()));
+            boolean matchSearch= ((search.isBlank())||obj.toString().toLowerCase().contains(search));
+
 
             String type=obj.getObjectType().toString();
             boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
@@ -141,23 +141,25 @@ public class GUIController {
                     &&!filterSupernovaRemnant.isSelected()&&!filterStar.isSelected()&&!filterAsterism.isSelected()
                     &&!filterPlanetaryNebula.isSelected()));
 
-            double tempLat=1;
-            double tempLong=1;
-            double tempDec=1;
-            double tempHr=1;
+            double tempLat= obsTemp.getLatitude();
+            double tempLong= obsTemp.getLongitude();
+            double Dec=obj.getDeclination();
+            double RA=obj.getRightAscension();
+            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+          
             boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(obsTemp, now ,scopeTemp))
-            ||(filterJan.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.JANUARY).isPresent())
-            ||(filterFeb.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.FEBRUARY).isPresent())
-            ||(filterMar.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.MARCH).isPresent())
-            ||(filterApr.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.APRIL).isPresent())
-            ||(filterMay.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.MAY).isPresent())
-            ||(filterJune.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.JUNE).isPresent())
-            ||(filterJuly.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.JULY).isPresent())
-            ||(filterAug.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.AUGUST).isPresent())
-            ||(filterSept.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.SEPTEMBER).isPresent())
-            ||(filterOct.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.OCTOBER).isPresent())
-            ||(filterNov.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.NOVEMBER).isPresent())
-            ||(filterDec.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,tempHr,tempDec, Month.DECEMBER).isPresent())
+            ||(filterJan.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.JANUARY).isPresent())
+            ||(filterFeb.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.FEBRUARY).isPresent())
+            ||(filterMar.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.MARCH).isPresent())
+            ||(filterApr.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.APRIL).isPresent())
+            ||(filterMay.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.MAY).isPresent())
+            ||(filterJune.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.JUNE).isPresent())
+            ||(filterJuly.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.JULY).isPresent())
+            ||(filterAug.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.AUGUST).isPresent())
+            ||(filterSept.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.SEPTEMBER).isPresent())
+            ||(filterOct.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.OCTOBER).isPresent())
+            ||(filterNov.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.NOVEMBER).isPresent())
+            ||(filterDec.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.DECEMBER).isPresent())
             ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
             &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
             &&!filterNov.isSelected()&&!filterDec.isSelected()));
