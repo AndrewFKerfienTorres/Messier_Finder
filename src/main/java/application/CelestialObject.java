@@ -8,7 +8,6 @@ public class CelestialObject implements Serializable {
     private String messierIndex;
     private String commonName;
 
-    private double apparentDimensions;
     private String constellation;
     private ObjectType objectType;
     private String NGC_IC_Nbr;
@@ -17,18 +16,24 @@ public class CelestialObject implements Serializable {
     private double declination;
     private double rightAscension;
     private String imagePath;
-    private ApparentSize apparentSize;
-    public sealed interface ApparentSize permits Circle, Rectangle {}
-    public record Circle(double diameter) implements ApparentSize, Serializable {}
-    public record Rectangle(double width, double height) implements ApparentSize, Serializable {}
+    private ApparentSize apparentDimensions;
 
-    public CelestialObject(String messierIndex, String commonName ){
+    public sealed interface ApparentSize permits Circle, Rectangle {
+    }
+
+    public record Circle(double diameter) implements ApparentSize, Serializable {
+    }
+
+    public record Rectangle(double width, double height) implements ApparentSize, Serializable {
+    }
+
+    public CelestialObject(String messierIndex, String commonName) {
 
         this.messierIndex = messierIndex;
         this.commonName = commonName;
     }
 
-    public String getMessierIndex(){
+    public String getMessierIndex() {
         return messierIndex;
     }
 
@@ -36,14 +41,13 @@ public class CelestialObject implements Serializable {
         return commonName;
     }
 
-    public String toString(){
+    public String toString() {
         return messierIndex + " " + commonName;
     }
 
-    public double getApparentDimensions() {
+    public ApparentSize getApparentDimensions() {
         return apparentDimensions;
     }
-
 
 
     public String getConstellation() {
@@ -78,8 +82,8 @@ public class CelestialObject implements Serializable {
         this.apparentMagnitude = apparentMagnitude;
     }
 
-    public void setApparentSize(ApparentSize apparentSize) {
-        this.apparentSize = apparentSize;
+    public void setApparentDimensions(ApparentSize apparentDimensions) {
+        this.apparentDimensions = apparentDimensions;
     }
 
     public String getDistance() {
@@ -106,42 +110,53 @@ public class CelestialObject implements Serializable {
         this.rightAscension = rightAscension;
     }
 
-    public void setImagePath(String imagePath){
+    public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
 
-    public String getImagePath(){
+    public String getImagePath() {
         return imagePath;
     }
 
-    public boolean isVisible(Observatory observ, ZonedDateTime timeUTC, Telescope telescope){
-        return !isObjectObstructed(observ, timeUTC)
-                  &&isTelescopeLimitedMagnitudeSufficient(telescope)
-                  &&isTelescopeAperatureSuffcient(telescope)
-                  &&SkyPosition.getAltitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination )>0.0;
+    public boolean isVisible(Observatory observ, ZonedDateTime timeUTC, Telescope telescope) {
+        return isTelescopeLimitedMagnitudeSufficient(telescope)
+                && isTelescopeAperatureSuffcient(telescope)
+                && !isObjectObstructed(observ, timeUTC)
+                && SkyPosition.isSunBelow18(timeUTC, observ.getLatitude(), observ.getLongitude())
+                && SkyPosition.getAltitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination) > 0.0;
     }
-    public boolean isTelescopeLimitedMagnitudeSufficient(Telescope telescope){
+
+    public boolean isTelescopeLimitedMagnitudeSufficient(Telescope telescope) {
         double limitingMagnitude = 2.0 + 5.0 * Math.log10(telescope.getAperature());
-        return this.apparentMagnitude >= limitingMagnitude;
-    }
-
-    public boolean isTelescopeAperatureSuffcient(Telescope telescope){
-        double angularResolutionInDegrees = 0.322 / telescope.getAperature();
-        return this.apparentMagnitude >= angularResolutionInDegrees;
-
+        return this.apparentMagnitude <= limitingMagnitude;
     }
 
 
+    public boolean isTelescopeAperatureSuffcient(Telescope telescope) {
+        double telescopeResolution = 0.322 / telescope.getAperature(); // in degrees
 
-    public boolean isObjectObstructed(Observatory observ, ZonedDateTime timeUTC){
-      Obstruction[] obstructions;
-      obstructions = observ.getObstructions();
-      double latitude = SkyPosition.getAltitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination);
-      double azimuth = SkyPosition.getAzimuth(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination);
-      for(int i = 0; i < obstructions.length; i++){
-          if(obstructions[i].getBeginAltitude() < latitude && obstructions[i].getEndAltitude() > latitude && obstructions[i].getBeginAzimuth() < azimuth &&obstructions[i].getEndAzimuth()>azimuth)
-              return true;
-      }
-      return false;
+        if (apparentDimensions instanceof Circle circle) {
+            double objectSizeDeg = circle.diameter();
+            return objectSizeDeg >= telescopeResolution;
+        } else if (apparentDimensions instanceof Rectangle rect) {
+            // Use the larger side for resolution comparison
+            double objectSizeDeg = Math.max(rect.width(), rect.height());
+            return objectSizeDeg >= telescopeResolution;
+        } else {
+            // No size info available
+            return false;
+        }
+    }
+
+    public boolean isObjectObstructed(Observatory observ, ZonedDateTime timeUTC) {
+        Obstruction[] obstructions;
+        obstructions = observ.getObstructions();
+        double latitude = SkyPosition.getAltitude(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination);
+        double azimuth = SkyPosition.getAzimuth(timeUTC, observ.getLatitude(), observ.getLongitude(), this.rightAscension, this.declination);
+        for (int i = 0; i < obstructions.length; i++) {
+            if (obstructions[i].getBeginAltitude() < latitude && obstructions[i].getEndAltitude() > latitude && obstructions[i].getBeginAzimuth() < azimuth && obstructions[i].getEndAzimuth() > azimuth)
+                return true;
+        }
+        return false;
     }
 }

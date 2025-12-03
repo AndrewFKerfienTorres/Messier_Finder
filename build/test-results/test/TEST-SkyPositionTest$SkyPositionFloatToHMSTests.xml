@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$SkyPositionFloatToHMSTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-12-03T01:20:15.806Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.008">
+<testsuite name="SkyPositionTest$SkyPositionFloatToHMSTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-12-03T10:10:05.408Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.024">
   <properties/>
-  <testcase name="testHoursAndMinutes()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.002"/>
+  <testcase name="testHoursAndMinutes()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.016"/>
   <testcase name="testWholeHours()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
   <testcase name="testZero()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>
   <testcase name="testHoursMinutesSeconds()" classname="SkyPositionTest$SkyPositionFloatToHMSTests" time="0.001"/>

@@ -3,10 +3,9 @@ import application.CelestialObject;
 import application.ObjectType;
 import application.Telescope;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Nested;
 
 public class CelestialObjectTest {
 
@@ -84,7 +83,165 @@ public class CelestialObjectTest {
     }
 
 
+    @Nested
+    class LimitingMagnitudeTests {
+
+        // Helper to create a CelestialObject with a given magnitude
+        private CelestialObject makeObject(double mag) {
+            CelestialObject obj = new CelestialObject("M0", "TestObject");
+            obj.setApparentMagnitude(mag);
+            return obj;
+        }
+
+        @Test
+        void test50mmBinoculars_ObjectBrighterVisible() {
+            Telescope binoculars = new Telescope(0, 50); // 50 mm
+            CelestialObject obj = makeObject(5.4);      // Brighter than limit ~10.5
+
+            assertTrue(obj.isTelescopeLimitedMagnitudeSufficient(binoculars));
+        }
+
+        @Test
+        void test50mmBinoculars_ObjectDimmerNotVisible() {
+            Telescope binoculars = new Telescope(0, 50);
+            CelestialObject obj = makeObject(11.0); // Dimmer than limit ~10.5
+
+            assertFalse(obj.isTelescopeLimitedMagnitudeSufficient(binoculars));
+        }
+
+        @Test
+        void test80mmRefractor_ObjectBrighterVisible() {
+            Telescope refractor = new Telescope(0, 80); // 80 mm
+            CelestialObject obj = makeObject(5.9);      // Brighter than limit ~11.5
+
+            assertTrue(obj.isTelescopeLimitedMagnitudeSufficient(refractor));
+        }
+
+        @Test
+        void test80mmRefractor_ObjectDimmerNotVisible() {
+            Telescope refractor = new Telescope(0, 80);
+            CelestialObject obj = makeObject(12.0); // Dimmer than limit ~11.5
+
+            assertFalse(obj.isTelescopeLimitedMagnitudeSufficient(refractor));
+        }
+
+        @Test
+        void test6InchTelescope_ObjectBrighterVisible() {
+            Telescope sixInch = new Telescope(0, 150); // 150 mm
+            CelestialObject obj = makeObject(7.3);     // Brighter than limit ~13.9
+
+            assertTrue(obj.isTelescopeLimitedMagnitudeSufficient(sixInch));
+        }
+
+        @Test
+        void test6InchTelescope_ObjectDimmerNotVisible() {
+            Telescope sixInch = new Telescope(0, 150);
+            CelestialObject obj = makeObject(14.0); // Dimmer than limit ~13.9
+
+            assertFalse(obj.isTelescopeLimitedMagnitudeSufficient(sixInch));
+        }
+
+        @Test
+        void test10InchTelescope_ObjectBrighterVisible() {
+            Telescope tenInch = new Telescope(0, 254); // 254 mm
+            CelestialObject obj = makeObject(8.1);     // Brighter than limit ~15.0
+
+            assertTrue(obj.isTelescopeLimitedMagnitudeSufficient(tenInch));
+        }
+
+        @Test
+        void test10InchTelescope_ObjectDimmerNotVisible() {
+            Telescope tenInch = new Telescope(0, 254);
+            CelestialObject obj = makeObject(15.5); // Dimmer than limit ~15.0
+
+            assertFalse(obj.isTelescopeLimitedMagnitudeSufficient(tenInch));
+        }
+    }
 
 
+    @Nested
+    class ApertureSufficiencyTests {
 
+        // Helper for Circle
+        private CelestialObject makeCircleObject(double diameterDeg) {
+            CelestialObject obj = new CelestialObject("M0", "CircleObject");
+            obj.setApparentDimensions(new CelestialObject.Circle(diameterDeg));
+            return obj;
+        }
+
+        // Helper for Rectangle
+        private CelestialObject makeRectangleObject(double widthDeg, double heightDeg) {
+            CelestialObject obj = new CelestialObject("M1", "RectangleObject");
+            obj.setApparentDimensions(new CelestialObject.Rectangle(widthDeg, heightDeg));
+            return obj;
+        }
+
+        @Test
+        void test50mmBinoculars_CircleResolvable() {
+            Telescope binoculars = new Telescope(0, 50); // 50 mm
+            double resolution = 0.322 / 50;             // ~0.00644 deg
+            CelestialObject obj = makeCircleObject(0.01); // bigger than resolution
+
+            assertTrue(obj.isTelescopeAperatureSuffcient(binoculars));
+        }
+
+        @Test
+        void test50mmBinoculars_CircleNotResolvable() {
+            Telescope binoculars = new Telescope(0, 50);
+            CelestialObject obj = makeCircleObject(0.005); // smaller than ~0.00644
+
+            assertFalse(obj.isTelescopeAperatureSuffcient(binoculars));
+        }
+
+        @Test
+        void test80mmRefractor_RectangleResolvable() {
+            Telescope refractor = new Telescope(0, 80);
+            double resolution = 0.322 / 80; // ~0.004025 deg
+            CelestialObject obj = makeRectangleObject(0.002, 0.005); // larger side = 0.005 > resolution
+
+            assertTrue(obj.isTelescopeAperatureSuffcient(refractor));
+        }
+
+        @Test
+        void test80mmRefractor_RectangleNotResolvable() {
+            Telescope refractor = new Telescope(0, 80);
+            CelestialObject obj = makeRectangleObject(0.001, 0.003); // larger side = 0.003 < resolution
+
+            assertFalse(obj.isTelescopeAperatureSuffcient(refractor));
+        }
+
+        @Test
+        void test6InchTelescope_CircleResolvable() {
+            Telescope sixInch = new Telescope(0, 150); // 150 mm
+            double resolution = 0.322 / 150;           // ~0.002147 deg
+            CelestialObject obj = makeCircleObject(0.005); // bigger than resolution
+
+            assertTrue(obj.isTelescopeAperatureSuffcient(sixInch));
+        }
+
+        @Test
+        void test6InchTelescope_CircleNotResolvable() {
+            Telescope sixInch = new Telescope(0, 150);
+            CelestialObject obj = makeCircleObject(0.001); // smaller than resolution
+
+            assertFalse(obj.isTelescopeAperatureSuffcient(sixInch));
+        }
+
+        @Test
+        void test10InchTelescope_RectangleResolvable() {
+            Telescope tenInch = new Telescope(0, 254);
+            double resolution = 0.322 / 254; // ~0.001267 deg
+            CelestialObject obj = makeRectangleObject(0.0015, 0.0010); // larger side = 0.0015 > resolution
+
+            assertTrue(obj.isTelescopeAperatureSuffcient(tenInch));
+        }
+
+        @Test
+        void test10InchTelescope_RectangleNotResolvable() {
+            Telescope tenInch = new Telescope(0, 254);
+            CelestialObject obj = makeRectangleObject(0.0010, 0.0010); // larger side = 0.0010 < resolution
+
+            assertFalse(obj.isTelescopeAperatureSuffcient(tenInch));
+        }
+    }
 }
