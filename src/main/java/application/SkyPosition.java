@@ -103,44 +103,69 @@ public class SkyPosition {
 
         return az;
     }
+
     public static String doubleToDMS(double decimalDegrees) {
-        // Capture the sign so we can format correctly at the end
         String sign = decimalDegrees < 0 ? "-" : "";
         decimalDegrees = Math.abs(decimalDegrees);
 
-        int degrees = (int) decimalDegrees;
+        int degrees = (int) Math.floor(decimalDegrees);
         double fractional = decimalDegrees - degrees;
 
         double minutesFull = fractional * 60.0;
-        int minutes = (int) minutesFull;
+        int minutes = (int) Math.floor(minutesFull);
 
         double seconds = (minutesFull - minutes) * 60.0;
 
-        // Optional: round seconds to a reasonable precision
-        seconds = Math.round(seconds * 1000.0) / 1000.0;  // 3 decimal places
+        // Round seconds to 3 decimals (your desired format)
+        seconds = Math.round(seconds * 1000.0) / 1000.0;
 
-        // Handle rounding that pushes seconds to 60
+        // Carry seconds -> minutes
         if (seconds >= 60.0) {
             seconds -= 60.0;
             minutes += 1;
         }
 
-        // Handle rounding that pushes minutes to 60
-        if (minutes >= 60) {
-            minutes -= 60;
+        // Carry minutes -> degrees
+        if (minutes >= 60.0) {
+            minutes -= 60.0;
             degrees += 1;
         }
 
         return String.format("%s%d° %d′ %.3f″", sign, degrees, minutes, seconds);
     }
+
     public static String doubleToHMS(double hours) {
-        int h = (int) hours; // integer hours
-        double remainingMinutes = (hours - h) * 60;
-        int m = (int) remainingMinutes; // integer minutes
-        double s = (remainingMinutes - m) * 60; // seconds, can have decimal
+        int h = (int) Math.floor(hours);
+        double remainingMinutes = (hours - h) * 60.0;
+        int m = (int) Math.floor(remainingMinutes);
+        double s = (remainingMinutes - m) * 60.0;
+
+        // Round seconds to 1 decimal (matches "%04.1f")
+        s = Math.round(s * 10.0) / 10.0;
+
+        // Carry seconds -> minutes
+        if (s >= 60.0) {
+            s -= 60.0;
+            m += 1;
+        }
+
+        // Carry minutes -> hours
+        if (m >= 60) {
+            m -= 60;
+            h += 1;
+        }
+
+        // Wrap hours at 24 (optional, but matches earlier suggestion)
+        if (h >= 24) {
+            h -= 24;
+        } else if (h < 0) {
+            // defensive: keep in 0..23
+            h = ((h % 24) + 24) % 24;
+        }
 
         return String.format("%02dh %02dm %04.1fs", h, m, s);
     }
+
     private static double[] sunRaDec(ZonedDateTime timeUTC) {
         double jd = toJulianDate(timeUTC);
         double T = (jd - 2451545.0) / 36525.0;

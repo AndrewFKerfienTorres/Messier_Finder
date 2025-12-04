@@ -1,8 +1,10 @@
 import application.SkyPosition;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import java.util.Optional;
 import java.time.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.ZoneOffset;
@@ -257,6 +259,62 @@ class SkyPositionTest {
             // Negative values should carry sign only once
             assertEquals("-1° 30′ 0.000″", SkyPosition.doubleToDMS(-1.5));
         }
+
+        @Test
+        void secondsRolloverToNextMinute() {
+            // 12h + 59m + 59.999999s ≈ 12.999999 hours
+            double input = 12.999999;
+
+            String result = SkyPosition.doubleToHMS(input);
+
+            assertEquals("13h 00m 00.0s", result);
+        }
+
+        @Test
+        void secondsAndMinutesRolloverToNextHour() {
+            // 5h + 59m + 59.999999s
+            double input = 5 + (59.999999 / 60.0);
+
+            String result = SkyPosition.doubleToHMS(input);
+
+            assertEquals("06h 00m 00.0s", result);
+        }
+
+        @Test
+        void wrapAround24Hours() {
+            // Exact: 23h 59m 59.999s
+            double hours = 23
+                    + (59.0 / 60.0)
+                    + (59.999 / 3600.0);
+
+            String result = SkyPosition.doubleToHMS(hours);
+
+            assertEquals("00h 00m 00.0s", result);
+        }
+        @Test
+        void secondsRolloverInDMS() {
+            // 10° 20′ 59.9996″  → seconds should round to 60.000 → carry
+            double deg = 10
+                    + (20.0 / 60.0)
+                    + (59.9996 / 3600.0);
+
+            String result = SkyPosition.doubleToDMS(deg);
+
+            assertEquals("10° 21′ 0.000″", result);
+        }
+
+        @Test
+        void minutesAndSecondsRolloverInDMS() {
+            // 15° 59′ 59.9996″ → should become 16° 00′ 00.000″
+            double deg = 15
+                    + (59.0 / 60.0)
+                    + (59.9996 / 3600.0);
+
+            String result = SkyPosition.doubleToDMS(deg);
+
+            assertEquals("16° 0′ 0.000″", result);
+        }
+
     }
 
     @Nested
@@ -300,34 +358,38 @@ class SkyPositionTest {
     @Nested
     class SkyPositionazimuthandAltitudeTests {
         private static final double ERROR = 0.0167;
+
         @Test
         public void testM31() {
 
             ZonedDateTime timeUTC = ZonedDateTime.parse("2025-11-30T23:06:42Z");
-            double latitudeDeg = 43.43000 ;
+            double latitudeDeg = 43.43000;
             double longitudeDeg = -76.55012;
             double raHours = 0.7362222;
             double decDeg = 41.4151111;
             double az = SkyPosition.getAzimuth(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
             double alt = SkyPosition.getAltitude(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
 
-            assertEquals( 84.3799723,az, ERROR );
-            assertEquals( 67.2581111,alt, ERROR );
+            assertEquals(84.3799723, az, ERROR);
+            assertEquals(67.2581111, alt, ERROR);
         }
+
         @Test
         public void testM45() {
 
             ZonedDateTime timeUTC = ZonedDateTime.parse("2025-11-30T23:19:15Z");
-            double latitudeDeg = 43.43000 ;
+            double latitudeDeg = 43.43000;
             double longitudeDeg = -76.55012;
             double raHours = 3.8095278;
-            double decDeg =24.1988333 ;
+            double decDeg = 24.1988333;
             double az = SkyPosition.getAzimuth(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
             double alt = SkyPosition.getAltitude(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
 
-            assertEquals( 82.0112222,az, ERROR );
-            assertEquals( 27.8259445 ,alt, ERROR );
-        }    }
+            assertEquals(82.0112222, az, ERROR);
+            assertEquals(27.8259445, alt, ERROR);
+        }
+    }
+
     @Nested
     class IsSunBelow18Tests {
 
@@ -361,12 +423,13 @@ class SkyPositionTest {
             assertFalse(result, "Sun at -18° should return false according to method definition");
         }
     }
+
     @Nested
     class DecemberVisibility {
 
         @Test
         public void testM1() {
-            double latitude =43.45692;
+            double latitude = 43.45692;
             double longitude = -76.50017;
             Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
                     latitude, longitude, 5.58, 22.01, Month.DECEMBER
@@ -378,17 +441,17 @@ class SkyPositionTest {
             ZonedDateTime end = window.get()[1];
 
             ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 00, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd   = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
+            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
 
             assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:"+expectedStart+" Actual"+start);
+                    "Start time differs from expected:" + expectedStart + " Actual" + start);
             assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:"+expectedEnd+" Actual"+end);
+                    "End time differs from expected:" + expectedEnd + " Actual" + end);
         }
 
         @Test
         public void testM31() {
-            double latitude = 43.43000 ;
+            double latitude = 43.43000;
             double longitude = -76.55012;
             Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
                     latitude, longitude, 0.71, 41.27, Month.DECEMBER
@@ -400,18 +463,18 @@ class SkyPositionTest {
             ZonedDateTime end = window.get()[1];
 
             ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd   = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
+            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
 
             assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:"+expectedStart+" Actual"+start);
+                    "Start time differs from expected:" + expectedStart + " Actual" + start);
             assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:"+expectedEnd+" Actual"+end);
+                    "End time differs from expected:" + expectedEnd + " Actual" + end);
 
         }
 
         @Test
         public void testM42() {
-            double latitude = 43.43000 ;
+            double latitude = 43.43000;
             double longitude = -76.55012;
             Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
                     latitude, longitude, 5.59, -5.45, Month.DECEMBER
@@ -423,17 +486,17 @@ class SkyPositionTest {
             ZonedDateTime end = window.get()[1];
 
             ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 22, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd   = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
+            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
 
             assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:"+expectedStart+" Actual"+start);
+                    "Start time differs from expected:" + expectedStart + " Actual" + start);
             assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:"+expectedEnd+" Actual"+end);
+                    "End time differs from expected:" + expectedEnd + " Actual" + end);
         }
 
         @Test
         public void testM13() {
-            double latitude = 43.43000 ;
+            double latitude = 43.43000;
             double longitude = -76.55012;
             Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
                     latitude, longitude, 16.70, 36.46, Month.DECEMBER
@@ -445,12 +508,12 @@ class SkyPositionTest {
             ZonedDateTime end = window.get()[1];
 
             ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd   = ZonedDateTime.of(2025, 12, 1, 2, 04, 0, 0, ZoneOffset.UTC);
+            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 2, 04, 0, 0, ZoneOffset.UTC);
 
             assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:"+expectedStart+" Actual"+start);
+                    "Start time differs from expected:" + expectedStart + " Actual" + start);
             assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:"+expectedEnd+" Actual"+end);
+                    "End time differs from expected:" + expectedEnd + " Actual" + end);
 
         }
     }

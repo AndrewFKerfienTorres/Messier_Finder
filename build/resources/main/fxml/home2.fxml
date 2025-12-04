@@ -1174,14 +1174,10 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
-              <menus>
-                  <Menu mnemonicParsing="false" text="Change Observatory Data" />
-                  <Menu mnemonicParsing="false" text="Change Telescope Data" />
-                  <Menu mnemonicParsing="false" text="Map Obstructions" />
-              </menus>
-            </MenuBar>
-             <Button fx:id="searchButton" mnemonicParsing="false" text="🔎" onAction="#applyFilters" />
+            
+             <Button mnemonicParsing="false" text="Change Telescope Data" onAction="#switchTelescope"/>
+             <Button mnemonicParsing="false" text="Map Obstructions" onAction="#switchObstruction"/>
+             <Button fx:id="searchButton" mnemonicParsing="false" text="🔎" />
              <TextField fx:id="searchBar" minWidth="300.0" promptText="Search..." />
          </children>
       </HBox>

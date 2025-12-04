@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CelestialObjectTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-03T23:24:32.281Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.027">
+<testsuite name="CelestialObjectTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-04T13:19:13.729Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.01">
   <properties/>
-  <testcase name="canDeserialize()" classname="CelestialObjectTest" time="0.021"/>
-  <testcase name="CanBeManuallyInstantiatedAndMakeSureThatTheCommonNameAndNumberCanBeGotten()" classname="CelestialObjectTest" time="0.002"/>
+  <testcase name="canDeserialize()" classname="CelestialObjectTest" time="0.009"/>
+  <testcase name="CanBeManuallyInstantiatedAndMakeSureThatTheCommonNameAndNumberCanBeGotten()" classname="CelestialObjectTest" time="0.001"/>
   <system-out><![CDATA[M1 Crab Nebula
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

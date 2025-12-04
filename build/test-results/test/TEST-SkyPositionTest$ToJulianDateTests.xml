@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$ToJulianDateTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-03T23:24:32.721Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.028">
+<testsuite name="SkyPositionTest$ToJulianDateTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-04T13:19:13.863Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.009">
   <properties/>
   <testcase name="testEndOfYear()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
-  <testcase name="testLeapYear()" classname="SkyPositionTest$ToJulianDateTests" time="0.007"/>
-  <testcase name="testMidnight()" classname="SkyPositionTest$ToJulianDateTests" time="0.003"/>
-  <testcase name="testStandardDate()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
+  <testcase name="testLeapYear()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
+  <testcase name="testMidnight()" classname="SkyPositionTest$ToJulianDateTests" time="0.0"/>
+  <testcase name="testStandardDate()" classname="SkyPositionTest$ToJulianDateTests" time="0.0"/>
   <testcase name="testDateBeforeMarch()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
-  <testcase name="testDateBetweenSkippedDays()" classname="SkyPositionTest$ToJulianDateTests" time="0.003"/>
-  <testcase name="testLastJulianDay()" classname="SkyPositionTest$ToJulianDateTests" time="0.0"/>
+  <testcase name="testDateBetweenSkippedDays()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
+  <testcase name="testLastJulianDay()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
   <testcase name="testFirstGregorianDay()" classname="SkyPositionTest$ToJulianDateTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

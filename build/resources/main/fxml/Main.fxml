@@ -5,30 +5,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="600" prefWidth="800" style="-fx-background-color: #D6D5D6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller">
+<StackPane prefHeight="600" prefWidth="800" style="-fx-background-color: #D6D5D6;"
+           xmlns="http://javafx.com/javafx/25"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="application.GUIController">
 
     <VBox alignment="TOP_CENTER" spacing="25">
         <padding>
-            <Insets bottom="20" left="20" right="20" top="20" />
+            <Insets bottom="20" left="20" right="20" top="20"/>
         </padding>
 
         <!-- Image Section -->
-        <StackPane maxWidth="500" minHeight="250" style="-fx-background-color: #C5C4C5; -fx-effect: dropshadow(gaussian, #00000050, 5, 0, 2, 2);">
-            <ImageView fx:id="objectImage" fitHeight="220" preserveRatio="true" />
+        <StackPane maxWidth="500" minHeight="250"
+                   style="-fx-background-color: #C5C4C5; -fx-effect: dropshadow(gaussian, #00000050, 5, 0, 2, 2);">
+            <ImageView fx:id="objectImage" fitHeight="220" preserveRatio="true"/>
         </StackPane>
 
         <!-- Name & Next Visible -->
         <VBox alignment="CENTER" spacing="5">
-            <Label fx:id="commonNameLabel" text="[object common name]">
-                <font><Font name="Yu Gothic UI" size="23" /></font>
+            <Label fx:id="commonNameLabel">
+                <font><Font name="Yu Gothic UI" size="23"/></font>
             </Label>
-            <Label fx:id="nextVisibleLabel" text="Next Visible: TBD">
-                <font><Font name="Yu Gothic UI" size="11" /></font>
+            <Label fx:id="nextVisibleLabel">
+                <font><Font name="Yu Gothic UI" size="11"/></font>
             </Label>
         </VBox>
 
@@ -36,23 +41,68 @@
         <StackPane maxWidth="650" minHeight="250" style="-fx-background-color: #C5C4C5;">
             <ScrollPane fitToWidth="true" style="-fx-background-color: #C5C4C5;" vbarPolicy="AS_NEEDED">
                 <content>
-                    <VBox spacing="6">
+                    <VBox spacing="8">
                         <padding>
-                            <Insets bottom="12" left="12" right="12" top="12" />
+                            <Insets bottom="12" left="12" right="12" top="12"/>
                         </padding>
-                        <Text fx:id="messierNumberText" text="Messier Number: MXX" />
-                        <Text fx:id="objectTypeText" text="Object Type: XXX" />
-                        <Text fx:id="distanceText" text="Distance from Earth: XXX" />
-                        <Text fx:id="constellationText" text="Constellation: XXX" />
-                        <Text fx:id="magnitudeText" text="Apparent Magnitude: X.X" />
-                        <Text fx:id="dimensionsText" text="Dimensions: XXX" />
-                        <Text fx:id="rightAscensionText" text="Right Ascension (RA): XX XXX XX XX" />
-                        <Text fx:id="declinationText" text="Declination: XXX" />
-                        <Text fx:id="altitudeText" text="Altitude: XXX" />
-                        <Text fx:id="azimuthText" text="Azimuth: XXX" />
-                        <Text fx:id="sizeText" text="Size: XXX" />
-                        <Text fx:id="spectralText" text="Spectral Content: XXX" />
-                        <Text fx:id="descriptionText" text="Description: XXX" />
+
+                        <!-- Each row = Label (static) + Text (dynamic) -->
+
+                        <HBox spacing="5">
+                            <Label text="Messier Object:"/>
+                            <Text fx:id="messierNumberText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Object Type:"/>
+                            <Text fx:id="objectTypeText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Distance from Earth:"/>
+                            <Text fx:id="distanceText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Constellation:"/>
+                            <Text fx:id="constellationText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Apparent Magnitude:"/>
+                            <Text fx:id="magnitudeText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Dimensions:"/>
+                            <Text fx:id="dimensionsText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Size:"/>
+                            <Text fx:id="sizeText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Right Ascension:"/>
+                            <Text fx:id="rightAscensionText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Declination:"/>
+                            <Text fx:id="declinationText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Altitude:"/>
+                            <Text fx:id="altitudeText"/>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <Label text="Azimuth:"/>
+                            <Text fx:id="azimuthText"/>
+                        </HBox>
+
                     </VBox>
                 </content>
             </ScrollPane>
@@ -61,9 +111,14 @@
     </VBox>
 
     <!-- Back Button -->
-    <Button fx:id="backButton" onAction="#handleBackButton" prefHeight="28" prefWidth="35" style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;" text="⬅" StackPane.alignment="TOP_LEFT">
+    <Button fx:id="backButton"
+            onAction="#switchHome"
+            prefHeight="28" prefWidth="35"
+            style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;"
+            text="⬅"
+            StackPane.alignment="TOP_LEFT">
         <StackPane.margin>
-            <Insets left="10" top="10" />
+            <Insets left="10" top="10"/>
         </StackPane.margin>
     </Button>
 
