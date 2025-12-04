@@ -51,29 +51,29 @@ public class GUIController {
     @FXML
     public void initialize() {
 
-        filterNebula.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterGalaxy.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterOpenCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterStar.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterFeb.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterMar.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterApr.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterMay.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterJune.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterJuly.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterAug.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterSept.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterOct.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterNov.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterDec.selectedProperty().addListener((o, old, now) -> applyFilters());
-        filterIsVis.selectedProperty().addListener((o, old, now) -> applyFilters());
-        searchBar.textProperty().addListener((o, old, now) -> applyFilters());
+        if (filterNebula != null) {filterNebula.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterGalaxy != null){filterGalaxy.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterOpenCluster != null){filterOpenCluster.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterGlobularCluster != null){filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterPlanetaryNebula != null){filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterSupernovaRemnant != null){filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterStar != null){filterStar.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterAsterism != null){filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterOther != null){filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterJan != null){filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterFeb != null){filterFeb.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterMar != null){filterMar.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterApr != null){filterApr.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterMay != null){filterMay.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterJune != null){filterJune.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterJuly != null){filterJuly.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterAug != null){filterAug.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterSept!= null){filterSept.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterOct != null){filterOct.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterNov != null){filterNov.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterDec != null){filterDec.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterIsVis != null){filterIsVis.selectedProperty().addListener((o, old, now) -> applyFilters());}
+        if (searchBar != null){searchBar.textProperty().addListener((o, old, now) -> applyFilters());}
 
 
 
@@ -91,22 +91,24 @@ public class GUIController {
             System.out.println("An error has occurred: "+e);
         }
         Catalogue c =Catalogue.getInstance();
-        for(Node n: gridPane.getChildren()){
-            if(!(n instanceof VBox cell)) continue;
-            String name=null;
+        if(gridPane!=null){
+            for(Node n: gridPane.getChildren()){
+                if(!(n instanceof VBox cell)) continue;
+                String name=null;
 
-            for(Node child: cell.getChildren()){
-                if(child instanceof Button btn){
-                    name=btn.getText();
-                    break;
+                for(Node child: cell.getChildren()){
+                    if(child instanceof Button btn){
+                        name=btn.getText();
+                        break;
+                    }
                 }
-            }
-            if(name == null) continue;
-            CelestialObject obj = c.get(name);
-            if(obj!=null){
-                cell.setUserData(obj);
-            }
+                if(name == null) continue;
+                CelestialObject obj = c.get(name);
+                if(obj!=null){
+                    cell.setUserData(obj);
+                }
 
+            }
         }
     }
 
@@ -186,10 +188,17 @@ public class GUIController {
         stage.show();
     }
     public void switchObject(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Main.fxml"));
+        Parent root = loader.load();
+
+        GUIController controller = loader.getController();
+
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         scene= new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    public void switchObstruction(ActionEvent event) throws IOException{
+        new ObGUI().showPopup();
     }
 }
