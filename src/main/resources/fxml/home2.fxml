@@ -1175,9 +1175,9 @@
       <HBox BorderPane.alignment="CENTER">
          <children>
             
-             <Button mnemonicParsing="false" text="Change Telescope Data" />
-             <Button mnemonicParsing="false" text="Map Obstructions" onAction="#switchObstructions" />
-             <Button fx:id="searchButton" mnemonicParsing="false" text="🔎" onAction="#applyFilters" />
+             <Button mnemonicParsing="false" text="Change Telescope Data" onAction="#switchTelescope"/>
+             <Button mnemonicParsing="false" text="Map Obstructions" onAction="#switchObstruction"/>
+             <Button fx:id="searchButton" mnemonicParsing="false" text="🔎" />
              <TextField fx:id="searchBar" minWidth="300.0" promptText="Search..." />
          </children>
       </HBox>
