@@ -17,9 +17,10 @@ public class ObjGUI {
 
     private List<Obstruction> obstructions = new ArrayList<>();
     private ListView<Obstruction> obstructionListView;
+    private Stage stage;
 
     public void show() {
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.setTitle("Add Telescope Obstruction");
         stage.initStyle(StageStyle.UTILITY);
         stage.setAlwaysOnTop(true);
@@ -148,8 +149,12 @@ public class ObjGUI {
         alert.setTitle("Input Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.showAndWait();
+        if (stage != null) {
+        alert.initOwner(stage);
+        }
+    alert.showAndWait();
     }
+ }
 
     private void loadObstructions() {
         try {
