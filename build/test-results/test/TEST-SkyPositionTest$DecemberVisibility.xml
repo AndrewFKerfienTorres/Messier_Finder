@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$DecemberVisibility" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-12-04T15:04:22.859Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.028">
+<testsuite name="SkyPositionTest$DecemberVisibility" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-12-04T15:14:57.125Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.027">
   <properties/>
-  <testcase name="testM13()" classname="SkyPositionTest$DecemberVisibility" time="0.009"/>
-  <testcase name="testM31()" classname="SkyPositionTest$DecemberVisibility" time="0.008"/>
-  <testcase name="testM42()" classname="SkyPositionTest$DecemberVisibility" time="0.005"/>
+  <testcase name="testM13()" classname="SkyPositionTest$DecemberVisibility" time="0.008"/>
+  <testcase name="testM31()" classname="SkyPositionTest$DecemberVisibility" time="0.009"/>
+  <testcase name="testM42()" classname="SkyPositionTest$DecemberVisibility" time="0.004"/>
   <testcase name="testM1()" classname="SkyPositionTest$DecemberVisibility" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

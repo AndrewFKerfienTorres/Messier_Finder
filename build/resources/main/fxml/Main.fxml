@@ -79,11 +79,6 @@
                         </HBox>
 
                         <HBox spacing="5">
-                            <Label text="Size:"/>
-                            <Text fx:id="sizeText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
                             <Label text="Right Ascension:"/>
                             <Text fx:id="rightAscensionText"/>
                         </HBox>

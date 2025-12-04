@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ObstructionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-12-04T15:04:22.842Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.014">
+<testsuite name="ObstructionsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-12-04T15:14:57.108Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.013">
   <properties/>
   <testcase name="CanBeInstantiated()" classname="ObstructionsTest" time="0.001"/>
-  <testcase name="testAzimuthBeginGreaterThanEndThrows()" classname="ObstructionsTest" time="0.002"/>
+  <testcase name="testAzimuthBeginGreaterThanEndThrows()" classname="ObstructionsTest" time="0.001"/>
   <testcase name="testAltitudeGreaterThan360Throws()" classname="ObstructionsTest" time="0.001"/>
   <testcase name="testAltitudeBoundaryZeroAnd360AreAllowed()" classname="ObstructionsTest" time="0.001"/>
-  <testcase name="testAzimuthBoundaryZeroAnd360AreAllowed()" classname="ObstructionsTest" time="0.001"/>
+  <testcase name="testAzimuthBoundaryZeroAnd360AreAllowed()" classname="ObstructionsTest" time="0.0"/>
   <testcase name="testAzimuthNegativeThrows()" classname="ObstructionsTest" time="0.001"/>
   <testcase name="testAzimuthGreaterThan360Throws()" classname="ObstructionsTest" time="0.001"/>
   <testcase name="testAltitudeNegativeThrows()" classname="ObstructionsTest" time="0.001"/>
   <testcase name="testValidConstruction()" classname="ObstructionsTest" time="0.001"/>
-  <testcase name="testAltitudeBeginGreaterThanEndThrows()" classname="ObstructionsTest" time="0.0"/>
+  <testcase name="testAltitudeBeginGreaterThanEndThrows()" classname="ObstructionsTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

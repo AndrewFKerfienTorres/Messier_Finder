@@ -33,7 +33,6 @@
                   <CheckBox fx:id="filterOpenCluster" mnemonicParsing="false" text="Open Cluster" />
                   <CheckBox fx:id="filterGlobularCluster" mnemonicParsing="false" text="Globular Cluster" />
                   <CheckBox fx:id="filterSupernovaRemnant" mnemonicParsing="false" text="Supernova Remnant" />
-                  <CheckBox fx:id="filterStar" mnemonicParsing="false" text="Star" />
                   <CheckBox fx:id="filterAsterism" mnemonicParsing="false" text="Asterism" />
                   <CheckBox fx:id="filterOther" mnemonicParsing="false" text="Other" />
                   <Label text="Time Visible" />

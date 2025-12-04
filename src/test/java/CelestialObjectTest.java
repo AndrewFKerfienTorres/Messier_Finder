@@ -253,7 +253,7 @@ public class CelestialObjectTest {
             CelestialObject obj = new CelestialObject("M1", "Crab Nebula");
             obj.setApparentDimensions(new CelestialObject.Circle(5.5));
             String result = obj.getApparentDimensionsString();
-            assertEquals("05h 30m 00.0s", result, "Circle diameter should be returned as string");
+            assertEquals("5° 30′ 0.000″", result, "Circle diameter should be returned as string");
         }
 
         @Test
