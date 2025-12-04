@@ -12,9 +12,7 @@ import javafx.stage.StageStyle;
 
 public class TeleGUI {
 
-    // Put your telescope data fields here
-    // Example:
-    // private Telescope telescope;
+    private Telescope telescope;
 
     public void show() {
         Stage stage = new Stage();
@@ -23,75 +21,82 @@ public class TeleGUI {
         stage.setAlwaysOnTop(true);
         stage.setResizable(false);
 
-        // CREATE INPUT FIELDS HERE
-        Label nameLabel = new Label("Telescope Name:");
-        TextField nameField = new TextField();
+        loadTelescope();
 
-        Label apertureLabel = new Label("Aperture (mm):");
-        TextField apertureField = new TextField();
+        // Input fields
+        Label fovLabel = new Label("Field of View (°):");
+        TextField fovField = new TextField();
+        fovField.setPrefWidth(120);
 
-        Label focalLengthLabel = new Label("Focal Length (mm):");
-        TextField focalLengthField = new TextField();
+        Label aperLabel = new Label("Aperture (mm):");
+        TextField aperField = new TextField();
 
-        // BUTTONS
-        Button saveButton = new Button("Save / Update");
+        // Prefill if telescope exists
+        if (telescope != null) {
+            fovField.setText(String.valueOf(telescope.getFieldOfView()));
+            aperField.setText(String.valueOf(telescope.getAperature()));
+        }
+
+        // Buttons
+        Button saveButton = new Button("Save");
         saveButton.setPrefWidth(130);
+        Button resetButton = new Button("Reset");
+        resetButton.setPrefWidth(130);
 
-        Button cancelButton = new Button("Close");
-        cancelButton.setPrefWidth(130);
-
-        saveButton.setOnAction(e -> {
-            try {
-                String name = nameField.getText().trim();
-                double aperture = Double.parseDouble(apertureField.getText());
-                double focal = Double.parseDouble(focalLengthField.getText());
-
-                if (name.isEmpty()) {
-                    showAlert("Name cannot be empty.");
-                    return;
-                }
-                if (aperture <= 0 || focal <= 0) {
-                    showAlert("Values must be positive.");
-                    return;
-                }
-
-                //Apply the data to telescope object or pass it back
-
-                stage.close();
-
-            } catch (Exception ex) {
-                showAlert("Enter valid numeric values.");
-            }
+        saveButton.setOnAction(e -> saveTelescope(fovField, aperField));
+        resetButton.setOnAction(e -> {
+            fovField.clear();
+            aperField.clear();
         });
 
-        cancelButton.setOnAction(e -> stage.close());
-
-        // LAYOUT
+        // Layout
         GridPane grid = new GridPane();
         grid.setVgap(8);
         grid.setHgap(10);
         grid.setPadding(new Insets(15));
         grid.setAlignment(Pos.CENTER);
 
-        grid.add(nameLabel, 0, 0);
-        grid.add(nameField, 1, 0);
+        grid.add(fovLabel, 0, 0);
+        grid.add(fovField, 1, 0);
+        grid.add(aperLabel, 0, 1);
+        grid.add(aperField, 1, 1);
 
-        grid.add(apertureLabel, 0, 1);
-        grid.add(apertureField, 1, 1);
-
-        grid.add(focalLengthLabel, 0, 2);
-        grid.add(focalLengthField, 1, 2);
-
-        HBox buttonRow = new HBox(10, saveButton, cancelButton);
+        HBox buttonRow = new HBox(10, saveButton, resetButton);
         buttonRow.setAlignment(Pos.CENTER);
 
         VBox layout = new VBox(12, grid, buttonRow);
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(15));
 
-        Scene scene = new Scene(layout, 330, 250);
+        Scene scene = new Scene(layout, 300, 150);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void saveTelescope(TextField fovField, TextField aperField) {
+        try {
+            double fov = Double.parseDouble(fovField.getText());
+            double aper = Double.parseDouble(aperField.getText());
+
+            telescope = new Telescope(fov, aper);
+            Serializer.save(telescope, "telescope.ser");
+        } catch (NumberFormatException ex) {
+            showAlert("Please enter valid numbers!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            showAlert("Error saving telescope data!");
+        }
+    }
+
+    private void loadTelescope() {
+        try {
+            Object obj = Serializer.load("telescope.ser");
+            if (obj instanceof Telescope) {
+                telescope = (Telescope) obj;
+            }
+        } catch (Exception e) {
+            telescope = null; // no saved telescope yet
+        }
     }
 
     private void showAlert(String message) {
@@ -102,6 +107,3 @@ public class TeleGUI {
         alert.showAndWait();
     }
 }
-
-
-
