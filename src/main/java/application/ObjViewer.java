@@ -2,11 +2,16 @@ package application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+package application;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ObjViewer extends Application {
+public class Main extends Application {
+
  
     private static CelestialObject selectedObject;
 
@@ -21,7 +26,7 @@ public class ObjViewer extends Application {
             Parent root = loader.load();
 
           
-            ObjViewerController detailController = loader.getController();
+            controller detailController = loader.getController();
             if (selectedObject != null) {
                 detailController.displayCelestialObject(selectedObject);
             }
@@ -37,9 +42,3 @@ public class ObjViewer extends Application {
     }
 
 }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-
