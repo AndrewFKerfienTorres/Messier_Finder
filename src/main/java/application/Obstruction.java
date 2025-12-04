@@ -47,10 +47,9 @@ public class Obstruction implements Serializable {
         return endAzimuth;
     }
     @Override
-public String toString() {
-    return String.format(
+    public String toString() {
+        return String.format(
         "%s  (Az: %.1f°–%.1f°, Alt: %.1f°)",
-        description, beginAzimuth, endAzimuth, endAltitude
-    );
+        description, beginAzimuth, endAzimuth, endAltitude);
 }
 }
