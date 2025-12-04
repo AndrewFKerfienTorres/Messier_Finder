@@ -1,38 +1,8 @@
-package application;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import java.io.IOException;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Optional;
-
-
-public class GUIController {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    @FXML private CheckBox filterNebula;
+@FXML private CheckBox filterNebula;
     @FXML private CheckBox filterGalaxy;
     @FXML private CheckBox filterOpenCluster;
     @FXML private CheckBox filterGlobularCluster;
     @FXML private CheckBox filterPlanetaryNebula;
-    @FXML private CheckBox filterStar;
     @FXML private CheckBox filterSupernovaRemnant;
     @FXML private CheckBox filterAsterism;
     @FXML private CheckBox filterOther;
@@ -61,7 +31,6 @@ public class GUIController {
         if (filterGlobularCluster != null){filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterPlanetaryNebula != null){filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterSupernovaRemnant != null){filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterStar != null){filterStar.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterAsterism != null){filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterOther != null){filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterJan != null){filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());}
@@ -142,12 +111,11 @@ public class GUIController {
                             (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
                             (filterOther.isSelected()&&type.equals("Other"))||
                             (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
-                            (filterStar.isSelected()&&type.equals("Star"))||
                             (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
                             (filterAsterism.isSelected()&&type.equals("Asterism"))||
                             (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
                                     &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
-                                    &&!filterSupernovaRemnant.isSelected()&&!filterStar.isSelected()&&!filterAsterism.isSelected()
+                                    &&!filterSupernovaRemnant.isSelected()&&!filterAsterism.isSelected()
                                     &&!filterPlanetaryNebula.isSelected()));
 
                     double Lat= obs.getLatitude();
@@ -249,8 +217,6 @@ public class GUIController {
     private Text altitudeText;
     @FXML
     private Text azimuthText;
-    @FXML
-    private Text sizeText;
 
     private Observatory observatory;
 
@@ -268,7 +234,6 @@ public class GUIController {
         if(declinationText!=null){declinationText.setText("");}
         if(altitudeText!=null){altitudeText.setText("");}
         if(azimuthText!=null){azimuthText.setText("");}
-        if(sizeText!=null){sizeText.setText("");}
         if(objectImage!=null){objectImage.setImage(null);}
     }
 
@@ -283,7 +248,6 @@ public class GUIController {
         magnitudeText.setText(Double.toString(obj.getApparentMagnitude()));
         String dimensionsStr = obj.getApparentDimensionsString();
         dimensionsText.setText(dimensionsStr);
-        sizeText.setText(dimensionsStr);
 
         rightAscensionText.setText(SkyPosition.doubleToHMS(obj.getRightAscension()));
         declinationText.setText(SkyPosition.doubleToDMS(obj.getDeclination()));
