@@ -118,62 +118,70 @@ public class GUIController {
 
     public void applyFilters() {
         String search= searchBar.getText().toLowerCase();
-        Observatory obsTemp=new Observatory();
-        Telescope scopeTemp=new Telescope(2,16);
+        Observatory obs=new Observatory();
+
+        try{
+            Object tele=Serializer.load("telescope.ser");
+            if(tele instanceof Telescope){
+                Telescope t=(Telescope) tele;
+                for(Node n: gridPane.getChildren()){
+                    if(!(n instanceof VBox cell)) continue;
+
+                    CelestialObject obj = (CelestialObject) cell.getUserData();
+                    if (obj == null) continue;
 
 
-        for(Node n: gridPane.getChildren()){
-            if(!(n instanceof VBox cell)) continue;
 
-            CelestialObject obj = (CelestialObject) cell.getUserData();
-            if (obj == null) continue;
+                    boolean matchSearch= ((search.isBlank())||obj.toString().toLowerCase().contains(search));
 
 
+                    String type=obj.getObjectType().toString();
+                    boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
+                            || (filterGlobularCluster.isSelected()&&type.equals("Globular Cluster"))||
+                            (filterOpenCluster.isSelected()&&type.equals("Open Cluster"))||
+                            (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
+                            (filterOther.isSelected()&&type.equals("Other"))||
+                            (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
+                            (filterStar.isSelected()&&type.equals("Star"))||
+                            (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
+                            (filterAsterism.isSelected()&&type.equals("Asterism"))||
+                            (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
+                                    &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
+                                    &&!filterSupernovaRemnant.isSelected()&&!filterStar.isSelected()&&!filterAsterism.isSelected()
+                                    &&!filterPlanetaryNebula.isSelected()));
 
-            boolean matchSearch= ((search.isBlank())||obj.toString().toLowerCase().contains(search));
+                    double Lat= obs.getLatitude();
+                    double Long= obs.getLongitude();
+                    double Dec=obj.getDeclination();
+                    double RA=obj.getRightAscension();
+                    ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
 
+                    boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(obs, now ,t))
+                            ||(filterJan.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.JANUARY).isPresent())
+                            ||(filterFeb.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.FEBRUARY).isPresent())
+                            ||(filterMar.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.MARCH).isPresent())
+                            ||(filterApr.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.APRIL).isPresent())
+                            ||(filterMay.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.MAY).isPresent())
+                            ||(filterJune.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.JUNE).isPresent())
+                            ||(filterJuly.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.JULY).isPresent())
+                            ||(filterAug.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.AUGUST).isPresent())
+                            ||(filterSept.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.SEPTEMBER).isPresent())
+                            ||(filterOct.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.OCTOBER).isPresent())
+                            ||(filterNov.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.NOVEMBER).isPresent())
+                            ||(filterDec.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.DECEMBER).isPresent())
+                            ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
+                            &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
+                            &&!filterNov.isSelected()&&!filterDec.isSelected()));
 
-            String type=obj.getObjectType().toString();
-            boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
-            || (filterGlobularCluster.isSelected()&&type.equals("Globular Cluster"))||
-                    (filterOpenCluster.isSelected()&&type.equals("Open Cluster"))||
-                    (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
-                    (filterOther.isSelected()&&type.equals("Other"))||
-                    (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
-                    (filterStar.isSelected()&&type.equals("Star"))||
-                    (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
-                    (filterAsterism.isSelected()&&type.equals("Asterism"))||
-                    (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
-                    &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
-                    &&!filterSupernovaRemnant.isSelected()&&!filterStar.isSelected()&&!filterAsterism.isSelected()
-                    &&!filterPlanetaryNebula.isSelected()));
+                    boolean show = matchSearch && matchType && matchVisibility;
+                    cell.setVisible(show);
+                    cell.setManaged(show);
+                }
 
-            double tempLat= obsTemp.getLatitude();
-            double tempLong= obsTemp.getLongitude();
-            double Dec=obj.getDeclination();
-            double RA=obj.getRightAscension();
-            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
-          
-            boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(obsTemp, now ,scopeTemp))
-            ||(filterJan.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.JANUARY).isPresent())
-            ||(filterFeb.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.FEBRUARY).isPresent())
-            ||(filterMar.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.MARCH).isPresent())
-            ||(filterApr.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.APRIL).isPresent())
-            ||(filterMay.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.MAY).isPresent())
-            ||(filterJune.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.JUNE).isPresent())
-            ||(filterJuly.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.JULY).isPresent())
-            ||(filterAug.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.AUGUST).isPresent())
-            ||(filterSept.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.SEPTEMBER).isPresent())
-            ||(filterOct.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.OCTOBER).isPresent())
-            ||(filterNov.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.NOVEMBER).isPresent())
-            ||(filterDec.isSelected()&&SkyPosition.visibilityWindowForMonth(tempLat,tempLong,RA,Dec, Month.DECEMBER).isPresent())
-            ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
-            &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
-            &&!filterNov.isSelected()&&!filterDec.isSelected()));
-
-           boolean show = matchSearch && matchType && matchVisibility;
-           cell.setVisible(show);
-           cell.setManaged(show);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
 
     }
@@ -202,8 +210,15 @@ public class GUIController {
         stage.setScene(scene);
         stage.show();
     }
-    public void switchObstruction(ActionEvent event) throws IOException{
-        new ObGUI().showPopup();
+    @FXML
+    private void switchObstruction(ActionEvent event) throws IOException {
+        ObjGUI objGUI = new ObjGUI();
+        objGUI.show();
+    }
+    @FXML
+    private void switchTelescope(ActionEvent event) throws IOException {
+        TeleGUI teleGUI = new TeleGUI();
+        teleGUI.show();
     }
     @FXML
     private Button backButton;
