@@ -51,7 +51,7 @@ public class CelestialObject implements Serializable {
 
     public String getApparentDimensionsString() {
         if (apparentDimensions instanceof Circle circle) {
-            return SkyPosition.doubleToHMS(circle.diameter());
+            return SkyPosition.doubleToDMS(circle.diameter());
         } else if (apparentDimensions instanceof Rectangle rect) {
             return SkyPosition.doubleToDMS(rect.width()) + " x " + SkyPosition.doubleToDMS(rect.height());
         } else {
