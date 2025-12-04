@@ -276,17 +276,17 @@ public class GUIController {
         if (obj == null) return;
 
         commonNameLabel.setText(obj.getCommonName());
-        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
-        objectTypeText.setText("Object Type: " + obj.getObjectType());
-        distanceText.setText("Distance from Earth: " + obj.getDistance());
-        constellationText.setText("Constellation: " + obj.getConstellation());
-        magnitudeText.setText("Apparent Magnitude: " + obj.getApparentMagnitude());
+        messierNumberText.setText(obj.getMessierIndex());
+        objectTypeText.setText(obj.getObjectType().toString());
+        distanceText.setText(obj.getDistance());
+        constellationText.setText(obj.getConstellation());
+        magnitudeText.setText(Double.toString(obj.getApparentMagnitude()));
         String dimensionsStr = obj.getApparentDimensionsString();
-        dimensionsText.setText("Dimensions: " + dimensionsStr);
-        sizeText.setText("Size: " + dimensionsStr);
+        dimensionsText.setText(dimensionsStr);
+        sizeText.setText(dimensionsStr);
 
-        rightAscensionText.setText("Right Ascension (RA): " + obj.getRightAscension());
-        declinationText.setText("Declination: " + obj.getDeclination());
+        rightAscensionText.setText(SkyPosition.doubleToHMS(obj.getRightAscension()));
+        declinationText.setText(SkyPosition.doubleToDMS(obj.getDeclination()));
 
         // altitude + azimuth right now
         ZonedDateTime now = ZonedDateTime.now();
@@ -295,8 +295,8 @@ public class GUIController {
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
                 obj.getRightAscension(), obj.getDeclination());
 
-        altitudeText.setText(String.format("Altitude: %.2f°", alt));
-        azimuthText.setText(String.format("Azimuth: %.2f°", az));
+        altitudeText.setText(String.format("%.2f°", alt));
+        azimuthText.setText(String.format("%.2f°", az));
 
 
         nextVisibleLabel.setText(computeMonthlyVisibility(obj));
@@ -332,4 +332,5 @@ public class GUIController {
                 .map(w -> "Current visible " + w[0].toLocalDateTime() + " to " + w[1].toLocalDateTime())
                 .orElse("Not visible this month");
     }
+
 }
