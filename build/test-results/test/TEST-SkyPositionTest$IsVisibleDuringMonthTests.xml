@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SkyPositionTest$IsVisibleDuringMonthTests" tests="4" skipped="0" failures="2" errors="0" timestamp="2025-12-04T23:13:04.369Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.119">
+  <properties/>
+  <testcase name="testVisibleInJune()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.047">
+    <failure message="org.opentest4j.AssertionFailedError: Object should be visible during June ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Object should be visible during June ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at app//org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at app//org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:210)
+	at app//SkyPositionTest$IsVisibleDuringMonthTests.testVisibleInJune(SkyPositionTest.java:441)
+	at java.base@25.0.1/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@25.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@25.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@25.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+</failure>
+  </testcase>
+  <testcase name="testNotVisibleInDecember()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.039"/>
+  <testcase name="testUsesYearRangesOptionalEmpty()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.019"/>
+  <testcase name="testMonthBoundaryOverlap()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.012">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at app//org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at app//org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at app//org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:179)
+	at app//SkyPositionTest$IsVisibleDuringMonthTests.testMonthBoundaryOverlap(SkyPositionTest.java:472)
+	at java.base@25.0.1/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@25.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@25.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@25.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

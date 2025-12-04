@@ -2,6 +2,8 @@ package application;
 
 import java.time.*;
 import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SkyPosition {
 
@@ -215,82 +217,129 @@ public class SkyPosition {
 
         return altitude < -18.0;
     }
+    public static Optional<List<ZonedDateTime[]>> getYearVisibilityRanges(
+            double latitudeDeg,
+            double longitudeDeg,
+            double raHours,
+            double decDeg) {
 
+        List<ZonedDateTime[]> ranges = new ArrayList<>();
 
-    public static Optional<ZonedDateTime[]> visibilityWindowForMonth(
+        ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+        ZonedDateTime start = ZonedDateTime.of(now.getYear(), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime end = start.plusYears(1).minusSeconds(1);
+
+        ZonedDateTime rangeStart = null;
+        ZonedDateTime rangeEnd = null;
+
+        Duration step = Duration.ofMinutes(20); // reuse coarse sampling
+
+        ZonedDateTime day = start;
+
+        while (!day.isAfter(end)) {
+
+            boolean dayVisible = false;
+
+            // Scan the entire day in coarse time steps
+            ZonedDateTime t = day;
+            ZonedDateTime dayEnd = day.plusDays(1);
+
+            while (!t.isAfter(dayEnd)) {
+
+                double alt = getAltitude(t, latitudeDeg, longitudeDeg, raHours, decDeg);
+                boolean dark = isSunBelow18(t, latitudeDeg, longitudeDeg);
+
+                if (alt >= 0 && dark) {
+                    dayVisible = true;
+                    break;
+                }
+
+                t = t.plus(step);
+            }
+
+            if (dayVisible) {
+                if (rangeStart == null) {
+                    // Starting a new range
+                    rangeStart = day;
+                    rangeEnd = day;
+                } else {
+                    // Continue existing range
+                    rangeEnd = day;
+                }
+            } else {
+                if (rangeStart != null) {
+                    // Close current range
+                    ranges.add(new ZonedDateTime[]{
+                            rangeStart,
+                            rangeEnd.plusDays(1).minusSeconds(1)
+                    });
+                    rangeStart = null;
+                    rangeEnd = null;
+                }
+            }
+
+            day = day.plusDays(1);
+        }
+
+        // Close final open range if necessary
+        if (rangeStart != null) {
+            ranges.add(new ZonedDateTime[]{
+                    rangeStart,
+                    rangeEnd.plusDays(1).minusSeconds(1)
+            });
+        }
+
+        // If nothing visible for the whole year
+        if (ranges.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(ranges);
+    }
+    public static boolean isVisibleDuringMonth(
             double latitudeDeg,
             double longitudeDeg,
             double raHours,
             double decDeg,
             Month month) {
 
+        Optional<List<ZonedDateTime[]>> optRanges =
+                getYearVisibilityRanges(latitudeDeg, longitudeDeg, raHours, decDeg);
+
+        // If the object is never visible all year
+        if (optRanges.isEmpty()) {
+            return false;
+        }
+
+        List<ZonedDateTime[]> ranges = optRanges.get();
+
         ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
 
-        // Determine year: if requested month already passed, use next year
         int yearToUse = (now.getMonthValue() > month.getValue())
                 ? now.getYear() + 1
                 : now.getYear();
 
-        ZonedDateTime start = ZonedDateTime.of(
-                yearToUse, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime monthStart = ZonedDateTime.of(yearToUse, month.getValue(), 1,
+                0, 0, 0, 0, ZoneOffset.UTC);
 
-        ZonedDateTime end = start.plusMonths(1).minusSeconds(1);
+        ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
 
-        Duration coarseStep = Duration.ofMinutes(20);
-        Duration fineStep = Duration.ofMinutes(1);
-        double minAlt = 0.0;
+        for (ZonedDateTime[] range : ranges) {
+            ZonedDateTime rangeStart = range[0];
+            ZonedDateTime rangeEnd = range[1];
 
-        boolean foundWindow = false;
-        ZonedDateTime coarseHit = null;
+            // Overlap if: rangeStart ≤ monthEnd AND rangeEnd ≥ monthStart
+            boolean overlap =
+                    !rangeEnd.isBefore(monthStart) &&
+                            !rangeStart.isAfter(monthEnd);
 
-        // --- COARSE SEARCH ---
-        ZonedDateTime t = start;
-        while (!t.isAfter(end)) {
-            double alt = getAltitude(t, latitudeDeg, longitudeDeg, raHours, decDeg);
-            boolean dark = isSunBelow18(t, latitudeDeg, longitudeDeg);
-
-            if (alt >= minAlt && dark) {
-                coarseHit = t;
-                foundWindow = true;
-                break;
+            if (overlap) {
+                return true;
             }
-
-            t = t.plus(coarseStep);
         }
 
-        if (!foundWindow) {
-            return Optional.empty();
-        }
-
-        // --- FINE SEARCH BACKWARD ---
-        ZonedDateTime windowStart = coarseHit;
-        while (true) {
-            ZonedDateTime prev = windowStart.minus(fineStep);
-            if (prev.isBefore(start)) break;
-
-            double alt = getAltitude(prev, latitudeDeg, longitudeDeg, raHours, decDeg);
-            boolean dark = isSunBelow18(prev, latitudeDeg, longitudeDeg);
-
-            if (alt < minAlt || !dark) break;
-
-            windowStart = prev;
-        }
-
-        // --- FINE SEARCH FORWARD ---
-        ZonedDateTime windowEnd = coarseHit;
-        while (true) {
-            ZonedDateTime next = windowEnd.plus(fineStep);
-            if (next.isAfter(end)) break;
-
-            double alt = getAltitude(next, latitudeDeg, longitudeDeg, raHours, decDeg);
-            boolean dark = isSunBelow18(next, latitudeDeg, longitudeDeg);
-
-            if (alt < minAlt || !dark) break;
-
-            windowEnd = next;
-        }
-
-        return Optional.of(new ZonedDateTime[]{ windowStart, windowEnd });
+        return false;
     }
+
 
 }

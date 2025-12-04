@@ -425,96 +425,66 @@ class SkyPositionTest {
     }
 
     @Nested
-    class DecemberVisibility {
+    class IsVisibleDuringMonthTests {
 
         @Test
-        public void testM1() {
-            double latitude = 43.45692;
-            double longitude = -76.50017;
-            Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
-                    latitude, longitude, 5.58, 22.01, Month.DECEMBER
-            );
+        void testVisibleInJune() {
+            double lat = 40.0;
+            double lon = -105.0;
 
-            assertTrue(window.isPresent(), "M1 should be visible in December");
+            double ra = 12.0;
+            double dec = -20.0;
 
-            ZonedDateTime start = window.get()[0];
-            ZonedDateTime end = window.get()[1];
+            boolean visible = SkyPosition.isVisibleDuringMonth(
+                    lat, lon, ra, dec, Month.JUNE);
 
-            ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 00, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
-
-            assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:" + expectedStart + " Actual" + start);
-            assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:" + expectedEnd + " Actual" + end);
+            assertTrue(visible, "Object should be visible during June");
         }
 
         @Test
-        public void testM31() {
-            double latitude = 43.43000;
-            double longitude = -76.55012;
-            Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
-                    latitude, longitude, 0.71, 41.27, Month.DECEMBER
-            );
+        void testNotVisibleInDecember() {
+            double lat = 60.0;
+            double lon = 10.0;
 
-            assertTrue(window.isPresent(), "M31 should be visible in December");
+            double ra = 10.0;
+            double dec = -80.0;  // Never visible at this latitude
 
-            ZonedDateTime start = window.get()[0];
-            ZonedDateTime end = window.get()[1];
+            boolean visible = SkyPosition.isVisibleDuringMonth(
+                    lat, lon, ra, dec, Month.DECEMBER);
 
-            ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
-
-            assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:" + expectedStart + " Actual" + start);
-            assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:" + expectedEnd + " Actual" + end);
-
+            assertFalse(visible, "Object that never rises should be invisible in all months");
         }
 
         @Test
-        public void testM42() {
-            double latitude = 43.43000;
-            double longitude = -76.55012;
-            Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
-                    latitude, longitude, 5.59, -5.45, Month.DECEMBER
-            );
+        void testMonthBoundaryOverlap() {
+            double lat = 40.0;
+            double lon = -105.0;
 
-            assertTrue(window.isPresent(), "M42 should be visible in December");
+            double ra = 6.0;
+            double dec = +20.0;   // Visible near February–April
 
-            ZonedDateTime start = window.get()[0];
-            ZonedDateTime end = window.get()[1];
+            boolean visibleInFeb = SkyPosition.isVisibleDuringMonth(
+                    lat, lon, ra, dec, Month.FEBRUARY);
 
-            ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 22, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 10, 37, 0, 0, ZoneOffset.UTC);
+            boolean visibleInJan = SkyPosition.isVisibleDuringMonth(
+                    lat, lon, ra, dec, Month.JANUARY);
 
-            assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:" + expectedStart + " Actual" + start);
-            assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:" + expectedEnd + " Actual" + end);
+            assertTrue(visibleInFeb);
+            assertFalse(visibleInJan);
         }
 
         @Test
-        public void testM13() {
-            double latitude = 43.43000;
-            double longitude = -76.55012;
-            Optional<ZonedDateTime[]> window = SkyPosition.visibilityWindowForMonth(
-                    latitude, longitude, 16.70, 36.46, Month.DECEMBER
-            );
+        void testUsesYearRangesOptionalEmpty() {
+            double lat = 60.0;
+            double lon = 10.0;
 
-            assertTrue(window.isPresent(), "M13 should be visible in December");
+            double ra = 8.0;
+            double dec = -75.0;    // Never visible
 
-            ZonedDateTime start = window.get()[0];
-            ZonedDateTime end = window.get()[1];
+            boolean anyMonthVisible = SkyPosition.isVisibleDuringMonth(
+                    lat, lon, ra, dec, Month.MAY);
 
-            ZonedDateTime expectedStart = ZonedDateTime.of(2025, 12, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-            ZonedDateTime expectedEnd = ZonedDateTime.of(2025, 12, 1, 2, 04, 0, 0, ZoneOffset.UTC);
-
-            assertTrue(Math.abs(start.toEpochSecond() - expectedStart.toEpochSecond()) <= 60,
-                    "Start time differs from expected:" + expectedStart + " Actual" + start);
-            assertTrue(Math.abs(end.toEpochSecond() - expectedEnd.toEpochSecond()) <= 60,
-                    "End time differs from expected:" + expectedEnd + " Actual" + end);
-
+            assertFalse(anyMonthVisible);
         }
     }
 }
