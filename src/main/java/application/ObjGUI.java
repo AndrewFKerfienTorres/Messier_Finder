@@ -145,7 +145,6 @@ public class ObjGUI {
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initOwner(owner);
         alert.setTitle("Input Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
