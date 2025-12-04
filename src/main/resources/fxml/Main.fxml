@@ -112,7 +112,7 @@
 
     <!-- Back Button -->
     <Button fx:id="backButton"
-            onAction="#handleBackButton"
+            onAction="#switchHome"
             prefHeight="28" prefWidth="35"
             style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;"
             text="⬅"
