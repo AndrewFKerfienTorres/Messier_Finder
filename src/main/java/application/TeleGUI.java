@@ -19,7 +19,7 @@ public class TeleGUI {
         stage.setTitle("Telescope Settings");
         stage.initStyle(StageStyle.UTILITY);
         stage.setAlwaysOnTop(true);
-        stage.setResizable(false);
+        stage.setResizable(true);
 
         loadTelescope();
 
