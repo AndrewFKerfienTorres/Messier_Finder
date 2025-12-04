@@ -149,9 +149,9 @@ public class ObjGUI {
         alert.setHeaderText(null);
         alert.setContentText(message);
         if (stage != null) {
-        alert.initOwner(stage);
+            alert.initOwner(stage);
         }
-    alert.showAndWait();
+        alert.showAndWait();
     }
  }
 
