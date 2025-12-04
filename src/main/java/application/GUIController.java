@@ -9,13 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 
 public class GUIController {
@@ -74,7 +78,8 @@ public class GUIController {
         if (filterDec != null){filterDec.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterIsVis != null){filterIsVis.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (searchBar != null){searchBar.textProperty().addListener((o, old, now) -> applyFilters());}
-
+        clearFields();
+        observatory = new Observatory();
 
 
         attachObjectsToVBox();
@@ -85,7 +90,6 @@ public class GUIController {
 
         try{
             Catalogue.loadCatalogue();
-            Catalogue c =Catalogue.getInstance();
         }
         catch(Exception e){
             System.out.println("An error has occurred: "+e);
@@ -117,8 +121,7 @@ public class GUIController {
         Observatory obsTemp=new Observatory();
         Telescope scopeTemp=new Telescope(2,16);
 
-        VBox[] nodes= new VBox[110];
-        int count=0;
+
         for(Node n: gridPane.getChildren()){
             if(!(n instanceof VBox cell)) continue;
 
@@ -174,12 +177,6 @@ public class GUIController {
         }
 
     }
-    private void format(VBox[] nodes){
-        int colIndex=0;
-        int rowIndex=0;
-        gridPane.getChildren().clear();
-        gridPane.getChildren().addAll(nodes);
-    }
     public void switchHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/home2.fxml"));
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
@@ -188,10 +185,17 @@ public class GUIController {
         stage.show();
     }
     public void switchObject(ActionEvent event) throws IOException {
+       Button clicked=(Button)event.getSource();
+       Parent cell=clicked.getParent();
+       CelestialObject obj=(CelestialObject) cell.getUserData();
+
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Main.fxml"));
         Parent root = loader.load();
 
         GUIController controller = loader.getController();
+        controller.displayCelestialObject(obj);
 
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         scene= new Scene(root);
@@ -200,5 +204,117 @@ public class GUIController {
     }
     public void switchObstruction(ActionEvent event) throws IOException{
         new ObGUI().showPopup();
+    }
+    @FXML
+    private Button backButton;
+    @FXML
+    private ImageView objectImage;
+    @FXML
+    private javafx.scene.control.Label commonNameLabel;
+    @FXML
+    private javafx.scene.control.Label nextVisibleLabel;
+
+    @FXML
+    private Text messierNumberText;
+    @FXML
+    private Text objectTypeText;
+    @FXML
+    private Text distanceText;
+    @FXML
+    private Text constellationText;
+    @FXML
+    private Text magnitudeText;
+    @FXML
+    private Text dimensionsText;
+    @FXML
+    private Text rightAscensionText;
+    @FXML
+    private Text declinationText;
+    @FXML
+    private Text altitudeText;
+    @FXML
+    private Text azimuthText;
+    @FXML
+    private Text sizeText;
+
+    private Observatory observatory;
+
+
+    private void clearFields() {
+        if(commonNameLabel!=null){commonNameLabel.setText("");}
+        if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
+        if(messierNumberText!=null){messierNumberText.setText("");}
+        if(objectTypeText!=null){objectTypeText.setText("");}
+        if(distanceText!=null){distanceText.setText("");}
+        if(constellationText!=null){constellationText.setText("");}
+        if(magnitudeText!=null){magnitudeText.setText("");}
+        if(dimensionsText!=null){dimensionsText.setText("");}
+        if(rightAscensionText!=null){rightAscensionText.setText("");}
+        if(declinationText!=null){declinationText.setText("");}
+        if(altitudeText!=null){altitudeText.setText("");}
+        if(azimuthText!=null){azimuthText.setText("");}
+        if(sizeText!=null){sizeText.setText("");}
+        if(objectImage!=null){objectImage.setImage(null);}
+    }
+
+    public void displayCelestialObject(CelestialObject obj) {
+        if (obj == null) return;
+
+        commonNameLabel.setText(obj.getCommonName());
+        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
+        objectTypeText.setText("Object Type: " + obj.getObjectType());
+        distanceText.setText("Distance from Earth: " + obj.getDistance());
+        constellationText.setText("Constellation: " + obj.getConstellation());
+        magnitudeText.setText("Apparent Magnitude: " + obj.getApparentMagnitude());
+        String dimensionsStr = obj.getApparentDimensionsString();
+        dimensionsText.setText("Dimensions: " + dimensionsStr);
+        sizeText.setText("Size: " + dimensionsStr);
+
+        rightAscensionText.setText("Right Ascension (RA): " + obj.getRightAscension());
+        declinationText.setText("Declination: " + obj.getDeclination());
+
+        // altitude + azimuth right now
+        ZonedDateTime now = ZonedDateTime.now();
+        double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
+                obj.getRightAscension(), obj.getDeclination());
+        double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
+                obj.getRightAscension(), obj.getDeclination());
+
+        altitudeText.setText(String.format("Altitude: %.2f°", alt));
+        azimuthText.setText(String.format("Azimuth: %.2f°", az));
+
+
+        nextVisibleLabel.setText(computeMonthlyVisibility(obj));
+
+        // image
+        if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
+            try {
+                Image img = new Image(getClass().getResourceAsStream(obj.getImagePath()));
+                objectImage.setImage(img);
+            } catch (Exception e) {
+                System.err.println("Failed to load image: " + obj.getImagePath());
+                objectImage.setImage(null);
+            }
+        } else {
+            objectImage.setImage(null);
+        }
+    }
+
+
+    private String computeMonthlyVisibility(CelestialObject obj) {
+        Month currentMonth = ZonedDateTime.now().getMonth();
+
+        Optional<ZonedDateTime[]> window =
+                SkyPosition.visibilityWindowForMonth(
+                        observatory.getLatitude(),
+                        observatory.getLongitude(),
+                        obj.getRightAscension(),
+                        obj.getDeclination(),
+                        currentMonth
+                );
+
+        return window
+                .map(w -> "Current visible " + w[0].toLocalDateTime() + " to " + w[1].toLocalDateTime())
+                .orElse("Not visible this month");
     }
 }
