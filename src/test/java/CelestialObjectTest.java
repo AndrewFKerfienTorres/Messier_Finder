@@ -43,7 +43,7 @@ public class CelestialObjectTest {
         //assertEquals(7.4,m100.getApparentDimensions()); //apparent dimensions
         assertEquals(9.3,m100.getApparentMagnitude()); //apparent magnitude
         assertEquals(ObjectType.GALAXY,m100.getObjectType()); //type
-        assertEquals("55000 kly",m100.getDistance()); //distance
+        assertEquals("55,000 kly",m100.getDistance()); //distance
         assertEquals("Coma Berenices",m100.getConstellation()); //constellation
 
     }
@@ -261,7 +261,7 @@ public class CelestialObjectTest {
             CelestialObject obj = new CelestialObject("M2", "Some Rectangle Object");
             obj.setApparentDimensions(new CelestialObject.Rectangle(2.0, 3.5));
             String result = obj.getApparentDimensionsString();
-            assertEquals("02h 00m 00.0s x 3° 30′ 0.000″", result, "Rectangle dimensions should be returned as 'width x height'");
+            assertEquals("2° 0′ 0.000″ x 3° 30′ 0.000″", result, "Rectangle dimensions should be returned as 'width x height'");
         }
 
         @Test

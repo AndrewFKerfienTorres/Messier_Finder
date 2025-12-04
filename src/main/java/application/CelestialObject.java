@@ -53,7 +53,7 @@ public class CelestialObject implements Serializable {
         if (apparentDimensions instanceof Circle circle) {
             return SkyPosition.doubleToHMS(circle.diameter());
         } else if (apparentDimensions instanceof Rectangle rect) {
-            return SkyPosition.doubleToHMS(rect.width()) + " x " + SkyPosition.doubleToDMS(rect.height());
+            return SkyPosition.doubleToDMS(rect.width()) + " x " + SkyPosition.doubleToDMS(rect.height());
         } else {
             return "Unknown";
         }

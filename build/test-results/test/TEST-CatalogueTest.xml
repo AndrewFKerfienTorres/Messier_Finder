@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CatalogueTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-04T13:19:13.678Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.048">
+<testsuite name="CatalogueTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-04T15:04:22.740Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.054">
   <properties/>
-  <testcase name="canAddItemsToCatalogue()" classname="CatalogueTest" time="0.012"/>
-  <testcase name="CanIterate()" classname="CatalogueTest" time="0.019"/>
+  <testcase name="canAddItemsToCatalogue()" classname="CatalogueTest" time="0.016"/>
+  <testcase name="CanIterate()" classname="CatalogueTest" time="0.02"/>
   <testcase name="CatalogueCanBeLoaded()" classname="CatalogueTest" time="0.007"/>
   <testcase name="exceptionHandling()" classname="CatalogueTest" time="0.007"/>
   <testcase name="CatalogueCanBeInstantiatedWithSingletonPattern()" classname="CatalogueTest" time="0.002"/>

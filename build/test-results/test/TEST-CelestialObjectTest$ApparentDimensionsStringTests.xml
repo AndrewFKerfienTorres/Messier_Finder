@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CelestialObjectTest$ApparentDimensionsStringTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-12-04T13:19:13.741Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.004">
+<testsuite name="CelestialObjectTest$ApparentDimensionsStringTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-12-04T15:04:22.808Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.005">
   <properties/>
   <testcase name="testRectangleDimensions()" classname="CelestialObjectTest$ApparentDimensionsStringTests" time="0.002"/>
   <testcase name="testCircleDimensions()" classname="CelestialObjectTest$ApparentDimensionsStringTests" time="0.001"/>
-  <testcase name="testNullDimensions()" classname="CelestialObjectTest$ApparentDimensionsStringTests" time="0.001"/>
+  <testcase name="testNullDimensions()" classname="CelestialObjectTest$ApparentDimensionsStringTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
