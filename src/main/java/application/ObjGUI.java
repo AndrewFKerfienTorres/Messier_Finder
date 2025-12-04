@@ -153,7 +153,7 @@ public class ObjGUI {
         }
         alert.showAndWait();
     }
- }
+ 
 
     private void loadObstructions() {
         try {
