@@ -13,9 +13,10 @@ import javafx.stage.StageStyle;
 public class TeleGUI {
 
     private Telescope telescope;
+    private Stage stage;  
 
     public void show() {
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.setTitle("Telescope Settings");
         stage.initStyle(StageStyle.UTILITY);
         stage.setAlwaysOnTop(true);
@@ -101,10 +102,13 @@ public class TeleGUI {
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alret.initOwner(owner);
+        alert.initOwner(owner);
         alert.setTitle("Input Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.showAndWait();
+        if (stage != null) {
+        alert.initOwner(stage);
+    }
+    alert.showAndWait();
     }
 }
