@@ -221,6 +221,10 @@ public class GUIController {
 
         stage.setOnHidden(e -> refreshHomeGUI());
     }
+ private void refreshHomeGUI(){
+        System.out.println("refreshed");
+    }
+
     @FXML
     private Button backButton;
     @FXML
@@ -331,4 +335,5 @@ public class GUIController {
     }
 
 }
+
 
