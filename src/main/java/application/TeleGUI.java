@@ -15,7 +15,7 @@ public class TeleGUI {
     private Telescope telescope;
     private Stage stage;  
 
-    public void show() {
+    public Stage show() {
         stage = new Stage();
         stage.setTitle("Telescope Settings");
         stage.initStyle(StageStyle.UTILITY);
@@ -72,6 +72,7 @@ public class TeleGUI {
         Scene scene = new Scene(layout, 300, 150);
         stage.setScene(scene);
         stage.show();
+        return stage;
     }
 
     private void saveTelescope(TextField fovField, TextField aperField) {

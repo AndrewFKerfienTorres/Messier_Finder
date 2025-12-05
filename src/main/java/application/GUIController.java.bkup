@@ -210,12 +210,16 @@ public class GUIController {
     @FXML
     private void switchObstruction(ActionEvent event) throws IOException {
         ObjGUI objGUI = new ObjGUI();
-        objGUI.show();
+        Stage stage = objGUI.show();
+
+        stage.setOnHidden(e -> refreshHomeGUI());
     }
     @FXML
     private void switchTelescope(ActionEvent event) throws IOException {
         TeleGUI teleGUI = new TeleGUI();
-        teleGUI.show();
+        Stage stage = teleGUI.show();
+
+        stage.setOnHidden(e -> refreshHomeGUI());
     }
     @FXML
     private Button backButton;
