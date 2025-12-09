@@ -14,7 +14,7 @@ public class Serializer {
         CelestialObject m4 = new CelestialObject("M4","Spider Globular Cluster");
         CelestialObject m5 = new CelestialObject("M5","Rose Cluster");
         CelestialObject m6 = new CelestialObject("M6","Butterfly Cluster");
-        CelestialObject m7 = new CelestialObject("M7","Ptolemy's Cluster");
+        CelestialObject m7 = new CelestialObject("M7","Ptolemy'S Cluster");
         CelestialObject m8 = new CelestialObject("M8","Lagoon Nebula");
         CelestialObject m9 = new CelestialObject("M9","—");
         CelestialObject m10 = new CelestialObject("M10","—");
@@ -50,7 +50,7 @@ public class Serializer {
         CelestialObject m40 = new CelestialObject("M40","Winnecke 4");
         CelestialObject m41 = new CelestialObject("M41","Little Beehive Cluster");
         CelestialObject m42 = new CelestialObject("M42","Great Orion Nebula");
-        CelestialObject m43 = new CelestialObject("M43","De Mairan's Nebula");
+        CelestialObject m43 = new CelestialObject("M43","De Mairan'S Nebula");
         CelestialObject m44 = new CelestialObject("M44","Beehive Cluster Or Praesepe");
         CelestialObject m45 = new CelestialObject("M45","Pleiades, Seven Sisters Or Subaru");
         CelestialObject m46 = new CelestialObject("M46","—");
@@ -81,14 +81,14 @@ public class Serializer {
         CelestialObject m71 = new CelestialObject("M71","Angelfish Cluster");
         CelestialObject m72 = new CelestialObject("M72","—");
         CelestialObject m73 = new CelestialObject("M73","—");
-        CelestialObject m74 = new CelestialObject("M74","Phantom Galaxy");
+        CelestialObject m74 = new CelestialObject("M74","Phantom Galaxy[91]");
         CelestialObject m75 = new CelestialObject("M75","—");
         CelestialObject m76 = new CelestialObject("M76","Little Dumbbell Nebula");
         CelestialObject m77 = new CelestialObject("M77","Cetus A Or Squid Galaxy");
         CelestialObject m78 = new CelestialObject("M78","—");
         CelestialObject m79 = new CelestialObject("M79","—");
         CelestialObject m80 = new CelestialObject("M80","—");
-        CelestialObject m81 = new CelestialObject("M81","Bode's Galaxy");
+        CelestialObject m81 = new CelestialObject("M81","Bode'S Galaxy");
         CelestialObject m82 = new CelestialObject("M82","Cigar Galaxy");
         CelestialObject m83 = new CelestialObject("M83","Southern Pinwheel Galaxy");
         CelestialObject m84 = new CelestialObject("M84","—");
@@ -101,12 +101,12 @@ public class Serializer {
         CelestialObject m91 = new CelestialObject("M91","—");
         CelestialObject m92 = new CelestialObject("M92","—");
         CelestialObject m93 = new CelestialObject("M93","Critter Cluster");
-        CelestialObject m94 = new CelestialObject("M94","Crocodile Eye Or Cat's Eye Galaxy");
+        CelestialObject m94 = new CelestialObject("M94","Crocodile Eye Or Cat'S Eye Galaxy");
         CelestialObject m95 = new CelestialObject("M95","—");
         CelestialObject m96 = new CelestialObject("M96","—");
         CelestialObject m97 = new CelestialObject("M97","Owl Nebula");
         CelestialObject m98 = new CelestialObject("M98","—");
-        CelestialObject m99 = new CelestialObject("M99","St. Catherine's Wheel");
+        CelestialObject m99 = new CelestialObject("M99","St. Catherine'S Wheel");
         CelestialObject m100 = new CelestialObject("M100","Mirror Galaxy");
         CelestialObject m101 = new CelestialObject("M101","Pinwheel Galaxy");
         CelestialObject m102 = new CelestialObject("M102","Spindle Galaxy");
@@ -627,7 +627,7 @@ public class Serializer {
         m60.setDistance("51,000–59,000 kly");
         m61.setDistance("50,200–54,800 kly");
         m62.setDistance("22.2 kly");
-        m63.setDistance("37,000 kly");
+        m63.setDistance("37000 kly");
         m64.setDistance("22,000–26,000 kly");
         m65.setDistance("41,000–42,000 kly");
         m66.setDistance("31,000–41,000 kly");
@@ -641,13 +641,13 @@ public class Serializer {
         m74.setDistance("24,000–36,000 kly");
         m75.setDistance("67.5 kly");
         m76.setDistance("2.5 kly");
-        m77.setDistance("47,000 kly");
+        m77.setDistance("47000 kly");
         m78.setDistance("1.6 kly");
         m79.setDistance("41 kly");
         m80.setDistance("32.6 kly");
         m81.setDistance("11,400–12,200 kly");
         m82.setDistance("10,700–12,300 kly");
-        m83.setDistance("14,700 kly");
+        m83.setDistance("14700 kly");
         m84.setDistance("57,000–63,000 kly");
         m85.setDistance("56,000–64,000 kly");
         m86.setDistance("49,000–55,000 kly");
@@ -662,17 +662,17 @@ public class Serializer {
         m95.setDistance("31,200–34,000 kly");
         m96.setDistance("28,000–34,000 kly");
         m97.setDistance("2.03 kly");
-        m98.setDistance("44,400 kly");
+        m98.setDistance("44400 kly");
         m99.setDistance("44,700–55,700 kly");
-        m100.setDistance("55,000 kly");
+        m100.setDistance("55000 kly");
         m101.setDistance("19,100–22,400 kly");
-        m102.setDistance("50,000 kly");
+        m102.setDistance("50000 kly");
         m103.setDistance("10 kly");
         m104.setDistance("28,700–30,900 kly");
         m105.setDistance("30,400–33,600 kly");
         m106.setDistance("22,200–25,200 kly");
         m107.setDistance("20.9 kly");
-        m108.setDistance("46,000 kly");
+        m108.setDistance("46000 kly");
         m109.setDistance("59,500–107,500 kly");
         m110.setDistance("2,600–2,780 kly");
 
@@ -870,33 +870,33 @@ public class Serializer {
         m67.setObjectType(ObjectType.OPEN_CLUSTER);
         m93.setObjectType(ObjectType.OPEN_CLUSTER);
         m103.setObjectType(ObjectType.OPEN_CLUSTER);
-        m31.setObjectType(ObjectType.GALAXY);
-        m33.setObjectType(ObjectType.GALAXY);
-        m51.setObjectType(ObjectType.GALAXY);
-        m58.setObjectType(ObjectType.GALAXY);
-        m61.setObjectType(ObjectType.GALAXY);
-        m63.setObjectType(ObjectType.GALAXY);
-        m64.setObjectType(ObjectType.GALAXY);
-        m65.setObjectType(ObjectType.GALAXY);
-        m66.setObjectType(ObjectType.GALAXY);
-        m74.setObjectType(ObjectType.GALAXY);
-        m77.setObjectType(ObjectType.GALAXY);
-        m81.setObjectType(ObjectType.GALAXY);
-        m83.setObjectType(ObjectType.GALAXY);
-        m88.setObjectType(ObjectType.GALAXY);
-        m90.setObjectType(ObjectType.GALAXY);
-        m91.setObjectType(ObjectType.GALAXY);
-        m94.setObjectType(ObjectType.GALAXY);
-        m95.setObjectType(ObjectType.GALAXY);
-        m96.setObjectType(ObjectType.GALAXY);
-        m98.setObjectType(ObjectType.GALAXY);
-        m99.setObjectType(ObjectType.GALAXY);
+        m31.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m33.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m51.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m58.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m61.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m63.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m64.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m65.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m66.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m74.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m77.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m81.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m83.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m88.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m90.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m91.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m94.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m95.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m96.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m98.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m99.setObjectType(ObjectType.GLOBULAR_CLUSTER);
         m100.setObjectType(ObjectType.GALAXY);
-        m101.setObjectType(ObjectType.GALAXY);
-        m104.setObjectType(ObjectType.GALAXY);
-        m106.setObjectType(ObjectType.GALAXY);
-        m108.setObjectType(ObjectType.GALAXY);
-        m109.setObjectType(ObjectType.GALAXY);
+        m101.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m104.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m106.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m108.setObjectType(ObjectType.GLOBULAR_CLUSTER);
+        m109.setObjectType(ObjectType.GLOBULAR_CLUSTER);
         m78.setObjectType(ObjectType.NEBULA);
 
         m2.setApparentDimensions(new CelestialObject.Circle(0.266666666666667));
@@ -1241,8 +1241,6 @@ public class Serializer {
             System.out.println(o.getMessierIndex());
         }
 
-
-
         try{
             ObjectOutputStream sc = new ObjectOutputStream(new FileOutputStream(path + File.separator +"catalogue.ser"));
             sc.writeObject(c);
@@ -1253,9 +1251,20 @@ public class Serializer {
             e.printStackTrace();
         }
 
+        //observatory serializing
+        Observatory obs = new Observatory(); // default constructor
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/observatory.ser")
+        )) {
+            oos.writeObject(obs); // serialize the single observatory
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
-    
+
     public static void save(Object obj, String fileName) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
             out.writeObject(obj);
@@ -1267,7 +1276,6 @@ public class Serializer {
             return in.readObject();
         }
     }
-    
-    
-    
+
+
 }
