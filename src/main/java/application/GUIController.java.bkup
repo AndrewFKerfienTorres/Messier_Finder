@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +26,6 @@ import java.util.Optional;
 public class GUIController {
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
     @FXML private CheckBox filterNebula;
     @FXML private CheckBox filterGalaxy;
@@ -116,12 +116,7 @@ public class GUIController {
 
     public void applyFilters() {
         String search= searchBar.getText().toLowerCase();
-        Observatory obs=new Observatory();
 
-        try{
-            Object tele=Serializer.load("telescope.ser");
-            if(tele instanceof Telescope){
-                Telescope t=(Telescope) tele;
                 for(Node n: gridPane.getChildren()){
                     if(!(n instanceof VBox cell)) continue;
 
@@ -147,13 +142,13 @@ public class GUIController {
                                     &&!filterSupernovaRemnant.isSelected()&&!filterAsterism.isSelected()
                                     &&!filterPlanetaryNebula.isSelected()));
 
-                    double Lat= obs.getLatitude();
-                    double Long= obs.getLongitude();
+                    double Lat= observatory.getLatitude();
+                    double Long= observatory.getLongitude();
                     double Dec=obj.getDeclination();
                     double RA=obj.getRightAscension();
                     ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
 
-                    boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(obs, now ,t))
+                    boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(observatory, now ,observatory.getTelescope()))
                             ||(filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
                             ||(filterFeb.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.FEBRUARY))
                             ||(filterMar.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MARCH))
@@ -176,12 +171,7 @@ public class GUIController {
                 }
 
             }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
-    }
     public void switchHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/home2.fxml"));
         stage=(Stage)((Node)event.getSource()).getScene().getWindow();
@@ -190,9 +180,9 @@ public class GUIController {
         stage.show();
     }
     public void switchObject(ActionEvent event) throws IOException {
-       Button clicked=(Button)event.getSource();
-       Parent cell=clicked.getParent();
-       CelestialObject obj=(CelestialObject) cell.getUserData();
+        Button clicked=(Button)event.getSource();
+        Parent cell=clicked.getParent();
+        CelestialObject obj=(CelestialObject) cell.getUserData();
 
 
 
@@ -208,7 +198,7 @@ public class GUIController {
         stage.show();
     }
     @FXML
-     private void switchObstruction(ActionEvent event) throws IOException {
+    private void switchObstruction(ActionEvent event) throws IOException {
         ObjGUI objGUI = new ObjGUI();
         Stage stage = objGUI.show();
 
@@ -224,7 +214,7 @@ public class GUIController {
     private void refreshHomeGUI(){
         System.out.println("refreshed");
     }
-   @FXML private Button backButton;
+    @FXML private Button backButton;
     @FXML private ImageView objectImage;
     @FXML private Label commonNameLabel;
     @FXML private Label nextVisibleLabel;
@@ -243,11 +233,6 @@ public class GUIController {
 
     private Observatory observatory;
 
-    @FXML
-    private void initialize() {
-        clearFields();
-        observatory = new Observatory();
-    }
 
     private void clearFields() {
         commonNameLabel.setText("");
@@ -270,29 +255,29 @@ public class GUIController {
 
         commonNameLabel.setText(obj.getCommonName());
         messierNumberText.setText(obj.getMessierIndex());
-        objectTypeText.setText(obj.getObjectType());
+        objectTypeText.setText(obj.getObjectType().toString());
         distanceText.setText(obj.getDistance());
         constellationText.setText(obj.getConstellation());
-        magnitudeText.setText(obj.getApparentMagnitude());
+        magnitudeText.setText(Double.toString(obj.getApparentMagnitude()));
         String dimensionsStr = obj.getApparentDimensionsString();
         dimensionsText.setText(dimensionsStr);
-        
 
-        rightAscensionText.setText(obj.getRightAscension());
-        declinationText.setText(obj.getDeclination());
+
+        rightAscensionText.setText(SkyPosition.doubleToHMS(obj.getRightAscension()));
+        declinationText.setText(SkyPosition.doubleToDMS(obj.getDeclination()));
 
         // altitude + azimuth
         ZonedDateTime now = ZonedDateTime.now();
         double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
-                                             obj.getRightAscension(), obj.getDeclination());
+                obj.getRightAscension(), obj.getDeclination());
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
-                                           obj.getRightAscension(), obj.getDeclination());
+                obj.getRightAscension(), obj.getDeclination());
 
         altitudeText.setText(String.format("%.2f°", alt));
         azimuthText.setText(String.format("%.2f°", az));
 
         // monthly visibility periods
-        nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
+       // nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
 
         // image
         if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
@@ -308,7 +293,7 @@ public class GUIController {
         }
     }
 
-    private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
+   /* private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
         StringBuilder sb = new StringBuilder();
         Observatory observ = this.observatory;
 
@@ -364,6 +349,5 @@ public class GUIController {
     private String capitalize(String s) {
         String lower = s.toLowerCase();
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
-    }
+    }*/
 }
-
