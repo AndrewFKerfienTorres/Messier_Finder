@@ -77,9 +77,18 @@ public class GUIController {
         if (filterIsVis != null){filterIsVis.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (searchBar != null){searchBar.textProperty().addListener((o, old, now) -> applyFilters());}
         clearFields();
-        observatory = new Observatory();
 
-
+        try {
+            Object obj = Serializer.load("observatory.ser");
+            if (obj instanceof Observatory) {
+                observatory = (Observatory) obj;  // use the updated observatory instance
+            } else {
+                observatory = new Observatory();  // fallback if loading fails
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+            observatory = new Observatory();  // fallback if an exception occurs
+        }
         attachObjectsToVBox();
 
     }
@@ -351,4 +360,5 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }*/
 }
+
 
