@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -14,90 +13,60 @@
 <StackPane prefHeight="600" prefWidth="800" style="-fx-background-color: #D6D5D6;"
            xmlns="http://javafx.com/javafx/25"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="application.GUIController">
+           fx:controller="application.controller">
 
     <VBox alignment="TOP_CENTER" spacing="25">
         <padding>
             <Insets bottom="20" left="20" right="20" top="20"/>
         </padding>
 
-        <!-- Image Section -->
         <StackPane maxWidth="500" minHeight="250"
                    style="-fx-background-color: #C5C4C5; -fx-effect: dropshadow(gaussian, #00000050, 5, 0, 2, 2);">
             <ImageView fx:id="objectImage" fitHeight="220" preserveRatio="true"/>
         </StackPane>
 
-        <!-- Name & Next Visible -->
-        <VBox alignment="CENTER" spacing="5">
-            <Label fx:id="commonNameLabel">
+      
+        <VBox alignment="CENTER" spacing="8">
+
+            <Label fx:id="commonNameLabel" text="[object common name]">
                 <font><Font name="Yu Gothic UI" size="23"/></font>
             </Label>
-            <Label fx:id="nextVisibleLabel">
-                <font><Font name="Yu Gothic UI" size="11"/></font>
-            </Label>
+
+            <!--  new Visibility ScrollPane SHOULD work haha -->
+            <StackPane maxWidth="550" prefHeight="160"
+                       style="-fx-background-color: #EFEFEF; -fx-border-color: #A0A0A0; -fx-padding: 5;">
+                <ScrollPane fx:id="visibilityScrollPane" fitToWidth="true"
+                            hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: #EFEFEF;">
+                    <content>
+                        <Text fx:id="nextVisibleLabel"
+                              wrappingWidth="520"
+                              text="Visibility periods will appear here"
+                              style="-fx-font-size: 12px; -fx-fill: black;" />
+                    </content>
+                </ScrollPane>
+            </StackPane>
+
         </VBox>
 
-        <!-- Scrollable Details -->
+        <!-- scrollable Details -->
         <StackPane maxWidth="650" minHeight="250" style="-fx-background-color: #C5C4C5;">
             <ScrollPane fitToWidth="true" style="-fx-background-color: #C5C4C5;" vbarPolicy="AS_NEEDED">
                 <content>
-                    <VBox spacing="8">
+                    <VBox spacing="6">
                         <padding>
                             <Insets bottom="12" left="12" right="12" top="12"/>
                         </padding>
-
-                        <!-- Each row = Label (static) + Text (dynamic) -->
-
-                        <HBox spacing="5">
-                            <Label text="Messier Object:"/>
-                            <Text fx:id="messierNumberText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Object Type:"/>
-                            <Text fx:id="objectTypeText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Distance from Earth:"/>
-                            <Text fx:id="distanceText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Constellation:"/>
-                            <Text fx:id="constellationText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Apparent Magnitude:"/>
-                            <Text fx:id="magnitudeText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Dimensions:"/>
-                            <Text fx:id="dimensionsText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Right Ascension:"/>
-                            <Text fx:id="rightAscensionText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Declination:"/>
-                            <Text fx:id="declinationText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Altitude:"/>
-                            <Text fx:id="altitudeText"/>
-                        </HBox>
-
-                        <HBox spacing="5">
-                            <Label text="Azimuth:"/>
-                            <Text fx:id="azimuthText"/>
-                        </HBox>
-
+                        <Text fx:id="messierNumberText" text="Messier Number: "/>
+                        <Text fx:id="objectTypeText" text="Object Type: "/>
+                        <Text fx:id="distanceText" text="Distance: "/>
+                        <Text fx:id="constellationText" text="Constellation:"/>
+                        <Text fx:id="magnitudeText" text="Apparent Magnitude: "/>
+                        <Text fx:id="dimensionsText" text="Dimensions: "/>
+                        <Text fx:id="rightAscensionText" text="Right Ascension (RA): "/>
+                        <Text fx:id="declinationText" text="Declination: "/>
+                        <Text fx:id="altitudeText" text="Altitude: "/>
+                        <Text fx:id="azimuthText" text="Azimuth: "/>
+                        <Text fx:id="sizeText" text="Size: "/>
                     </VBox>
                 </content>
             </ScrollPane>
@@ -105,7 +74,7 @@
 
     </VBox>
 
-    <!-- Back Button -->
+<!-- back Button -->
     <Button fx:id="backButton"
             onAction="#switchHome"
             prefHeight="28" prefWidth="35"
@@ -118,3 +87,4 @@
     </Button>
 
 </StackPane>
+
