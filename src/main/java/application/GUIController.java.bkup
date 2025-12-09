@@ -32,7 +32,6 @@ public class GUIController {
     @FXML private CheckBox filterOpenCluster;
     @FXML private CheckBox filterGlobularCluster;
     @FXML private CheckBox filterPlanetaryNebula;
-    @FXML private CheckBox filterStar;
     @FXML private CheckBox filterSupernovaRemnant;
     @FXML private CheckBox filterAsterism;
     @FXML private CheckBox filterOther;
@@ -61,7 +60,6 @@ public class GUIController {
         if (filterGlobularCluster != null){filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterPlanetaryNebula != null){filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterSupernovaRemnant != null){filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterStar != null){filterStar.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterAsterism != null){filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterOther != null){filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterJan != null){filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());}
@@ -142,12 +140,11 @@ public class GUIController {
                             (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
                             (filterOther.isSelected()&&type.equals("Other"))||
                             (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
-                            (filterStar.isSelected()&&type.equals("Star"))||
                             (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
                             (filterAsterism.isSelected()&&type.equals("Asterism"))||
                             (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
                                     &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
-                                    &&!filterSupernovaRemnant.isSelected()&&!filterStar.isSelected()&&!filterAsterism.isSelected()
+                                    &&!filterSupernovaRemnant.isSelected()&&!filterAsterism.isSelected()
                                     &&!filterPlanetaryNebula.isSelected()));
 
                     double Lat= obs.getLatitude();
@@ -265,7 +262,6 @@ public class GUIController {
         declinationText.setText("");
         altitudeText.setText("");
         azimuthText.setText("");
-        sizeText.setText("");
         objectImage.setImage(null);
     }
 
@@ -273,17 +269,17 @@ public class GUIController {
         if (obj == null) return;
 
         commonNameLabel.setText(obj.getCommonName());
-        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
-        objectTypeText.setText("Object Type: " + obj.getObjectType());
-        distanceText.setText("Distance from Earth: " + obj.getDistance());
-        constellationText.setText("Constellation: " + obj.getConstellation());
-        magnitudeText.setText("Apparent Magnitude: " + obj.getApparentMagnitude());
+        messierNumberText.setText(obj.getMessierIndex());
+        objectTypeText.setText(obj.getObjectType());
+        distanceText.setText(obj.getDistance());
+        constellationText.setText(obj.getConstellation());
+        magnitudeText.setText(obj.getApparentMagnitude());
         String dimensionsStr = obj.getApparentDimensionsString();
-        dimensionsText.setText("Dimensions: " + dimensionsStr);
-        sizeText.setText("Size: " + dimensionsStr);
+        dimensionsText.setText(dimensionsStr);
+        
 
-        rightAscensionText.setText("Right Ascension (RA): " + obj.getRightAscension());
-        declinationText.setText("Declination: " + obj.getDeclination());
+        rightAscensionText.setText(obj.getRightAscension());
+        declinationText.setText(obj.getDeclination());
 
         // altitude + azimuth
         ZonedDateTime now = ZonedDateTime.now();
@@ -292,8 +288,8 @@ public class GUIController {
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
                                            obj.getRightAscension(), obj.getDeclination());
 
-        altitudeText.setText(String.format("Altitude: %.2f°", alt));
-        azimuthText.setText(String.format("Azimuth: %.2f°", az));
+        altitudeText.setText(String.format("%.2f°", alt));
+        azimuthText.setText(String.format("%.2f°", az));
 
         // monthly visibility periods
         nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
@@ -370,3 +366,4 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
+
