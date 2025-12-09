@@ -12,42 +12,46 @@ import javafx.stage.StageStyle;
 
 public class TeleGUI {
 
-    private Telescope telescope;
-    private Stage stage;  
+    private final Observatory observatory;
+    private final Telescope telescope;
+    private Stage stage;
 
-    public Stage show() {
+    public TeleGUI(Observatory observatory) {
+        this.observatory = observatory;
+        if (observatory.getTelescope() != null) {
+            this.telescope = observatory.getTelescope();
+        } else {
+            this.telescope = new Telescope(90, 45); // default
+            observatory.setTelescope(this.telescope);
+        }
+    }
+
+    public void show() {
         stage = new Stage();
         stage.setTitle("Telescope Settings");
         stage.initStyle(StageStyle.UTILITY);
         stage.setAlwaysOnTop(true);
-        stage.setResizable(true);
+        stage.setResizable(false);
 
-        loadTelescope();
-
-        // Input fields
+        // Labels and fields
         Label fovLabel = new Label("Field of View (°):");
-        TextField fovField = new TextField();
+        TextField fovField = new TextField(String.valueOf(telescope.getFieldOfView()));
         fovField.setPrefWidth(120);
 
         Label aperLabel = new Label("Aperture (mm):");
-        TextField aperField = new TextField();
-
-        // Prefill if telescope exists
-        if (telescope != null) {
-            fovField.setText(String.valueOf(telescope.getFieldOfView()));
-            aperField.setText(String.valueOf(telescope.getAperature()));
-        }
+        TextField aperField = new TextField(String.valueOf(telescope.getAperature()));
+        aperField.setPrefWidth(120);
 
         // Buttons
         Button saveButton = new Button("Save");
-        saveButton.setPrefWidth(130);
         Button resetButton = new Button("Reset");
+        saveButton.setPrefWidth(130);
         resetButton.setPrefWidth(130);
 
         saveButton.setOnAction(e -> saveTelescope(fovField, aperField));
         resetButton.setOnAction(e -> {
-            fovField.clear();
-            aperField.clear();
+            fovField.setText(String.valueOf(telescope.getFieldOfView()));
+            aperField.setText(String.valueOf(telescope.getAperature()));
         });
 
         // Layout
@@ -56,7 +60,6 @@ public class TeleGUI {
         grid.setHgap(10);
         grid.setPadding(new Insets(15));
         grid.setAlignment(Pos.CENTER);
-
         grid.add(fovLabel, 0, 0);
         grid.add(fovField, 1, 0);
         grid.add(aperLabel, 0, 1);
@@ -72,7 +75,6 @@ public class TeleGUI {
         Scene scene = new Scene(layout, 300, 150);
         stage.setScene(scene);
         stage.show();
-        return stage;
     }
 
     private void saveTelescope(TextField fovField, TextField aperField) {
@@ -80,35 +82,31 @@ public class TeleGUI {
             double fov = Double.parseDouble(fovField.getText());
             double aper = Double.parseDouble(aperField.getText());
 
-            telescope = new Telescope(fov, aper);
-            Serializer.save(telescope, "telescope.ser");
+            telescope.setFieldOfView(fov);
+            telescope.setAperture(aper);
+
+            // Already linked to observatory, update persists in memory
+            observatory.setTelescope(telescope);
+
+            // Optional: save observatory to file for persistence
+            Serializer.save(observatory, "observatory.ser");
+
+            showAlert("Telescope settings saved successfully.", Alert.AlertType.INFORMATION);
+
         } catch (NumberFormatException ex) {
-            showAlert("Please enter valid numbers!");
+            showAlert("Please enter valid numbers!", Alert.AlertType.ERROR);
         } catch (Exception ex) {
             ex.printStackTrace();
-            showAlert("Error saving telescope data!");
+            showAlert("Error saving telescope data!", Alert.AlertType.ERROR);
         }
     }
 
-    private void loadTelescope() {
-        try {
-            Object obj = Serializer.load("telescope.ser");
-            if (obj instanceof Telescope) {
-                telescope = (Telescope) obj;
-            }
-        } catch (Exception e) {
-            telescope = null; // no saved telescope yet
-        }
-    }
-
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Input Error");
+    private void showAlert(String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(type == Alert.AlertType.ERROR ? "Error" : "Info");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        if (stage != null) {
-        alert.initOwner(stage);
-        }
+        if (stage != null) alert.initOwner(stage);
         alert.showAndWait();
     }
 }
