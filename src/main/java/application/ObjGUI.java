@@ -30,7 +30,7 @@ public class ObjGUI {
         this.observatory = loadObservatory();
     }
 
-    public void show() {
+    public Stage show() {
         stage = new Stage();
         stage.setTitle("Add Telescope Obstruction");
         stage.initStyle(StageStyle.UTILITY);
@@ -111,6 +111,7 @@ public class ObjGUI {
         stage.show();
 
         stage.setOnCloseRequest(event -> saveObservatory());
+        return stage;
     }
 
     private void addOrUpdateObstruction(TextField labelField, TextField fromField, TextField toField, TextField altitudeField) {
