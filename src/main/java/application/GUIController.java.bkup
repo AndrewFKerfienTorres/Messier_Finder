@@ -157,18 +157,18 @@ public class GUIController {
                     ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
 
                     boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(obs, now ,t))
-                            ||(filterJan.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.JANUARY).isPresent())
-                            ||(filterFeb.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.FEBRUARY).isPresent())
-                            ||(filterMar.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.MARCH).isPresent())
-                            ||(filterApr.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.APRIL).isPresent())
-                            ||(filterMay.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.MAY).isPresent())
-                            ||(filterJune.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.JUNE).isPresent())
-                            ||(filterJuly.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.JULY).isPresent())
-                            ||(filterAug.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.AUGUST).isPresent())
-                            ||(filterSept.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.SEPTEMBER).isPresent())
-                            ||(filterOct.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.OCTOBER).isPresent())
-                            ||(filterNov.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.NOVEMBER).isPresent())
-                            ||(filterDec.isSelected()&&SkyPosition.visibilityWindowForMonth(Lat,Long,RA,Dec, Month.DECEMBER).isPresent())
+                            ||(filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
+                            ||(filterFeb.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.FEBRUARY))
+                            ||(filterMar.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MARCH))
+                            ||(filterApr.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.APRIL))
+                            ||(filterMay.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MAY))
+                            ||(filterJune.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JUNE))
+                            ||(filterJuly.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JULY))
+                            ||(filterAug.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.AUGUST))
+                            ||(filterSept.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.SEPTEMBER))
+                            ||(filterOct.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.OCTOBER))
+                            ||(filterNov.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.NOVEMBER))
+                            ||(filterDec.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.DECEMBER))
                             ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
                             &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
                             &&!filterNov.isSelected()&&!filterDec.isSelected()));
@@ -333,3 +333,4 @@ public class GUIController {
                 .orElse("Not visible this month");
     }
 }
+
