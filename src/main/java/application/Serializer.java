@@ -1253,6 +1253,17 @@ public class Serializer {
             e.printStackTrace();
         }
 
+        //observatory serializing
+        Observatory obs = new Observatory(); // default constructor
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/observatory.ser")
+        )) {
+            oos.writeObject(obs); // serialize the single observatory
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
     
