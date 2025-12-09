@@ -19,9 +19,19 @@ public class Telescope implements Serializable {
         return fieldOfView;
     }
 
+    public void setFieldOfView(double fieldOfView) {
+        this.fieldOfView = fieldOfView;
+    }
+
+
+
 
 
     public double getAperature() {
         return aperature;
+    }
+
+    public void setAperture(double aperture) {
+        this.aperature = aperture;
     }
 }
