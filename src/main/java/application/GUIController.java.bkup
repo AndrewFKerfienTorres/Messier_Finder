@@ -211,14 +211,21 @@ public class GUIController {
         stage.show();
     }
     @FXML
-    private void switchObstruction(ActionEvent event) throws IOException {
+     private void switchObstruction(ActionEvent event) throws IOException {
         ObjGUI objGUI = new ObjGUI();
-        objGUI.show();
+        Stage stage = objGUI.show();
+
+        stage.setOnHidden(e -> refreshHomeGUI());
     }
     @FXML
     private void switchTelescope(ActionEvent event) throws IOException {
         TeleGUI teleGUI = new TeleGUI(this.observatory);
-        teleGUI.show();
+        Stage stage = teleGUI.show();
+
+        stage.setOnHidden(e -> refreshHomeGUI());
+    }
+    private void refreshHomeGUI(){
+        System.out.println("refreshed");
     }
     @FXML
     private Button backButton;
@@ -333,4 +340,5 @@ public class GUIController {
                 .orElse("Not visible this month");
     }
 }
+
 
