@@ -227,56 +227,46 @@ public class GUIController {
     private void refreshHomeGUI(){
         System.out.println("refreshed");
     }
-    @FXML
-    private Button backButton;
-    @FXML
-    private ImageView objectImage;
-    @FXML
-    private javafx.scene.control.Label commonNameLabel;
-    @FXML
-    private javafx.scene.control.Label nextVisibleLabel;
+   @FXML private Button backButton;
+    @FXML private ImageView objectImage;
+    @FXML private Label commonNameLabel;
+    @FXML private Label nextVisibleLabel;
 
-    @FXML
-    private Text messierNumberText;
-    @FXML
-    private Text objectTypeText;
-    @FXML
-    private Text distanceText;
-    @FXML
-    private Text constellationText;
-    @FXML
-    private Text magnitudeText;
-    @FXML
-    private Text dimensionsText;
-    @FXML
-    private Text rightAscensionText;
-    @FXML
-    private Text declinationText;
-    @FXML
-    private Text altitudeText;
-    @FXML
-    private Text azimuthText;
-    @FXML
-    private Text sizeText;
+    @FXML private Text messierNumberText;
+    @FXML private Text objectTypeText;
+    @FXML private Text distanceText;
+    @FXML private Text constellationText;
+    @FXML private Text magnitudeText;
+    @FXML private Text dimensionsText;
+    @FXML private Text rightAscensionText;
+    @FXML private Text declinationText;
+    @FXML private Text altitudeText;
+    @FXML private Text azimuthText;
+    @FXML private Text sizeText;
 
     private Observatory observatory;
 
+    @FXML
+    private void initialize() {
+        clearFields();
+        observatory = new Observatory();
+    }
 
     private void clearFields() {
-        if(commonNameLabel!=null){commonNameLabel.setText("");}
-        if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
-        if(messierNumberText!=null){messierNumberText.setText("");}
-        if(objectTypeText!=null){objectTypeText.setText("");}
-        if(distanceText!=null){distanceText.setText("");}
-        if(constellationText!=null){constellationText.setText("");}
-        if(magnitudeText!=null){magnitudeText.setText("");}
-        if(dimensionsText!=null){dimensionsText.setText("");}
-        if(rightAscensionText!=null){rightAscensionText.setText("");}
-        if(declinationText!=null){declinationText.setText("");}
-        if(altitudeText!=null){altitudeText.setText("");}
-        if(azimuthText!=null){azimuthText.setText("");}
-        if(sizeText!=null){sizeText.setText("");}
-        if(objectImage!=null){objectImage.setImage(null);}
+        commonNameLabel.setText("");
+        nextVisibleLabel.setText("");
+        messierNumberText.setText("");
+        objectTypeText.setText("");
+        distanceText.setText("");
+        constellationText.setText("");
+        magnitudeText.setText("");
+        dimensionsText.setText("");
+        rightAscensionText.setText("");
+        declinationText.setText("");
+        altitudeText.setText("");
+        azimuthText.setText("");
+        sizeText.setText("");
+        objectImage.setImage(null);
     }
 
     public void displayCelestialObject(CelestialObject obj) {
@@ -295,18 +285,18 @@ public class GUIController {
         rightAscensionText.setText("Right Ascension (RA): " + obj.getRightAscension());
         declinationText.setText("Declination: " + obj.getDeclination());
 
-        // altitude + azimuth right now
+        // altitude + azimuth
         ZonedDateTime now = ZonedDateTime.now();
         double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
-                obj.getRightAscension(), obj.getDeclination());
+                                             obj.getRightAscension(), obj.getDeclination());
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
-                obj.getRightAscension(), obj.getDeclination());
+                                           obj.getRightAscension(), obj.getDeclination());
 
         altitudeText.setText(String.format("Altitude: %.2f°", alt));
         azimuthText.setText(String.format("Azimuth: %.2f°", az));
 
-
-        nextVisibleLabel.setText(computeMonthlyVisibility(obj));
+        // monthly visibility periods
+        nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
 
         // image
         if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
@@ -322,23 +312,61 @@ public class GUIController {
         }
     }
 
+    private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
+        StringBuilder sb = new StringBuilder();
+        Observatory observ = this.observatory;
 
-    private String computeMonthlyVisibility(CelestialObject obj) {
-        Month currentMonth = ZonedDateTime.now().getMonth();
-
-        Optional<ZonedDateTime[]> window =
-                SkyPosition.visibilityWindowForMonth(
-                        observatory.getLatitude(),
-                        observatory.getLongitude(),
+        Optional<List<ZonedDateTime[]>> yearRanges =
+                SkyPosition.getYearVisibilityRanges(
+                        observ.getLatitude(),
+                        observ.getLongitude(),
                         obj.getRightAscension(),
-                        obj.getDeclination(),
-                        currentMonth
+                        obj.getDeclination()
                 );
 
-        return window
-                .map(w -> "Current visible " + w[0].toLocalDateTime() + " to " + w[1].toLocalDateTime())
-                .orElse("Not visible this month");
+        for (Month month : Month.values()) {
+            sb.append(capitalize(month.name())).append(": ");
+
+            if (yearRanges.isPresent()) {
+                List<ZonedDateTime[]> ranges = yearRanges.get();
+                List<String> monthPeriods = new ArrayList<>();
+
+                int currentYear = ZonedDateTime.now().getYear();
+                ZonedDateTime monthStart = ZonedDateTime.of(currentYear, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset.UTC);
+                ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
+
+                for (ZonedDateTime[] range : ranges) {
+                    ZonedDateTime rangeStart = range[0];
+                    ZonedDateTime rangeEnd = range[1];
+
+                    // Check if the range overlaps this month
+                    if (!rangeEnd.isBefore(monthStart) && !rangeStart.isAfter(monthEnd)) {
+                        ZonedDateTime visibleStart = rangeStart.isBefore(monthStart) ? monthStart : rangeStart;
+                        ZonedDateTime visibleEnd = rangeEnd.isAfter(monthEnd) ? monthEnd : rangeEnd;
+
+                        monthPeriods.add(String.format("%d %02d:%02d – %d %02d:%02d",
+                                visibleStart.getDayOfMonth(), visibleStart.getHour(), visibleStart.getMinute(),
+                                visibleEnd.getDayOfMonth(), visibleEnd.getHour(), visibleEnd.getMinute()));
+                    }
+                }
+
+                if (monthPeriods.isEmpty()) {
+                    sb.append("Not visible");
+                } else {
+                    sb.append(String.join(", ", monthPeriods));
+                }
+            } else {
+                sb.append("Not visible");
+            }
+
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    private String capitalize(String s) {
+        String lower = s.toLowerCase();
+        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
-
-
