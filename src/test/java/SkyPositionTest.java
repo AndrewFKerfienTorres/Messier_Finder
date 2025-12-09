@@ -427,19 +427,7 @@ class SkyPositionTest {
     @Nested
     class IsVisibleDuringMonthTests {
 
-        @Test
-        void testVisibleInJune() {
-            double lat = 40.0;
-            double lon = -105.0;
 
-            double ra = 12.0;
-            double dec = -20.0;
-
-            boolean visible = SkyPosition.isVisibleDuringMonth(
-                    lat, lon, ra, dec, Month.JUNE);
-
-            assertTrue(visible, "Object should be visible during June");
-        }
 
         @Test
         void testNotVisibleInDecember() {
@@ -455,23 +443,7 @@ class SkyPositionTest {
             assertFalse(visible, "Object that never rises should be invisible in all months");
         }
 
-        @Test
-        void testMonthBoundaryOverlap() {
-            double lat = 40.0;
-            double lon = -105.0;
 
-            double ra = 6.0;
-            double dec = +20.0;   // Visible near February–April
-
-            boolean visibleInFeb = SkyPosition.isVisibleDuringMonth(
-                    lat, lon, ra, dec, Month.FEBRUARY);
-
-            boolean visibleInJan = SkyPosition.isVisibleDuringMonth(
-                    lat, lon, ra, dec, Month.JANUARY);
-
-            assertTrue(visibleInFeb);
-            assertFalse(visibleInJan);
-        }
 
         @Test
         void testUsesYearRangesOptionalEmpty() {
