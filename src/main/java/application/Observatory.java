@@ -23,7 +23,7 @@ public class Observatory implements Serializable {
                 new Obstruction("tree",240, 300, 0,60),
                 new Obstruction("tree",300, 360, 0,50)
         };
-        telescope = new Telescope(90, 45);
+        telescope = new Telescope(8, 406);
 
     }
     public Observatory(double longitude, double latitude, String observatoryName, TimeZone t, Telescope telescope){
