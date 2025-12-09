@@ -10,23 +10,38 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ObjGUI {
 
-    private List<Obstruction> obstructions = new ArrayList<>();
+    private Observatory observatory;
+    private List<Obstruction> obstructionList; // local editable list
     private ListView<Obstruction> obstructionListView;
     private Stage stage;
 
-    public Stage show() {
+    public ObjGUI() {
+        this.observatory = loadObservatory();
+    }
+
+    public void show() {
         stage = new Stage();
         stage.setTitle("Add Telescope Obstruction");
         stage.initStyle(StageStyle.UTILITY);
         stage.setAlwaysOnTop(true);
         stage.setResizable(false);
 
-        loadObstructions();
+        // Convert array → list
+        obstructionList = new ArrayList<>();
+        if (observatory.getObstructions() != null) {
+            obstructionList.addAll(Arrays.asList(observatory.getObstructions()));
+        }
 
         // Input fields
         Label labelLabel = new Label("Label:");
@@ -42,7 +57,6 @@ public class ObjGUI {
         Label altitudeLabel = new Label("Altitude (°):");
         TextField altitudeField = new TextField();
 
-        // Buttons
         Button addButton = new Button("+ Add / Update");
         addButton.setPrefWidth(130);
         Button deleteButton = new Button("Delete Selected");
@@ -50,15 +64,14 @@ public class ObjGUI {
 
         obstructionListView = new ListView<>();
         obstructionListView.setPrefHeight(160);
-        obstructionListView.getItems().addAll(obstructions);
+        obstructionListView.getItems().addAll(obstructionList);
 
-        // Add / Update
-        addButton.setOnAction(e -> addOrUpdateObstruction(labelField, fromField, toField, altitudeField));
+        addButton.setOnAction(e ->
+                addOrUpdateObstruction(labelField, fromField, toField, altitudeField)
+        );
 
-        // Delete
         deleteButton.setOnAction(e -> deleteSelected());
 
-        // Double-click to edit
         obstructionListView.setOnMouseClicked(click -> {
             if (click.getClickCount() == 2) {
                 Obstruction selected = obstructionListView.getSelectionModel().getSelectedItem();
@@ -71,7 +84,6 @@ public class ObjGUI {
             }
         });
 
-        // Layout
         GridPane grid = new GridPane();
         grid.setVgap(8);
         grid.setHgap(10);
@@ -98,8 +110,7 @@ public class ObjGUI {
         stage.setScene(scene);
         stage.show();
 
-        stage.setOnCloseRequest(event -> saveObstructions());
-        return stage;
+        stage.setOnCloseRequest(event -> saveObservatory());
     }
 
     private void addOrUpdateObstruction(TextField labelField, TextField fromField, TextField toField, TextField altitudeField) {
@@ -111,18 +122,27 @@ public class ObjGUI {
             double to = Double.parseDouble(toField.getText());
             double alt = Double.parseDouble(altitudeField.getText());
 
-            if (from < 0 || from > 360 || to < 0 || to > 360) { showAlert("Range must be between 0° and 360°!"); return; }
-            if (from >= to) { showAlert("Range From must be LESS than Range To!"); return; }
-            if (alt < 0 || alt > 90) { showAlert("Altitude must be between 0° and 90°!"); return; }
+            if (from < 0 || from > 360 || to < 0 || to > 360) {
+                showAlert("Range must be between 0° and 360°!");
+                return;
+            }
+            if (from >= to) {
+                showAlert("Range From must be LESS than Range To!");
+                return;
+            }
+            if (alt < 0 || alt > 90) {
+                showAlert("Altitude must be between 0° and 90°!");
+                return;
+            }
 
             Obstruction o = new Obstruction(label, from, to, 0, alt);
 
-            int selectedIndex = obstructionListView.getSelectionModel().getSelectedIndex();
-            if (selectedIndex >= 0) {
-                obstructions.set(selectedIndex, o);
-                obstructionListView.getItems().set(selectedIndex, o);
+            int index = obstructionListView.getSelectionModel().getSelectedIndex();
+            if (index >= 0) {
+                obstructionList.set(index, o);
+                obstructionListView.getItems().set(index, o);
             } else {
-                obstructions.add(o);
+                obstructionList.add(o);
                 obstructionListView.getItems().add(o);
             }
 
@@ -131,6 +151,7 @@ public class ObjGUI {
             toField.clear();
             altitudeField.clear();
             obstructionListView.getSelectionModel().clearSelection();
+
         } catch (NumberFormatException ex) {
             showAlert("Please enter valid numbers!");
         }
@@ -139,9 +160,11 @@ public class ObjGUI {
     private void deleteSelected() {
         int index = obstructionListView.getSelectionModel().getSelectedIndex();
         if (index >= 0) {
-            obstructions.remove(index);
+            obstructionList.remove(index);
             obstructionListView.getItems().remove(index);
-        } else { showAlert("No item selected!"); }
+        } else {
+            showAlert("No item selected!");
+        }
     }
 
     private void showAlert(String message) {
@@ -149,22 +172,37 @@ public class ObjGUI {
         alert.setTitle("Input Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        if (stage != null) {
-            alert.initOwner(stage);
-        }
+        alert.initOwner(stage);
         alert.showAndWait();
     }
- 
 
-    private void loadObstructions() {
-        try {
-            Object obj = Serializer.load("obstructions.ser");
-            if (obj instanceof List<?>) { obstructions = (List<Obstruction>) obj; }
-        } catch (Exception e) { obstructions = new ArrayList<>(); }
+    private void saveObservatory() {
+        // Update observatory instance
+        observatory.setObstructions(obstructionList.toArray(new Obstruction[0]));
+
+        // Serialize the observatory
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream("src/main/resources/observatory.ser"))) {
+            oos.writeObject(observatory);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private void saveObstructions() {
-        try { Serializer.save(obstructions, "obstructions.ser"); } catch (Exception e) { e.printStackTrace(); }
+    private Observatory loadObservatory() {
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream("src/main/resources/observatory.ser"))) {
+            Object obj = ois.readObject();
+            if (obj instanceof Observatory obs) {
+                return obs;
+            }
+        } catch (Exception e) {
+            System.out.println("No saved observatory found. Creating new.");
+        }
+        return new Observatory(); // fallback
+    }
+
+    public Observatory getObservatory() {
+        return observatory;
     }
 }
-
