@@ -235,19 +235,19 @@ public class GUIController {
 
 
     private void clearFields() {
-        commonNameLabel.setText("");
-        nextVisibleLabel.setText("");
-        messierNumberText.setText("");
-        objectTypeText.setText("");
-        distanceText.setText("");
-        constellationText.setText("");
-        magnitudeText.setText("");
-        dimensionsText.setText("");
-        rightAscensionText.setText("");
-        declinationText.setText("");
-        altitudeText.setText("");
-        azimuthText.setText("");
-        objectImage.setImage(null);
+       if(commonNameLabel!=null){commonNameLabel.setText("");}
+        if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
+        if(messierNumberText!=null){messierNumberText.setText("");}
+        if(objectTypeText!=null){objectTypeText.setText("");}
+        if(distanceText!=null){distanceText.setText("");}
+        if(constellationText!=null){constellationText.setText("");}
+        if(magnitudeText!=null){magnitudeText.setText("");}
+        if(dimensionsText!=null){dimensionsText.setText("");}
+        if(rightAscensionText!=null){rightAscensionText.setText("");}
+        if(declinationText!=null){declinationText.setText("");}
+        if(altitudeText!=null){altitudeText.setText("");}
+        if(azimuthText!=null){azimuthText.setText("");}
+        if(objectImage!=null){objectImage.setImage(null);}
     }
 
     public void displayCelestialObject(CelestialObject obj) {
@@ -351,3 +351,4 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }*/
 }
+
