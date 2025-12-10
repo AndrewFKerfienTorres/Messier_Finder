@@ -50,7 +50,6 @@ public class GUIController {
     @FXML private CheckBox filterNov;
     @FXML private CheckBox filterDec;
     @FXML private CheckBox filterOct;
-    @FXML private CheckBox filterIsVis;
     @FXML private TextField searchBar;
     @FXML private TilePane gridPane;
 
@@ -77,7 +76,6 @@ public class GUIController {
         if (filterOct != null){filterOct.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterNov != null){filterNov.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (filterDec != null){filterDec.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterIsVis != null){filterIsVis.selectedProperty().addListener((o, old, now) -> applyFilters());}
         if (searchBar != null){searchBar.textProperty().addListener((o, old, now) -> applyFilters());}
         clearFields();
 
@@ -160,8 +158,7 @@ public class GUIController {
             double RA=obj.getRightAscension();
             ZonedDateTime now = ZonedDateTime.now();
 
-            boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(observatory, now ,observatory.getTelescope()))
-                    ||(filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
+            boolean matchVisibility=((filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
                     ||(filterFeb.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.FEBRUARY))
                     ||(filterMar.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MARCH))
                     ||(filterApr.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.APRIL))
@@ -381,3 +378,4 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
+
