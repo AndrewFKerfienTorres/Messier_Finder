@@ -246,21 +246,20 @@ public class GUIController {
 
     private Observatory observatory;
 
-
     private void clearFields() {
-        if(commonNameLabel!=null){commonNameLabel.setText("");}
-        if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
-        if(messierNumberText!=null){messierNumberText.setText("");}
-        if(objectTypeText!=null){objectTypeText.setText("");}
-        if(distanceText!=null){distanceText.setText("");}
-        if(constellationText!=null){constellationText.setText("");}
-        if(magnitudeText!=null){magnitudeText.setText("");}
-        if(dimensionsText!=null){dimensionsText.setText("");}
-        if(rightAscensionText!=null){rightAscensionText.setText("");}
-        if(declinationText!=null){declinationText.setText("");}
-        if(altitudeText!=null){altitudeText.setText("");}
-        if(azimuthText!=null){azimuthText.setText("");}
-        if(objectImage!=null){objectImage.setImage(null);}
+        if(commonNameLabel != null) commonNameLabel.setText("");
+        if(nextVisibleLabel != null) nextVisibleLabel.setText("");
+        if(messierNumberText != null) messierNumberText.setText("");
+        if(objectTypeText != null) objectTypeText.setText("");
+        if(distanceText != null) distanceText.setText("");
+        if(constellationText != null) constellationText.setText("");
+        if(magnitudeText != null) magnitudeText.setText("");
+        if(dimensionsText != null) dimensionsText.setText("");
+        if(rightAscensionText != null) rightAscensionText.setText("");
+        if(declinationText != null) declinationText.setText("");
+        if(altitudeText != null) altitudeText.setText("");
+        if(azimuthText != null) azimuthText.setText("");
+        if(objectImage != null) objectImage.setImage(null);
     }
 
     public void displayCelestialObject(CelestialObject obj) {
@@ -268,16 +267,14 @@ public class GUIController {
 
         commonNameLabel.setText(obj.getCommonName());
         messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
-        objectTypeText.setText("Object Type :" + obj.getObjectType().toString());
-        distanceText.setText("Distance :" + obj.getDistance());
-        constellationText.setText("Constellation :" + obj.getConstellation());
-        magnitudeText.setText("Magnitude :" + Double.toString(obj.getApparentMagnitude()));
-        String dimensionsStr = obj.getApparentDimensionsString();
-        dimensionsText.setText("Dimsensions: " + dimensionsStr);
+        objectTypeText.setText("Object Type: " + obj.getObjectType());
+        distanceText.setText("Distance: " + obj.getDistance());
+        constellationText.setText("Constellation: " + obj.getConstellation());
+        magnitudeText.setText("Magnitude: " + obj.getApparentMagnitude());
+        dimensionsText.setText("Dimensions: " + obj.getApparentDimensionsString());
 
-
-        rightAscensionText.setText("Right Ascension :" + SkyPosition.doubleToHMS(obj.getRightAscension()));
-        declinationText.setText("Declination :" + SkyPosition.doubleToDMS(obj.getDeclination()));
+        rightAscensionText.setText("Right Ascension: " + SkyPosition.doubleToHMS(obj.getRightAscension()));
+        declinationText.setText("Declination: " + SkyPosition.doubleToDMS(obj.getDeclination()));
 
         // altitude + azimuth
         ZonedDateTime now = ZonedDateTime.now();
@@ -286,8 +283,8 @@ public class GUIController {
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
                 obj.getRightAscension(), obj.getDeclination());
 
-        altitudeText.setText("Altitude: " + String.format("%.2f°", alt));
-        azimuthText.setText("Azimuth: " + String.format("%.2f°", az));
+        altitudeText.setText("Altitude: " + degreesToDegMin(alt));
+        azimuthText.setText("Azimuth: " + degreesToDegMin(az));
 
         // monthly visibility periods
         nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
@@ -308,16 +305,16 @@ public class GUIController {
 
     private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
         StringBuilder sb = new StringBuilder();
-        Observatory observ = this.observatory;
-//get visibility ranges for the entire yr
         Optional<List<ZonedDateTime[]>> yearRanges =
                 SkyPosition.getYearVisibilityRanges(
-                        observ.getLatitude(),
-                        observ.getLongitude(),
+                        observatory.getLatitude(),
+                        observatory.getLongitude(),
                         obj.getRightAscension(),
                         obj.getDeclination()
                 );
-// loop thru each month
+
+        int currentYear = ZonedDateTime.now().getYear();
+
         for (Month month : Month.values()) {
             sb.append(capitalize(month.name())).append(": ");
 
@@ -325,7 +322,6 @@ public class GUIController {
                 List<ZonedDateTime[]> ranges = yearRanges.get();
                 List<String> monthPeriods = new ArrayList<>();
 
-                int currentYear = ZonedDateTime.now().getYear();
                 ZonedDateTime monthStart = ZonedDateTime.of(currentYear, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset.UTC);
                 ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
 
@@ -333,14 +329,19 @@ public class GUIController {
                     ZonedDateTime rangeStart = range[0];
                     ZonedDateTime rangeEnd = range[1];
 
-                    // check if the range overlaps this month
                     if (!rangeEnd.isBefore(monthStart) && !rangeStart.isAfter(monthEnd)) {
                         ZonedDateTime visibleStart = rangeStart.isBefore(monthStart) ? monthStart : rangeStart;
                         ZonedDateTime visibleEnd = rangeEnd.isAfter(monthEnd) ? monthEnd : rangeEnd;
 
-                        monthPeriods.add(String.format("%d %02d:%02d – %d %02d:%02d",
-                                visibleStart.getDayOfMonth(), visibleStart.getHour(), visibleStart.getMinute(),
-                                visibleEnd.getDayOfMonth(), visibleEnd.getHour(), visibleEnd.getMinute()));
+                        // convert altitude at start/end to degrees+minutes
+                        double startAlt = SkyPosition.getAltitude(visibleStart, observatory.getLatitude(),
+                                observatory.getLongitude(), obj.getRightAscension(), obj.getDeclination());
+                        double endAlt = SkyPosition.getAltitude(visibleEnd, observatory.getLatitude(),
+                                observatory.getLongitude(), obj.getRightAscension(), obj.getDeclination());
+
+                        monthPeriods.add(String.format("%d %s – %d %s",
+                                visibleStart.getDayOfMonth(), degreesToDegMin(startAlt),
+                                visibleEnd.getDayOfMonth(), degreesToDegMin(endAlt)));
                     }
                 }
 
@@ -358,10 +359,17 @@ public class GUIController {
 
         return sb.toString();
     }
-    //makes it look nicer and not all caps (ex: JANUARY --> January)
+
+    // converts decimal degrees to "degrees°minutes′"
+    private String degreesToDegMin(double deg) {
+        int d = (int) deg;
+        int m = (int) ((deg - d) * 60);
+        return String.format("%d°%02d′", d, m);
+    }
+
+    // makes it look nicer and not all caps (ex: JANUARY --> January)
     private String capitalize(String s) {
         String lower = s.toLowerCase();
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
-
