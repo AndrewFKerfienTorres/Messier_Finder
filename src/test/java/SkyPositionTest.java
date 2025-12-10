@@ -2,6 +2,7 @@ import application.SkyPosition;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 import java.time.*;
 
@@ -442,7 +443,41 @@ class SkyPositionTest {
 
             assertFalse(visible, "Object that never rises should be invisible in all months");
         }
+        @Test
+        void testIsVisibleInApril() {
+            double lat = 43.43;
+            double lon = -76.550;
 
+            double dec = 54.3491666666667;
+            double ra = 14.0535;
+
+            boolean visible = SkyPosition.isVisibleDuringMonth(
+                    lat, lon, ra, dec, Month.APRIL);
+
+            // ✅ FIXED variable names here
+            Optional<List<ZonedDateTime[]>> optRanges =
+                    SkyPosition.getYearVisibilityRanges(lat, lon, ra, dec);
+
+            // ---------- PRINT RESULTS FOR DEBUGGING ----------
+            if (optRanges.isPresent()) {
+                System.out.println("Visibility ranges:");
+
+                List<ZonedDateTime[]> ranges = optRanges.get();
+
+                for (int i = 0; i < ranges.size(); i++) {
+                    ZonedDateTime[] r = ranges.get(i);
+
+                    System.out.println(
+                            "Range " + (i + 1) + ": " +
+                                    r[0].toString() + "  ->  " + r[1].toString()
+                    );
+                }
+            } else {
+                System.out.println("No visibility ranges found.");
+            }
+            // ---------------------------------------------------            assertTrue(visible, "Object is always visible in the norther hemisphere");
+            assertTrue(visible);
+        }
 
 
         @Test

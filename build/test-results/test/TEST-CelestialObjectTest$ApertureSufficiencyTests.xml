@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CelestialObjectTest$ApertureSufficiencyTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.564Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.009">
+  <properties/>
+  <testcase name="test50mmBinoculars_CircleNotResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.001"/>
+  <testcase name="test6InchTelescope_CircleNotResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.0"/>
+  <testcase name="test80mmRefractor_RectangleResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.001"/>
+  <testcase name="test80mmRefractor_RectangleNotResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.001"/>
+  <testcase name="test50mmBinoculars_CircleResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.001"/>
+  <testcase name="test6InchTelescope_CircleResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.001"/>
+  <testcase name="test10InchTelescope_RectangleResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.001"/>
+  <testcase name="test10InchTelescope_RectangleNotResolvable()" classname="CelestialObjectTest$ApertureSufficiencyTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

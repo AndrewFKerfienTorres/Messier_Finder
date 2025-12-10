@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$IsVisibleDuringMonthTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-09T19:07:13.759Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.086">
+<testsuite name="SkyPositionTest$IsVisibleDuringMonthTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.619Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.1">
   <properties/>
-  <testcase name="testNotVisibleInDecember()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.065"/>
-  <testcase name="testUsesYearRangesOptionalEmpty()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.02"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testIsVisibleInApril()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.036"/>
+  <testcase name="testNotVisibleInDecember()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.044"/>
+  <testcase name="testUsesYearRangesOptionalEmpty()" classname="SkyPositionTest$IsVisibleDuringMonthTests" time="0.019"/>
+  <system-out><![CDATA[Visibility ranges for APRIL 2026:
+  Range: 2026-01-01T00:00Z  →  2026-12-31T23:59:59Z
+Visibility ranges:
+Range 1: 2025-01-01T00:00Z  ->  2025-12-31T23:59:59Z
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -33,6 +33,12 @@ public class Observatory implements Serializable {
         this.observatoryName = observatoryName;
         this.telescope = telescope;
     }
+    public Observatory(double latitude,double longitude,String name,TimeZone timeZone) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.timeZone = timeZone;
+        this.observatoryName = name;
+    }
 
 
     public double getLongitude() {

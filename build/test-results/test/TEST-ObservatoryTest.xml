@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ObservatoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.588Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.007">
+  <properties/>
+  <testcase name="canGetParams()" classname="ObservatoryTest" time="0.001"/>
+  <testcase name="canConstructWithParams()" classname="ObservatoryTest" time="0.002"/>
+  <testcase name="canSetObstructions()" classname="ObservatoryTest" time="0.001"/>
+  <testcase name="canConstructWithoutParams()" classname="ObservatoryTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

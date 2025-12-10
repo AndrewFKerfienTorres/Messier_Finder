@@ -313,25 +313,48 @@ public class SkyPosition {
 
         List<ZonedDateTime[]> ranges = optRanges.get();
 
+        // Determine which year the month should be evaluated in
         ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
 
         int yearToUse = (now.getMonthValue() > month.getValue())
                 ? now.getYear() + 1
                 : now.getYear();
 
-        ZonedDateTime monthStart = ZonedDateTime.of(yearToUse, month.getValue(), 1,
+        ZonedDateTime monthStart = ZonedDateTime.of(
+                yearToUse, month.getValue(), 1,
                 0, 0, 0, 0, ZoneOffset.UTC);
 
         ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
 
-        for (ZonedDateTime[] range : ranges) {
-            ZonedDateTime rangeStart = range[0];
-            ZonedDateTime rangeEnd = range[1];
+        // Shift visibility ranges into the year we are testing
+        List<ZonedDateTime[]> shiftedRanges = new ArrayList<>();
 
-            // Overlap if: rangeStart ≤ monthEnd AND rangeEnd ≥ monthStart
+        for (ZonedDateTime[] r : ranges) {
+            ZonedDateTime start = r[0].withYear(yearToUse);
+            ZonedDateTime end   = r[1].withYear(yearToUse);
+
+            // Handle ranges that wrap past year boundary (e.g., Nov → Feb)
+            if (end.isBefore(start)) {
+                end = end.plusYears(1);
+            }
+
+            shiftedRanges.add(new ZonedDateTime[]{ start, end });
+        }
+
+        // Debug print of ranges being tested
+        System.out.println("Visibility ranges for " + month + " " + yearToUse + ":");
+        for (ZonedDateTime[] r : shiftedRanges) {
+            System.out.println("  Range: " + r[0] + "  →  " + r[1]);
+        }
+
+        // CORRECT overlap test
+        for (ZonedDateTime[] range : shiftedRanges) {
+            ZonedDateTime rangeStart = range[0];
+            ZonedDateTime rangeEnd   = range[1];
+
             boolean overlap =
-                    !rangeEnd.isBefore(monthStart) &&
-                            !rangeStart.isAfter(monthEnd);
+                    rangeStart.isBefore(monthEnd) &&
+                            rangeEnd.isAfter(monthStart);
 
             if (overlap) {
                 return true;
