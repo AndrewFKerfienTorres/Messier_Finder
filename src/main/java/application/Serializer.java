@@ -1253,31 +1253,31 @@ public class Serializer {
             e.printStackTrace();
         }
 
-        //observatory serializing
-        Observatory obs = new Observatory(); // default constructor
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/observatory.ser")
-        )) {
-            oos.writeObject(obs); // serialize the single observatory
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
     }
     
-    public static void save(Object obj, String fileName) throws IOException {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
-            out.writeObject(obj);
-        }
-    }
+   private static final String DATA_FOLDER = System.getProperty("user.home") + "/Messier_Finder-data";
 
-    public static Object load(String fileName) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
-            return in.readObject();
+        public static String getFilePath(String fileName) {
+            File dir = new File(DATA_FOLDER);
+            if (!dir.exists()) dir.mkdirs(); // create folder if needed
+            return DATA_FOLDER + File.separator + fileName;
         }
-    }
+
+        public static void save(Object obj, String fileName) throws IOException {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(getFilePath(fileName)))) {
+                out.writeObject(obj);
+            }
+        }
+
+        public static Object load(String fileName) throws IOException, ClassNotFoundException {
+            File file = new File(getFilePath(fileName));
+            if (!file.exists()) return null; // safe fallback
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+                return in.readObject();
+            }
+        }
     
     
     
