@@ -389,6 +389,21 @@ class SkyPositionTest {
             assertEquals(82.0112222, az, ERROR);
             assertEquals(27.8259445, alt, ERROR);
         }
+        @Test
+        public void testM01() {
+
+            ZonedDateTime timeUTC = ZonedDateTime.parse("2025-12-09T21:11:46-05:00[America/New_York]");
+            double latitudeDeg = 43.45364;
+            double longitudeDeg = -76.50017;
+            double raHours = 5.60205556;
+            double decDeg = 22.03258333;
+            double az = SkyPosition.getAzimuth(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+            double alt = SkyPosition.getAltitude(timeUTC, latitudeDeg, longitudeDeg, raHours, decDeg);
+
+            assertEquals(102.1711389, az, ERROR);
+            assertEquals(44.7238056, alt, ERROR);
+        }
+
     }
 
     @Nested

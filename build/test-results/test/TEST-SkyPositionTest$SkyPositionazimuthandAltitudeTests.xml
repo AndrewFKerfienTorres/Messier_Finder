@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$SkyPositionazimuthandAltitudeTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.723Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.006">
+<testsuite name="SkyPositionTest$SkyPositionazimuthandAltitudeTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-12-10T02:33:38.166Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.012">
   <properties/>
-  <testcase name="testM31()" classname="SkyPositionTest$SkyPositionazimuthandAltitudeTests" time="0.005"/>
+  <testcase name="testM01()" classname="SkyPositionTest$SkyPositionazimuthandAltitudeTests" time="0.01"/>
+  <testcase name="testM31()" classname="SkyPositionTest$SkyPositionazimuthandAltitudeTests" time="0.001"/>
   <testcase name="testM45()" classname="SkyPositionTest$SkyPositionazimuthandAltitudeTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

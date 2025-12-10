@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CatalogueTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.490Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.054">
+<testsuite name="CatalogueTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-12-10T02:33:37.948Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.053">
   <properties/>
-  <testcase name="canAddItemsToCatalogue()" classname="CatalogueTest" time="0.014"/>
-  <testcase name="CanIterate()" classname="CatalogueTest" time="0.022"/>
+  <testcase name="canAddItemsToCatalogue()" classname="CatalogueTest" time="0.015"/>
+  <testcase name="CanIterate()" classname="CatalogueTest" time="0.02"/>
   <testcase name="CatalogueCanBeLoaded()" classname="CatalogueTest" time="0.007"/>
-  <testcase name="exceptionHandling()" classname="CatalogueTest" time="0.007"/>
+  <testcase name="exceptionHandling()" classname="CatalogueTest" time="0.006"/>
   <testcase name="CatalogueCanBeInstantiatedWithSingletonPattern()" classname="CatalogueTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

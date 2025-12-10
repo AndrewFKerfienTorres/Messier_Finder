@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TelescopeTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.778Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.001">
+<testsuite name="TelescopeTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-10T02:33:38.218Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.001">
   <properties/>
   <testcase name="canGetFieldOfView()" classname="TelescopeTest" time="0.001"/>
   <testcase name="canGetAperture()" classname="TelescopeTest" time="0.0"/>

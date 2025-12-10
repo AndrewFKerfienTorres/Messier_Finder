@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CelestialObjectTest$LimitingMagnitudeTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-10T01:00:03.576Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.01">
+<testsuite name="CelestialObjectTest$LimitingMagnitudeTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-10T02:33:38.034Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.009">
   <properties/>
   <testcase name="test80mmRefractor_ObjectBrighterVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.001"/>
   <testcase name="test80mmRefractor_ObjectDimmerNotVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.001"/>
@@ -8,7 +8,7 @@
   <testcase name="test6InchTelescope_ObjectBrighterVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.001"/>
   <testcase name="test10InchTelescope_ObjectBrighterVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.001"/>
   <testcase name="test6InchTelescope_ObjectDimmerNotVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.001"/>
-  <testcase name="test50mmBinoculars_ObjectDimmerNotVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.001"/>
+  <testcase name="test50mmBinoculars_ObjectDimmerNotVisible()" classname="CelestialObjectTest$LimitingMagnitudeTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

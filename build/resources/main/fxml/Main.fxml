@@ -20,35 +20,36 @@
             <Insets bottom="20" left="20" right="20" top="20"/>
         </padding>
 
+        <!-- Image Section -->
         <StackPane maxWidth="500" minHeight="250"
                    style="-fx-background-color: #C5C4C5; -fx-effect: dropshadow(gaussian, #00000050, 5, 0, 2, 2);">
             <ImageView fx:id="objectImage" fitHeight="220" preserveRatio="true"/>
         </StackPane>
 
-      
+        <!-- Name & Visibility -->
         <VBox alignment="CENTER" spacing="8">
 
             <Label fx:id="commonNameLabel" text="[object common name]">
                 <font><Font name="Yu Gothic UI" size="23"/></font>
             </Label>
 
-            <!--  new Visibility ScrollPane SHOULD work haha -->
+            <!-- Visibility ScrollPane -->
             <StackPane maxWidth="550" prefHeight="160"
                        style="-fx-background-color: #EFEFEF; -fx-border-color: #A0A0A0; -fx-padding: 5;">
                 <ScrollPane fx:id="visibilityScrollPane" fitToWidth="true"
                             hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: #EFEFEF;">
                     <content>
                         <Label fx:id="nextVisibleLabel"
-                              wrappingWidth="520"
-                              text="Visibility periods will appear here"
-                              style="-fx-font-size: 12px; -fx-fill: black;" />
+                               wrapText="true"
+                               text="Visibility periods will appear here"
+                               style="-fx-font-size: 12px; -fx-text-fill: black;" />
                     </content>
                 </ScrollPane>
             </StackPane>
 
         </VBox>
 
-        <!-- scrollable Details -->
+        <!-- Scrollable Details -->
         <StackPane maxWidth="650" minHeight="250" style="-fx-background-color: #C5C4C5;">
             <ScrollPane fitToWidth="true" style="-fx-background-color: #C5C4C5;" vbarPolicy="AS_NEEDED">
                 <content>
@@ -66,7 +67,6 @@
                         <Text fx:id="declinationText" text="Declination: "/>
                         <Text fx:id="altitudeText" text="Altitude: "/>
                         <Text fx:id="azimuthText" text="Azimuth: "/>
-                        <Text fx:id="sizeText" text="Size: "/>
                     </VBox>
                 </content>
             </ScrollPane>
@@ -74,17 +74,14 @@
 
     </VBox>
 
-<!-- back Button -->
-    <Button fx:id="backButton"
-            onAction="#switchHome"
+    <!-- Back Button -->
+    <Button fx:id="backButton" onAction="#switchHome"
             prefHeight="28" prefWidth="35"
             style="-fx-background-color: #D6D5D6; -fx-background-radius: 360;"
-            text="⬅"
-            StackPane.alignment="TOP_LEFT">
+            text="⬅" StackPane.alignment="TOP_LEFT">
         <StackPane.margin>
             <Insets left="10" top="10"/>
         </StackPane.margin>
     </Button>
 
 </StackPane>
-

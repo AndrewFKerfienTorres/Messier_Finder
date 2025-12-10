@@ -63,6 +63,7 @@ public class SkyPosition {
 
 
     public static double getAltitude(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
+        timeUTC = timeUTC.withZoneSameInstant(ZoneOffset.UTC);
 
         double jd = toJulianDate(timeUTC);
         double gmst = gmstFromJulianDate(jd);
@@ -84,6 +85,7 @@ public class SkyPosition {
         return altDeg;
     }
     public static double getAzimuth(ZonedDateTime timeUTC, double latitudeDeg, double longitudeDeg, double raHours, double decDeg) {
+        timeUTC = timeUTC.withZoneSameInstant(ZoneOffset.UTC);
 
         double jd = toJulianDate(timeUTC);
         double gmst = gmstFromJulianDate(jd);
@@ -102,6 +104,7 @@ public class SkyPosition {
         az = Math.toDegrees(az);
         az += 90.0;
         if (az < 0) az += 360.0;
+
 
         return az;
     }
