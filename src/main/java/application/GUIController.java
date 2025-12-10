@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -84,7 +86,7 @@ public class GUIController {
                 observatory = (Observatory) obj;  // use the updated observatory instance
             } else {
                 observatory = new Observatory();  // fallback if loading fails
-                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             observatory = new Observatory();  // fallback if an exception occurs
@@ -126,60 +128,60 @@ public class GUIController {
     public void applyFilters() {
         String search= searchBar.getText().toLowerCase();
 
-                for(Node n: gridPane.getChildren()){
-                    if(!(n instanceof VBox cell)) continue;
+        for(Node n: gridPane.getChildren()){
+            if(!(n instanceof VBox cell)) continue;
 
-                    CelestialObject obj = (CelestialObject) cell.getUserData();
-                    if (obj == null) continue;
-
-
-
-                    boolean matchSearch= ((search.isBlank())||obj.toString().toLowerCase().contains(search));
+            CelestialObject obj = (CelestialObject) cell.getUserData();
+            if (obj == null) continue;
 
 
-                    String type=obj.getObjectType().toString();
-                    boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
-                            || (filterGlobularCluster.isSelected()&&type.equals("Globular Cluster"))||
-                            (filterOpenCluster.isSelected()&&type.equals("Open Cluster"))||
-                            (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
-                            (filterOther.isSelected()&&type.equals("Other"))||
-                            (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
-                            (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
-                            (filterAsterism.isSelected()&&type.equals("Asterism"))||
-                            (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
-                                    &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
-                                    &&!filterSupernovaRemnant.isSelected()&&!filterAsterism.isSelected()
-                                    &&!filterPlanetaryNebula.isSelected()));
 
-                    double Lat= observatory.getLatitude();
-                    double Long= observatory.getLongitude();
-                    double Dec=obj.getDeclination();
-                    double RA=obj.getRightAscension();
-                    ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+            boolean matchSearch= ((search.isBlank())||obj.toString().toLowerCase().contains(search));
 
-                    boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(observatory, now ,observatory.getTelescope()))
-                            ||(filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
-                            ||(filterFeb.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.FEBRUARY))
-                            ||(filterMar.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MARCH))
-                            ||(filterApr.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.APRIL))
-                            ||(filterMay.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MAY))
-                            ||(filterJune.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JUNE))
-                            ||(filterJuly.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JULY))
-                            ||(filterAug.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.AUGUST))
-                            ||(filterSept.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.SEPTEMBER))
-                            ||(filterOct.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.OCTOBER))
-                            ||(filterNov.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.NOVEMBER))
-                            ||(filterDec.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.DECEMBER))
-                            ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
-                            &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
-                            &&!filterNov.isSelected()&&!filterDec.isSelected()));
 
-                    boolean show = matchSearch && matchType && matchVisibility;
-                    cell.setVisible(show);
-                    cell.setManaged(show);
-                }
+            String type=obj.getObjectType().toString();
+            boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
+                    || (filterGlobularCluster.isSelected()&&type.equals("Globular Cluster"))||
+                    (filterOpenCluster.isSelected()&&type.equals("Open Cluster"))||
+                    (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
+                    (filterOther.isSelected()&&type.equals("Other"))||
+                    (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
+                    (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
+                    (filterAsterism.isSelected()&&type.equals("Asterism"))||
+                    (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
+                            &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
+                            &&!filterSupernovaRemnant.isSelected()&&!filterAsterism.isSelected()
+                            &&!filterPlanetaryNebula.isSelected()));
 
-            }
+            double Lat= observatory.getLatitude();
+            double Long= observatory.getLongitude();
+            double Dec=obj.getDeclination();
+            double RA=obj.getRightAscension();
+            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+
+            boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(observatory, now ,observatory.getTelescope()))
+                    ||(filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
+                    ||(filterFeb.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.FEBRUARY))
+                    ||(filterMar.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MARCH))
+                    ||(filterApr.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.APRIL))
+                    ||(filterMay.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MAY))
+                    ||(filterJune.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JUNE))
+                    ||(filterJuly.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JULY))
+                    ||(filterAug.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.AUGUST))
+                    ||(filterSept.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.SEPTEMBER))
+                    ||(filterOct.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.OCTOBER))
+                    ||(filterNov.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.NOVEMBER))
+                    ||(filterDec.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.DECEMBER))
+                    ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
+                    &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
+                    &&!filterNov.isSelected()&&!filterDec.isSelected()));
+
+            boolean show = matchSearch && matchType && matchVisibility;
+            cell.setVisible(show);
+            cell.setManaged(show);
+        }
+
+    }
 
     public void switchHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/home2.fxml"));
@@ -238,67 +240,52 @@ public class GUIController {
     @FXML private Text declinationText;
     @FXML private Text altitudeText;
     @FXML private Text azimuthText;
-   
+    @FXML private Text sizeText;
 
     private Observatory observatory;
 
-    @FXML
-    private void initialize() {
-        clearFields();
-        observatory = new Observatory();
-    }
 
     private void clearFields() {
-        commonNameLabel.setText("");
-        nextVisibleLabel.setText("");
-        messierNumberText.setText("");
-        objectTypeText.setText("");
-        distanceText.setText("");
-        constellationText.setText("");
-        magnitudeText.setText("");
-        dimensionsText.setText("");
-        rightAscensionText.setText("");
-        declinationText.setText("");
-        altitudeText.setText("");
-        azimuthText.setText("");
-        sizeText.setText("");
-        objectImage.setImage(null);
+        if(commonNameLabel!=null){commonNameLabel.setText("");}
+        if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
+        if(messierNumberText!=null){messierNumberText.setText("");}
+        if(objectTypeText!=null){objectTypeText.setText("");}
+        if(distanceText!=null){distanceText.setText("");}
+        if(constellationText!=null){constellationText.setText("");}
+        if(magnitudeText!=null){magnitudeText.setText("");}
+        if(dimensionsText!=null){dimensionsText.setText("");}
+        if(rightAscensionText!=null){rightAscensionText.setText("");}
+        if(declinationText!=null){declinationText.setText("");}
+        if(altitudeText!=null){altitudeText.setText("");}
+        if(azimuthText!=null){azimuthText.setText("");}
+        if(objectImage!=null){objectImage.setImage(null);}
     }
 
     public void displayCelestialObject(CelestialObject obj) {
         if (obj == null) return;
 
         commonNameLabel.setText(obj.getCommonName());
-        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
-        objectTypeText.setText("Object Type: " + obj.getObjectType());
-        distanceText.setText("Distance from Earth: " + obj.getDistance());
-        constellationText.setText("Constellation: " + obj.getConstellation());
-        magnitudeText.setText("Apparent Magnitude: " + obj.getApparentMagnitude());
+        messierNumberText.setText(obj.getMessierIndex());
+        objectTypeText.setText(obj.getObjectType().toString());
+        distanceText.setText(obj.getDistance());
+        constellationText.setText(obj.getConstellation());
+        magnitudeText.setText(Double.toString(obj.getApparentMagnitude()));
         String dimensionsStr = obj.getApparentDimensionsString();
-        dimensionsText.setText("Dimensions: " + dimensionsStr);
-        sizeText.setText("Size: " + dimensionsStr);
+        dimensionsText.setText(dimensionsStr);
 
-        rightAscensionText.setText("Right Ascension (RA): " + obj.getRightAscension());
-        declinationText.setText("Declination: " + obj.getDeclination());
+
+        rightAscensionText.setText(SkyPosition.doubleToHMS(obj.getRightAscension()));
+        declinationText.setText(SkyPosition.doubleToDMS(obj.getDeclination()));
 
         // altitude + azimuth
         ZonedDateTime now = ZonedDateTime.now();
-        double alt = SkyPosition.getAltitude(
-        now, 
-        observatory.getLatitude(), 
-        observatory.getLongitude(),
-        obj.getRightAscension(), 
-        obj.getDeclination());
+        double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
+                obj.getRightAscension(), obj.getDeclination());
+        double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
+                obj.getRightAscension(), obj.getDeclination());
 
-        double az = SkyPosition.getAzimuth(
-        now, 
-        observatory.getLatitude(),
-        observatory.getLongitude(),
-        obj.getRightAscension(), 
-        obj.getDeclination());
-
-        altitudeText.setText(String.format("Altitude: %.2f°", alt));
-        azimuthText.setText(String.format("Azimuth: %.2f°", az));
+        altitudeText.setText(String.format("%.2f°", alt));
+        azimuthText.setText(String.format("%.2f°", az));
 
         // monthly visibility periods
         nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
@@ -369,7 +356,7 @@ public class GUIController {
 
         return sb.toString();
     }
-//makes it look nicer and not all caps (ex: JANUARY --> January)
+    //makes it look nicer and not all caps (ex: JANUARY --> January)
     private String capitalize(String s) {
         String lower = s.toLowerCase();
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
