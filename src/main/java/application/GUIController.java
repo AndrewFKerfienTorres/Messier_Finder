@@ -226,6 +226,25 @@ public class GUIController {
    
 
 
+   package application;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+
+import java.time.Month;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class controller {
+
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
     @FXML private Label commonNameLabel;
@@ -275,7 +294,7 @@ public class GUIController {
         rightAscensionText.setText("Right Ascension: " + SkyPosition.doubleToHMS(obj.getRightAscension()));
         declinationText.setText("Declination: " + SkyPosition.doubleToDMS(obj.getDeclination()));
 
-        // altitude + azimuth
+        // altitude + azimuth 
         ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
         double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
                 obj.getRightAscension(), obj.getDeclination());
@@ -313,6 +332,7 @@ public class GUIController {
                 );
 
         int currentYear = ZonedDateTime.now(ZoneOffset.UTC).getYear();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); // nicer looking 
 
         for (Month month : Month.values()) {
             sb.append(capitalize(month.name())).append(": ");
@@ -321,7 +341,7 @@ public class GUIController {
                 List<ZonedDateTime[]> ranges = yearRanges.get();
                 List<String> monthPeriods = new ArrayList<>();
 
-                // UTC start and end of the month
+                // start and end of the month 
                 ZonedDateTime monthStart = ZonedDateTime.of(
                         currentYear, month.getValue(), 1,
                         0, 0, 0, 0,
@@ -331,22 +351,16 @@ public class GUIController {
                 ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
 
                 for (ZonedDateTime[] range : ranges) {
-                    ZonedDateTime rangeStart = range[0];
-                    ZonedDateTime rangeEnd = range[1];
+                    ZonedDateTime rangeStart = range[0].withZoneSameInstant(ZoneOffset.UTC);
+                    ZonedDateTime rangeEnd = range[1].withZoneSameInstant(ZoneOffset.UTC);
 
                     if (!rangeEnd.isBefore(monthStart) && !rangeStart.isAfter(monthEnd)) {
                         ZonedDateTime visibleStart = rangeStart.isBefore(monthStart) ? monthStart : rangeStart;
                         ZonedDateTime visibleEnd = rangeEnd.isAfter(monthEnd) ? monthEnd : rangeEnd;
 
-                        // convert altitude at start/end to degrees+minutes
-                        double startAlt = SkyPosition.getAltitude(visibleStart, observatory.getLatitude(),
-                                observatory.getLongitude(), obj.getRightAscension(), obj.getDeclination());
-                        double endAlt = SkyPosition.getAltitude(visibleEnd, observatory.getLatitude(),
-                                observatory.getLongitude(), obj.getRightAscension(), obj.getDeclination());
-
                         monthPeriods.add(String.format("%d %s – %d %s",
-                                visibleStart.getDayOfMonth(), degreesToDegMin(startAlt),
-                                visibleEnd.getDayOfMonth(), degreesToDegMin(endAlt)));
+                                visibleStart.getDayOfMonth(), visibleStart.format(timeFormatter),
+                                visibleEnd.getDayOfMonth(), visibleEnd.format(timeFormatter)));
                     }
                 }
 
@@ -378,4 +392,3 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
-
