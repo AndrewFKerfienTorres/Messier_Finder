@@ -322,7 +322,7 @@ public class GUIController {
                 List<ZonedDateTime[]> ranges = yearRanges.get();
                 List<String> monthPeriods = new ArrayList<>();
 
-                ZonedDateTime monthStart = ZonedDateTime.of(currentYear, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset.UTC);
+                ZonedDateTime monthStart = ZonedDateTime.of(currentYear, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset());
                 ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
 
                 for (ZonedDateTime[] range : ranges) {
@@ -373,3 +373,4 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
+
