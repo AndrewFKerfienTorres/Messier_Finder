@@ -38,8 +38,8 @@ public class ObservatoryTest {
         String name = o.getObservatoryName();
         TimeZone tz = o.getTimeZone();
 
-        assertEquals(43.43,lat);
-        assertEquals(-76.550,lon);
+        assertEquals(43.45364,lat);
+        assertEquals(-76.50017,lon);
         assertEquals("Rice Creek Field Station",name);
         assertEquals(TimeZone.getTimeZone("America/New_York"),tz);
     }

@@ -11,8 +11,8 @@ public class Observatory implements Serializable {
     private Telescope telescope;
 
     public Observatory(){
-        longitude = -76.550;
-        latitude = 43.43;
+        latitude = 43.45364;
+        longitude = -76.50017;
         observatoryName = "Rice Creek Field Station";
         timeZone = TimeZone.getTimeZone("America/New_York");
         obstructions = new Obstruction[]{

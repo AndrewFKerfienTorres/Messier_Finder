@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SkyPositionTest$ToDMSTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2025-12-10T02:33:38.186Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.014">
+<testsuite name="SkyPositionTest$ToDMSTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2025-12-10T02:53:49.137Z" hostname="steve-ThinkPad-X1-Nano-Gen-1" time="0.043">
   <properties/>
   <testcase name="testJustUnderNextDegree()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testMinuteOverflowToDegrees()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testSimpleFraction()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testNegativeFraction()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testZero()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
+  <testcase name="testNegativeFraction()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testZero()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testSecondsCalculation()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
-  <testcase name="minutesAndSecondsRolloverInDMS()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="wrapAround24Hours()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testRoundingSecondsTo60()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="minutesAndSecondsRolloverInDMS()" classname="SkyPositionTest$ToDMSTest" time="0.003"/>
+  <testcase name="wrapAround24Hours()" classname="SkyPositionTest$ToDMSTest" time="0.006"/>
+  <testcase name="testRoundingSecondsTo60()" classname="SkyPositionTest$ToDMSTest" time="0.004"/>
   <testcase name="secondsRolloverToNextMinute()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
-  <testcase name="secondsRolloverInDMS()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
-  <testcase name="testNegativeRoundingBehavior()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testNegativeWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
-  <testcase name="testPositiveWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.002"/>
-  <testcase name="secondsAndMinutesRolloverToNextHour()" classname="SkyPositionTest$ToDMSTest" time="0.0"/>
+  <testcase name="secondsRolloverInDMS()" classname="SkyPositionTest$ToDMSTest" time="0.002"/>
+  <testcase name="testNegativeRoundingBehavior()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testNegativeWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="testPositiveWholeNumber()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
+  <testcase name="secondsAndMinutesRolloverToNextHour()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <testcase name="testRoundingSecondsCarryToMinutes()" classname="SkyPositionTest$ToDMSTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

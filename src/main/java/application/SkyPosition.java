@@ -110,18 +110,22 @@ public class SkyPosition {
     }
 
     public static String doubleToDMS(double decimalDegrees) {
+        // Determine sign
         String sign = decimalDegrees < 0 ? "-" : "";
         decimalDegrees = Math.abs(decimalDegrees);
 
-        int degrees = (int) Math.floor(decimalDegrees);
+        // Extract degrees
+        int degrees = (int) decimalDegrees;
         double fractional = decimalDegrees - degrees;
 
-        double minutesFull = fractional * 60.0;
-        int minutes = (int) Math.floor(minutesFull);
+        // Extract minutes
+        double totalMinutes = fractional * 60.0;
+        int minutes = (int) totalMinutes;
 
-        double seconds = (minutesFull - minutes) * 60.0;
+        // Extract seconds
+        double seconds = (totalMinutes - minutes) * 60.0;
 
-        // Round seconds to 3 decimals (your desired format)
+        // Round seconds to 3 decimals
         seconds = Math.round(seconds * 1000.0) / 1000.0;
 
         // Carry seconds -> minutes
@@ -131,12 +135,21 @@ public class SkyPosition {
         }
 
         // Carry minutes -> degrees
-        if (minutes >= 60.0) {
-            minutes -= 60.0;
+        if (minutes >= 60) {
+            minutes -= 60;
             degrees += 1;
         }
 
-        return String.format("%s%d° %d′ %.3f″", sign, degrees, minutes, seconds);
+        // Optional: wrap degrees for longitudes (0–359)
+        // degrees = degrees % 360;
+
+        // Format seconds: remove trailing zeros if possible
+        String secondsStr = seconds % 1.0 == 0 ? String.format("%.0f", seconds)
+                : seconds * 10 % 1 == 0 ? String.format("%.1f", seconds)
+                : seconds * 100 % 1 == 0 ? String.format("%.2f", seconds)
+                : String.format("%.3f", seconds);
+
+        return String.format("%s%d° %d′ %s″", sign, degrees, minutes, secondsStr);
     }
 
     public static String doubleToHMS(double hours) {

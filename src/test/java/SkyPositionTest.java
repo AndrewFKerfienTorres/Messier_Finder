@@ -195,41 +195,41 @@ class SkyPositionTest {
         //Useful Testing Resource to verify expected values calculations: https://www.calculatorsoup.com/calculators/conversions/convert-decimal-degrees-to-degrees-minutes-seconds.php
         @Test
         void testZero() {
-            assertEquals("0° 0′ 0.000″", SkyPosition.doubleToDMS(0.0));
+            assertEquals("0° 0′ 0″", SkyPosition.doubleToDMS(0.0));
         }
 
         @Test
         void testPositiveWholeNumber() {
-            assertEquals("30° 0′ 0.000″", SkyPosition.doubleToDMS(30.0));
+            assertEquals("30° 0′ 0″", SkyPosition.doubleToDMS(30.0));
         }
 
         @Test
         void testNegativeWholeNumber() {
-            assertEquals("-45° 0′ 0.000″", SkyPosition.doubleToDMS(-45.0));
+            assertEquals("-45° 0′ 0″", SkyPosition.doubleToDMS(-45.0));
         }
 
         @Test
         void testSimpleFraction() {
             // 12.5° = 12° 30'
-            assertEquals("12° 30′ 0.000″", SkyPosition.doubleToDMS(12.5));
+            assertEquals("12° 30′ 0″", SkyPosition.doubleToDMS(12.5));
         }
 
         @Test
         void testSecondsCalculation() {
             // 15.256° → fractional .256 * 60 = 15.36 min → fractional .36 * 60 = 21.6 sec
-            assertEquals("15° 15′ 21.600″", SkyPosition.doubleToDMS(15.256));
+            assertEquals("15° 15′ 21.6″", SkyPosition.doubleToDMS(15.256));
         }
 
         @Test
         void testNegativeFraction() {
-            assertEquals("-12° 30′ 0.000″", SkyPosition.doubleToDMS(-12.5));
+            assertEquals("-12° 30′ 0″", SkyPosition.doubleToDMS(-12.5));
         }
 
         @Test
         void testRoundingSecondsTo60() {
             // 10.0166666667° → 0° 1′ 0.000″ after rounding
             // 0.0166666667 * 60 = 1.000000002 min ≈ 1 min, 0 sec
-            assertEquals("10° 1′ 0.000″", SkyPosition.doubleToDMS(10.0166666667));
+            assertEquals("10° 1′ 0″", SkyPosition.doubleToDMS(10.0166666667));
         }
 
         @Test
@@ -238,7 +238,7 @@ class SkyPositionTest {
             // Example: degrees = 1, minutes = 2, seconds ≈ 59.9996 → rounds to 60
             double decimal = 1 + (2 / 60.0) + (59.9996 / 3600.0);
 
-            assertEquals("1° 3′ 0.000″", SkyPosition.doubleToDMS(decimal));
+            assertEquals("1° 3′ 0″", SkyPosition.doubleToDMS(decimal));
         }
 
         @Test
@@ -246,7 +246,7 @@ class SkyPositionTest {
             // 1° 59.999999' should roll to 2° 0′ 0.000″
             double decimal = 1 + (59.999999 / 60.0);
 
-            assertEquals("2° 0′ 0.000″", SkyPosition.doubleToDMS(decimal));
+            assertEquals("2° 0′ 0″", SkyPosition.doubleToDMS(decimal));
         }
 
         @Test
@@ -258,7 +258,7 @@ class SkyPositionTest {
         @Test
         void testNegativeRoundingBehavior() {
             // Negative values should carry sign only once
-            assertEquals("-1° 30′ 0.000″", SkyPosition.doubleToDMS(-1.5));
+            assertEquals("-1° 30′ 0″", SkyPosition.doubleToDMS(-1.5));
         }
 
         @Test
@@ -301,7 +301,7 @@ class SkyPositionTest {
 
             String result = SkyPosition.doubleToDMS(deg);
 
-            assertEquals("10° 21′ 0.000″", result);
+            assertEquals("10° 21′ 0″", result);
         }
 
         @Test
@@ -313,7 +313,7 @@ class SkyPositionTest {
 
             String result = SkyPosition.doubleToDMS(deg);
 
-            assertEquals("16° 0′ 0.000″", result);
+            assertEquals("16° 0′ 0″", result);
         }
 
     }
