@@ -226,7 +226,7 @@ public class GUIController {
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
     @FXML private Label commonNameLabel;
-    @FXML private Label nextVisibleLabel;
+   // @FXML private Label nextVisibleLabel;
 
     @FXML private Text messierNumberText;
     @FXML private Text objectTypeText;
@@ -238,14 +238,14 @@ public class GUIController {
     @FXML private Text declinationText;
     @FXML private Text altitudeText;
     @FXML private Text azimuthText;
-    @FXML private Text sizeText;
+   
 
     private Observatory observatory;
 
 
     private void clearFields() {
        if(commonNameLabel!=null){commonNameLabel.setText("");}
-        if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
+       // if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
         if(messierNumberText!=null){messierNumberText.setText("");}
         if(objectTypeText!=null){objectTypeText.setText("");}
         if(distanceText!=null){distanceText.setText("");}
@@ -360,5 +360,6 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }*/
 }
+
 
 
