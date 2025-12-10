@@ -279,7 +279,7 @@ public class GUIController {
         declinationText.setText("Declination: " + SkyPosition.doubleToDMS(obj.getDeclination()));
 
         // altitude + azimuth
-        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
         double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
                 obj.getRightAscension(), obj.getDeclination());
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
@@ -315,7 +315,7 @@ public class GUIController {
                         obj.getDeclination()
                 );
 
-        int currentYear = ZonedDateTime.now().getYear();
+        int currentYear = ZonedDateTime.now(ZoneOffset.UTC).getYear();
 
         for (Month month : Month.values()) {
             sb.append(capitalize(month.name())).append(": ");
@@ -324,14 +324,14 @@ public class GUIController {
                 List<ZonedDateTime[]> ranges = yearRanges.get();
                 List<String> monthPeriods = new ArrayList<>();
 
+                // UTC start and end of the month
                 ZonedDateTime monthStart = ZonedDateTime.of(
                         currentYear, month.getValue(), 1,
                         0, 0, 0, 0,
-                        ZoneId.systemDefault()
+                        ZoneOffset.UTC
                 );
 
                 ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
-
 
                 for (ZonedDateTime[] range : ranges) {
                     ZonedDateTime rangeStart = range[0];
@@ -381,4 +381,3 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
-
