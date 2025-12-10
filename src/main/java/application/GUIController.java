@@ -228,7 +228,6 @@ public class GUIController {
     }
    
 
-   public class controller {
 
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
