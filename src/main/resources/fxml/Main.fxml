@@ -13,7 +13,7 @@
 <StackPane prefHeight="600" prefWidth="800" style="-fx-background-color: #D6D5D6;"
            xmlns="http://javafx.com/javafx/25"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="application.GUIcontroller">
+           fx:controller="application.GUIController">
 
     <VBox alignment="TOP_CENTER" spacing="25">
         <padding>
