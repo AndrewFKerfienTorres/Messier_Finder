@@ -36,7 +36,6 @@
                   <CheckBox fx:id="filterAsterism" mnemonicParsing="false" text="Asterism" />
                   <CheckBox fx:id="filterOther" mnemonicParsing="false" text="Other" />
                   <Label text="Time Visible" />
-                  <CheckBox fx:id="filterIsVis" mnemonicParsing="false" text="Currently Visible" />
                   <CheckBox fx:id="filterJan" mnemonicParsing="false" text="January" />
                   <CheckBox fx:id="filterFeb" mnemonicParsing="false" text="February" />
                   <CheckBox fx:id="filterMar" mnemonicParsing="false" text="March" />

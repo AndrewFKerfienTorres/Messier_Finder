@@ -28,9 +28,10 @@ public class Catalogue implements Iterable<CelestialObject>, Serializable{
 
     public static void loadCatalogue() throws IOException, ClassNotFoundException {
         try{
-            String resourcedir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" +
-                    File.separator + "resources" + File.separator + "catalogue.ser";
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(resourcedir));
+
+            InputStream is = Catalogue.class.getResourceAsStream("/catalogue.ser");
+
+            ObjectInputStream in = new ObjectInputStream(is);
             catalogue = (Catalogue) in.readObject();
             in.close();
         }catch (IOException | ClassNotFoundException e){
