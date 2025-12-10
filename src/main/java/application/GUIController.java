@@ -1,3 +1,4 @@
+
 package application;
 
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,53 +32,117 @@ public class GUIController {
     private Stage stage;
     private Scene scene;
 
-    @FXML private CheckBox filterNebula;
-    @FXML private CheckBox filterGalaxy;
-    @FXML private CheckBox filterOpenCluster;
-    @FXML private CheckBox filterGlobularCluster;
-    @FXML private CheckBox filterPlanetaryNebula;
-    @FXML private CheckBox filterSupernovaRemnant;
-    @FXML private CheckBox filterAsterism;
-    @FXML private CheckBox filterOther;
-    @FXML private CheckBox filterJan;
-    @FXML private CheckBox filterFeb;
-    @FXML private CheckBox filterMar;
-    @FXML private CheckBox filterApr;
-    @FXML private CheckBox filterMay;
-    @FXML private CheckBox filterJune;
-    @FXML private CheckBox filterJuly;
-    @FXML private CheckBox filterAug;
-    @FXML private CheckBox filterSept;
-    @FXML private CheckBox filterNov;
-    @FXML private CheckBox filterDec;
-    @FXML private CheckBox filterOct;
-    @FXML private TextField searchBar;
-    @FXML private TilePane gridPane;
+    @FXML
+    private CheckBox filterNebula;
+    @FXML
+    private CheckBox filterGalaxy;
+    @FXML
+    private CheckBox filterOpenCluster;
+    @FXML
+    private CheckBox filterGlobularCluster;
+    @FXML
+    private CheckBox filterPlanetaryNebula;
+    @FXML
+    private CheckBox filterSupernovaRemnant;
+    @FXML
+    private CheckBox filterAsterism;
+    @FXML
+    private CheckBox filterOther;
+    @FXML
+    private CheckBox filterJan;
+    @FXML
+    private CheckBox filterFeb;
+    @FXML
+    private CheckBox filterMar;
+    @FXML
+    private CheckBox filterApr;
+    @FXML
+    private CheckBox filterMay;
+    @FXML
+    private CheckBox filterJune;
+    @FXML
+    private CheckBox filterJuly;
+    @FXML
+    private CheckBox filterAug;
+    @FXML
+    private CheckBox filterSept;
+    @FXML
+    private CheckBox filterNov;
+    @FXML
+    private CheckBox filterDec;
+    @FXML
+    private CheckBox filterOct;
+    @FXML
+    private TextField searchBar;
+    @FXML
+    private TilePane gridPane;
 
     @FXML
     public void initialize() {
 
-        if (filterNebula != null) {filterNebula.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterGalaxy != null){filterGalaxy.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterOpenCluster != null){filterOpenCluster.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterGlobularCluster != null){filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterPlanetaryNebula != null){filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterSupernovaRemnant != null){filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterAsterism != null){filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterOther != null){filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterJan != null){filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterFeb != null){filterFeb.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterMar != null){filterMar.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterApr != null){filterApr.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterMay != null){filterMay.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterJune != null){filterJune.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterJuly != null){filterJuly.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterAug != null){filterAug.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterSept!= null){filterSept.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterOct != null){filterOct.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterNov != null){filterNov.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (filterDec != null){filterDec.selectedProperty().addListener((o, old, now) -> applyFilters());}
-        if (searchBar != null){searchBar.textProperty().addListener((o, old, now) -> applyFilters());}
+        if (filterNebula != null) {
+            filterNebula.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterGalaxy != null) {
+            filterGalaxy.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterOpenCluster != null) {
+            filterOpenCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterGlobularCluster != null) {
+            filterGlobularCluster.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterPlanetaryNebula != null) {
+            filterPlanetaryNebula.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterSupernovaRemnant != null) {
+            filterSupernovaRemnant.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterAsterism != null) {
+            filterAsterism.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterOther != null) {
+            filterOther.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterJan != null) {
+            filterJan.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterFeb != null) {
+            filterFeb.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterMar != null) {
+            filterMar.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterApr != null) {
+            filterApr.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterMay != null) {
+            filterMay.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterJune != null) {
+            filterJune.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterJuly != null) {
+            filterJuly.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterAug != null) {
+            filterAug.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterSept != null) {
+            filterSept.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterOct != null) {
+            filterOct.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterNov != null) {
+            filterNov.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (filterDec != null) {
+            filterDec.selectedProperty().addListener((o, old, now) -> applyFilters());
+        }
+        if (searchBar != null) {
+            searchBar.textProperty().addListener((o, old, now) -> applyFilters());
+        }
         clearFields();
 
         try {
@@ -96,27 +162,26 @@ public class GUIController {
 
     private void attachObjectsToVBox() {
 
-        try{
+        try {
             Catalogue.loadCatalogue();
+        } catch (Exception e) {
+            System.out.println("An error has occurred: " + e);
         }
-        catch(Exception e){
-            System.out.println("An error has occurred: "+e);
-        }
-        Catalogue c =Catalogue.getInstance();
-        if(gridPane!=null){
-            for(Node n: gridPane.getChildren()){
-                if(!(n instanceof VBox cell)) continue;
-                String name=null;
+        Catalogue c = Catalogue.getInstance();
+        if (gridPane != null) {
+            for (Node n : gridPane.getChildren()) {
+                if (!(n instanceof VBox cell)) continue;
+                String name = null;
 
-                for(Node child: cell.getChildren()){
-                    if(child instanceof Button btn){
-                        name=btn.getText();
+                for (Node child : cell.getChildren()) {
+                    if (child instanceof Button btn) {
+                        name = btn.getText();
                         break;
                     }
                 }
-                if(name == null) continue;
+                if (name == null) continue;
                 CelestialObject obj = c.get(name);
-                if(obj!=null){
+                if (obj != null) {
                     cell.setUserData(obj);
                 }
 
@@ -125,54 +190,53 @@ public class GUIController {
     }
 
     public void applyFilters() {
-        String search= searchBar.getText().toLowerCase();
+        String search = searchBar.getText().toLowerCase();
 
-        for(Node n: gridPane.getChildren()){
-            if(!(n instanceof VBox cell)) continue;
+        for (Node n : gridPane.getChildren()) {
+            if (!(n instanceof VBox cell)) continue;
 
             CelestialObject obj = (CelestialObject) cell.getUserData();
             if (obj == null) continue;
 
 
+            boolean matchSearch = ((search.isBlank()) || obj.toString().toLowerCase().contains(search));
 
-            boolean matchSearch= ((search.isBlank())||obj.toString().toLowerCase().contains(search));
 
+            String type = obj.getObjectType().toString();
+            boolean matchType = (filterNebula.isSelected() && (type.equals("Nebula"))
+                    || (filterGlobularCluster.isSelected() && type.equals("Globular Cluster")) ||
+                    (filterOpenCluster.isSelected() && type.equals("Open Cluster")) ||
+                    (filterGalaxy.isSelected() && type.equals("Galaxy")) ||
+                    (filterOther.isSelected() && type.equals("Other")) ||
+                    (filterPlanetaryNebula.isSelected() && type.equals("Planetary Nebula")) ||
+                    (filterSupernovaRemnant.isSelected() && type.equals("Supernova Remnant")) ||
+                    (filterAsterism.isSelected() && type.equals("Asterism")) ||
+                    (!filterOther.isSelected() && !filterNebula.isSelected() && !filterGlobularCluster.isSelected()
+                            && !filterGalaxy.isSelected() && !filterOpenCluster.isSelected()
+                            && !filterSupernovaRemnant.isSelected() && !filterAsterism.isSelected()
+                            && !filterPlanetaryNebula.isSelected()));
 
-            String type=obj.getObjectType().toString();
-            boolean matchType=(filterNebula.isSelected()&&(type.equals("Nebula"))
-                    || (filterGlobularCluster.isSelected()&&type.equals("Globular Cluster"))||
-                    (filterOpenCluster.isSelected()&&type.equals("Open Cluster"))||
-                    (filterGalaxy.isSelected()&&type.equals("Galaxy"))||
-                    (filterOther.isSelected()&&type.equals("Other"))||
-                    (filterPlanetaryNebula.isSelected()&&type.equals("Planetary Nebula"))||
-                    (filterSupernovaRemnant.isSelected()&&type.equals("Supernova Remnant"))||
-                    (filterAsterism.isSelected()&&type.equals("Asterism"))||
-                    (!filterOther.isSelected()&&!filterNebula.isSelected()&&!filterGlobularCluster.isSelected()
-                            &&!filterGalaxy.isSelected()&&!filterOpenCluster.isSelected()
-                            &&!filterSupernovaRemnant.isSelected()&&!filterAsterism.isSelected()
-                            &&!filterPlanetaryNebula.isSelected()));
-
-            double Lat= observatory.getLatitude();
-            double Long= observatory.getLongitude();
-            double Dec=obj.getDeclination();
-            double RA=obj.getRightAscension();
+            double Lat = observatory.getLatitude();
+            double Long = observatory.getLongitude();
+            double Dec = obj.getDeclination();
+            double RA = obj.getRightAscension();
             ZonedDateTime now = ZonedDateTime.now();
 
-            boolean matchVisibility=((filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
-                    ||(filterFeb.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.FEBRUARY))
-                    ||(filterMar.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MARCH))
-                    ||(filterApr.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.APRIL))
-                    ||(filterMay.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.MAY))
-                    ||(filterJune.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JUNE))
-                    ||(filterJuly.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JULY))
-                    ||(filterAug.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.AUGUST))
-                    ||(filterSept.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.SEPTEMBER))
-                    ||(filterOct.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.OCTOBER))
-                    ||(filterNov.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.NOVEMBER))
-                    ||(filterDec.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.DECEMBER))
-                    ||(!filterJan.isSelected()&&!filterFeb.isSelected()&&!filterMar.isSelected()&&!filterApr.isSelected()&&!filterMay.isSelected()
-                    &&!filterJune.isSelected()&&!filterJuly.isSelected()&&!filterAug.isSelected()&&!filterSept.isSelected()&&!filterOct.isSelected()
-                    &&!filterNov.isSelected()&&!filterDec.isSelected()));
+            boolean matchVisibility = ((filterJan.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.JANUARY))
+                    || (filterFeb.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.FEBRUARY))
+                    || (filterMar.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.MARCH))
+                    || (filterApr.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.APRIL))
+                    || (filterMay.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.MAY))
+                    || (filterJune.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.JUNE))
+                    || (filterJuly.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.JULY))
+                    || (filterAug.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.AUGUST))
+                    || (filterSept.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.SEPTEMBER))
+                    || (filterOct.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.OCTOBER))
+                    || (filterNov.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.NOVEMBER))
+                    || (filterDec.isSelected() && SkyPosition.isVisibleDuringMonth(Lat, Long, RA, Dec, Month.DECEMBER))
+                    || (!filterJan.isSelected() && !filterFeb.isSelected() && !filterMar.isSelected() && !filterApr.isSelected() && !filterMay.isSelected()
+                    && !filterJune.isSelected() && !filterJuly.isSelected() && !filterAug.isSelected() && !filterSept.isSelected() && !filterOct.isSelected()
+                    && !filterNov.isSelected() && !filterDec.isSelected()));
 
             boolean show = matchSearch && matchType && matchVisibility;
             cell.setVisible(show);
@@ -183,16 +247,16 @@ public class GUIController {
 
     public void switchHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/home2.fxml"));
-        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        scene= new Scene(root);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-    public void switchObject(ActionEvent event) throws IOException {
-        Button clicked=(Button)event.getSource();
-        Parent cell=clicked.getParent();
-        CelestialObject obj=(CelestialObject) cell.getUserData();
 
+    public void switchObject(ActionEvent event) throws IOException {
+        Button clicked = (Button) event.getSource();
+        Parent cell = clicked.getParent();
+        CelestialObject obj = (CelestialObject) cell.getUserData();
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Main.fxml"));
@@ -201,11 +265,12 @@ public class GUIController {
         GUIController controller = loader.getController();
         controller.displayCelestialObject(obj);
 
-        stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        scene= new Scene(root);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     private void switchObstruction(ActionEvent event) throws IOException {
         ObjGUI objGUI = new ObjGUI();
@@ -213,6 +278,7 @@ public class GUIController {
 
         stage.setOnHidden(e -> refreshHomeGUI());
     }
+
     @FXML
     private void switchTelescope(ActionEvent event) throws IOException {
         TeleGUI teleGUI = new TeleGUI(this.observatory);
@@ -220,175 +286,178 @@ public class GUIController {
 
         stage.setOnHidden(e -> refreshHomeGUI());
     }
-    private void refreshHomeGUI(){
+
+    private void refreshHomeGUI() {
         System.out.println("refreshed");
     }
    
 
 
-   package application;
+   
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
-import java.time.Month;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
-public class controller {
+    
 
-    @FXML private Button backButton;
-    @FXML private ImageView objectImage;
-    @FXML private Label commonNameLabel;
-    @FXML private Label nextVisibleLabel;
+        @FXML
+        private Button backButton;
+        @FXML
+        private ImageView objectImage;
+        @FXML
+        private Label commonNameLabel;
+        @FXML
+        private Label nextVisibleLabel;
 
-    @FXML private Text messierNumberText;
-    @FXML private Text objectTypeText;
-    @FXML private Text distanceText;
-    @FXML private Text constellationText;
-    @FXML private Text magnitudeText;
-    @FXML private Text dimensionsText;
-    @FXML private Text rightAscensionText;
-    @FXML private Text declinationText;
-    @FXML private Text altitudeText;
-    @FXML private Text azimuthText;
-    @FXML private Text sizeText;
+        @FXML
+        private Text messierNumberText;
+        @FXML
+        private Text objectTypeText;
+        @FXML
+        private Text distanceText;
+        @FXML
+        private Text constellationText;
+        @FXML
+        private Text magnitudeText;
+        @FXML
+        private Text dimensionsText;
+        @FXML
+        private Text rightAscensionText;
+        @FXML
+        private Text declinationText;
+        @FXML
+        private Text altitudeText;
+        @FXML
+        private Text azimuthText;
+        @FXML
+        private Text sizeText;
 
-    private Observatory observatory;
+        private Observatory observatory;
 
-    private void clearFields() {
-        if(commonNameLabel != null) commonNameLabel.setText("");
-        if(nextVisibleLabel != null) nextVisibleLabel.setText("");
-        if(messierNumberText != null) messierNumberText.setText("");
-        if(objectTypeText != null) objectTypeText.setText("");
-        if(distanceText != null) distanceText.setText("");
-        if(constellationText != null) constellationText.setText("");
-        if(magnitudeText != null) magnitudeText.setText("");
-        if(dimensionsText != null) dimensionsText.setText("");
-        if(rightAscensionText != null) rightAscensionText.setText("");
-        if(declinationText != null) declinationText.setText("");
-        if(altitudeText != null) altitudeText.setText("");
-        if(azimuthText != null) azimuthText.setText("");
-        if(objectImage != null) objectImage.setImage(null);
-    }
-
-    public void displayCelestialObject(CelestialObject obj) {
-        if (obj == null) return;
-
-        commonNameLabel.setText(obj.getCommonName());
-        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
-        objectTypeText.setText("Object Type: " + obj.getObjectType());
-        distanceText.setText("Distance: " + obj.getDistance());
-        constellationText.setText("Constellation: " + obj.getConstellation());
-        magnitudeText.setText("Magnitude: " + obj.getApparentMagnitude());
-        dimensionsText.setText("Dimensions: " + obj.getApparentDimensionsString());
-
-        rightAscensionText.setText("Right Ascension: " + SkyPosition.doubleToHMS(obj.getRightAscension()));
-        declinationText.setText("Declination: " + SkyPosition.doubleToDMS(obj.getDeclination()));
-
-        // altitude + azimuth 
-        ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
-        double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
-                obj.getRightAscension(), obj.getDeclination());
-        double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
-                obj.getRightAscension(), obj.getDeclination());
-
-        altitudeText.setText("Altitude: " + degreesToDegMin(alt));
-        azimuthText.setText("Azimuth: " + degreesToDegMin(az));
-
-        // monthly visibility periods
-        nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
-
-        // image
-        if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
-            try {
-                Image img = new Image(getClass().getResourceAsStream(obj.getImagePath()));
-                objectImage.setImage(img);
-            } catch (Exception e) {
-                System.err.println("Failed to load image: " + obj.getImagePath());
-                objectImage.setImage(null);
-            }
-        } else {
-            objectImage.setImage(null);
+        private void clearFields() {
+            if (commonNameLabel != null) commonNameLabel.setText("");
+            if (nextVisibleLabel != null) nextVisibleLabel.setText("");
+            if (messierNumberText != null) messierNumberText.setText("");
+            if (objectTypeText != null) objectTypeText.setText("");
+            if (distanceText != null) distanceText.setText("");
+            if (constellationText != null) constellationText.setText("");
+            if (magnitudeText != null) magnitudeText.setText("");
+            if (dimensionsText != null) dimensionsText.setText("");
+            if (rightAscensionText != null) rightAscensionText.setText("");
+            if (declinationText != null) declinationText.setText("");
+            if (altitudeText != null) altitudeText.setText("");
+            if (azimuthText != null) azimuthText.setText("");
+            if (objectImage != null) objectImage.setImage(null);
         }
-    }
 
-    private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
-        StringBuilder sb = new StringBuilder();
-        Optional<List<ZonedDateTime[]>> yearRanges =
-                SkyPosition.getYearVisibilityRanges(
-                        observatory.getLatitude(),
-                        observatory.getLongitude(),
-                        obj.getRightAscension(),
-                        obj.getDeclination()
-                );
+        public void displayCelestialObject(CelestialObject obj) {
+            if (obj == null) return;
 
-        int currentYear = ZonedDateTime.now(ZoneOffset.UTC).getYear();
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); // nicer looking 
+            commonNameLabel.setText(obj.getCommonName());
+            messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
+            objectTypeText.setText("Object Type: " + obj.getObjectType());
+            distanceText.setText("Distance: " + obj.getDistance());
+            constellationText.setText("Constellation: " + obj.getConstellation());
+            magnitudeText.setText("Magnitude: " + obj.getApparentMagnitude());
+            dimensionsText.setText("Dimensions: " + obj.getApparentDimensionsString());
 
-        for (Month month : Month.values()) {
-            sb.append(capitalize(month.name())).append(": ");
+            rightAscensionText.setText("Right Ascension: " + SkyPosition.doubleToHMS(obj.getRightAscension()));
+            declinationText.setText("Declination: " + SkyPosition.doubleToDMS(obj.getDeclination()));
 
-            if (yearRanges.isPresent()) {
-                List<ZonedDateTime[]> ranges = yearRanges.get();
-                List<String> monthPeriods = new ArrayList<>();
+            // altitude + azimuth 
+            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+            double alt = SkyPosition.getAltitude(now, observatory.getLatitude(), observatory.getLongitude(),
+                    obj.getRightAscension(), obj.getDeclination());
+            double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
+                    obj.getRightAscension(), obj.getDeclination());
 
-                // start and end of the month 
-                ZonedDateTime monthStart = ZonedDateTime.of(
-                        currentYear, month.getValue(), 1,
-                        0, 0, 0, 0,
-                        ZoneOffset.UTC
-                );
+            altitudeText.setText("Altitude: " + degreesToDegMin(alt));
+            azimuthText.setText("Azimuth: " + degreesToDegMin(az));
 
-                ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
+            // monthly visibility periods
+            nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
 
-                for (ZonedDateTime[] range : ranges) {
-                    ZonedDateTime rangeStart = range[0].withZoneSameInstant(ZoneOffset.UTC);
-                    ZonedDateTime rangeEnd = range[1].withZoneSameInstant(ZoneOffset.UTC);
-
-                    if (!rangeEnd.isBefore(monthStart) && !rangeStart.isAfter(monthEnd)) {
-                        ZonedDateTime visibleStart = rangeStart.isBefore(monthStart) ? monthStart : rangeStart;
-                        ZonedDateTime visibleEnd = rangeEnd.isAfter(monthEnd) ? monthEnd : rangeEnd;
-
-                        monthPeriods.add(String.format("%d %s – %d %s",
-                                visibleStart.getDayOfMonth(), visibleStart.format(timeFormatter),
-                                visibleEnd.getDayOfMonth(), visibleEnd.format(timeFormatter)));
-                    }
-                }
-
-                if (monthPeriods.isEmpty()) {
-                    sb.append("Not visible");
-                } else {
-                    sb.append(String.join(", ", monthPeriods));
+            // image
+            if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
+                try {
+                    Image img = new Image(getClass().getResourceAsStream(obj.getImagePath()));
+                    objectImage.setImage(img);
+                } catch (Exception e) {
+                    System.err.println("Failed to load image: " + obj.getImagePath());
+                    objectImage.setImage(null);
                 }
             } else {
-                sb.append("Not visible");
+                objectImage.setImage(null);
             }
-
-            sb.append("\n");
         }
 
-        return sb.toString();
-    }
+        private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
+            StringBuilder sb = new StringBuilder();
+            Optional<List<ZonedDateTime[]>> yearRanges =
+                    SkyPosition.getYearVisibilityRanges(
+                            observatory.getLatitude(),
+                            observatory.getLongitude(),
+                            obj.getRightAscension(),
+                            obj.getDeclination()
+                    );
 
-    // converts decimal degrees to "degrees°minutes′"
-    private String degreesToDegMin(double deg) {
-        int d = (int) deg;
-        int m = (int) ((deg - d) * 60);
-        return String.format("%d°%02d′", d, m);
-    }
+            int currentYear = ZonedDateTime.now(ZoneOffset.UTC).getYear();
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); // nicer looking 
 
-    // makes it look nicer and not all caps (ex: JANUARY --> January)
-    private String capitalize(String s) {
-        String lower = s.toLowerCase();
-        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
+            for (Month month : Month.values()) {
+                sb.append(capitalize(month.name())).append(": ");
+
+                if (yearRanges.isPresent()) {
+                    List<ZonedDateTime[]> ranges = yearRanges.get();
+                    List<String> monthPeriods = new ArrayList<>();
+
+                    // start and end of the month 
+                    ZonedDateTime monthStart = ZonedDateTime.of(
+                            currentYear, month.getValue(), 1,
+                            0, 0, 0, 0,
+                            ZoneOffset.UTC
+                    );
+
+                    ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
+
+                    for (ZonedDateTime[] range : ranges) {
+                        ZonedDateTime rangeStart = range[0].withZoneSameInstant(ZoneOffset.UTC);
+                        ZonedDateTime rangeEnd = range[1].withZoneSameInstant(ZoneOffset.UTC);
+
+                        if (!rangeEnd.isBefore(monthStart) && !rangeStart.isAfter(monthEnd)) {
+                            ZonedDateTime visibleStart = rangeStart.isBefore(monthStart) ? monthStart : rangeStart;
+                            ZonedDateTime visibleEnd = rangeEnd.isAfter(monthEnd) ? monthEnd : rangeEnd;
+
+                            monthPeriods.add(String.format("%d %s – %d %s",
+                                    visibleStart.getDayOfMonth(), visibleStart.format(timeFormatter),
+                                    visibleEnd.getDayOfMonth(), visibleEnd.format(timeFormatter)));
+                        }
+                    }
+
+                    if (monthPeriods.isEmpty()) {
+                        sb.append("Not visible");
+                    } else {
+                        sb.append(String.join(", ", monthPeriods));
+                    }
+                } else {
+                    sb.append("Not visible");
+                }
+
+                sb.append("\n");
+            }
+
+            return sb.toString();
+        }
+
+        // converts decimal degrees to "degrees°minutes′"
+        private String degreesToDegMin(double deg) {
+            int d = (int) deg;
+            int m = (int) ((deg - d) * 60);
+            return String.format("%d°%02d′", d, m);
+        }
+
+        // makes it look nicer and not all caps (ex: JANUARY --> January)
+        private String capitalize(String s) {
+            String lower = s.toLowerCase();
+            return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
+        }
     }
-}
