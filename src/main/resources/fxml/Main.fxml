@@ -67,7 +67,6 @@
                         <Text fx:id="declinationText" text="Declination: "/>
                         <Text fx:id="altitudeText" text="Altitude: "/>
                         <Text fx:id="azimuthText" text="Azimuth: "/>
-                        <Text fx:id="sizeText" text="Size: "/>
                     </VBox>
                 </content>
             </ScrollPane>
