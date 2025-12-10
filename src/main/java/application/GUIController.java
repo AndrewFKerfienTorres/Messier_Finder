@@ -225,6 +225,8 @@ public class GUIController {
     private void refreshHomeGUI(){
         System.out.println("refreshed");
     }
+   
+
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
     @FXML private Label commonNameLabel;
@@ -265,17 +267,17 @@ public class GUIController {
         if (obj == null) return;
 
         commonNameLabel.setText(obj.getCommonName());
-        messierNumberText.setText(obj.getMessierIndex());
-        objectTypeText.setText(obj.getObjectType().toString());
-        distanceText.setText(obj.getDistance());
-        constellationText.setText(obj.getConstellation());
-        magnitudeText.setText(Double.toString(obj.getApparentMagnitude()));
+        messierNumberText.setText("Messier Number: " + obj.getMessierIndex());
+        objectTypeText.setText("Object Type :" + obj.getObjectType().toString());
+        distanceText.setText("Distance :" + obj.getDistance());
+        constellationText.setText("Constellation :" + obj.getConstellation());
+        magnitudeText.setText("Magnitude :" + Double.toString(obj.getApparentMagnitude()));
         String dimensionsStr = obj.getApparentDimensionsString();
-        dimensionsText.setText(dimensionsStr);
+        dimensionsText.setText("Dimsensions: " + dimensionsStr);
 
 
-        rightAscensionText.setText(SkyPosition.doubleToHMS(obj.getRightAscension()));
-        declinationText.setText(SkyPosition.doubleToDMS(obj.getDeclination()));
+        rightAscensionText.setText("Right Ascension :" + SkyPosition.doubleToHMS(obj.getRightAscension()));
+        declinationText.setText("Declination :" + SkyPosition.doubleToDMS(obj.getDeclination()));
 
         // altitude + azimuth
         ZonedDateTime now = ZonedDateTime.now();
@@ -284,8 +286,8 @@ public class GUIController {
         double az = SkyPosition.getAzimuth(now, observatory.getLatitude(), observatory.getLongitude(),
                 obj.getRightAscension(), obj.getDeclination());
 
-        altitudeText.setText(String.format("%.2f°", alt));
-        azimuthText.setText(String.format("%.2f°", az));
+        altitudeText.setText("Altitude: " + String.format("%.2f°", alt));
+        azimuthText.setText("Azimuth: " + String.format("%.2f°", az));
 
         // monthly visibility periods
         nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
