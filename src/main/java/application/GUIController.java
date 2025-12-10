@@ -227,6 +227,8 @@ public class GUIController {
     }
    
 
+   public class controller {
+
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
     @FXML private Label commonNameLabel;
@@ -322,8 +324,14 @@ public class GUIController {
                 List<ZonedDateTime[]> ranges = yearRanges.get();
                 List<String> monthPeriods = new ArrayList<>();
 
-                ZonedDateTime monthStart = ZonedDateTime.of(currentYear, month.getValue(), 1, 0, 0, 0, 0, ZoneOffset());
+                ZonedDateTime monthStart = ZonedDateTime.of(
+                        currentYear, month.getValue(), 1,
+                        0, 0, 0, 0,
+                        ZoneId.systemDefault()
+                );
+
                 ZonedDateTime monthEnd = monthStart.plusMonths(1).minusSeconds(1);
+
 
                 for (ZonedDateTime[] range : ranges) {
                     ZonedDateTime rangeStart = range[0];
@@ -373,4 +381,3 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
-
