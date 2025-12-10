@@ -226,7 +226,7 @@ public class GUIController {
     @FXML private Button backButton;
     @FXML private ImageView objectImage;
     @FXML private Label commonNameLabel;
-   // @FXML private Label nextVisibleLabel;
+    @FXML private Label nextVisibleLabel;
 
     @FXML private Text messierNumberText;
     @FXML private Text objectTypeText;
@@ -245,7 +245,7 @@ public class GUIController {
 
     private void clearFields() {
        if(commonNameLabel!=null){commonNameLabel.setText("");}
-       // if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
+       if(nextVisibleLabel!=null){nextVisibleLabel.setText("");}
         if(messierNumberText!=null){messierNumberText.setText("");}
         if(objectTypeText!=null){objectTypeText.setText("");}
         if(distanceText!=null){distanceText.setText("");}
@@ -286,7 +286,7 @@ public class GUIController {
         azimuthText.setText(String.format("%.2f°", az));
 
         // monthly visibility periods
-       // nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
+        nextVisibleLabel.setText(computeMonthlyVisibilityPeriods(obj));
 
         // image
         if (obj.getImagePath() != null && !obj.getImagePath().isEmpty()) {
@@ -302,7 +302,7 @@ public class GUIController {
         }
     }
 
-   /* private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
+    private String computeMonthlyVisibilityPeriods(CelestialObject obj) {
         StringBuilder sb = new StringBuilder();
         Observatory observ = this.observatory;
 
@@ -358,8 +358,9 @@ public class GUIController {
     private String capitalize(String s) {
         String lower = s.toLowerCase();
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
-    }*/
+    }
 }
+
 
 
 
