@@ -157,7 +157,7 @@ public class GUIController {
             double Long= observatory.getLongitude();
             double Dec=obj.getDeclination();
             double RA=obj.getRightAscension();
-            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+            ZonedDateTime now = ZonedDateTime.now();
 
             boolean matchVisibility=((filterIsVis.isSelected()&&obj.isVisible(observatory, now ,observatory.getTelescope()))
                     ||(filterJan.isSelected()&&SkyPosition.isVisibleDuringMonth(Lat,Long,RA,Dec, Month.JANUARY))
@@ -364,3 +364,4 @@ public class GUIController {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 }
+
